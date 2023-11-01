@@ -3,18 +3,17 @@ import ReactMarkdown from "react-markdown";
 import { LegacyRef, useEffect, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
-// syntax hightlighting:
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import dark from "react-syntax-highlighter/dist/cjs/styles/prism/dark";
 
-const Loader = () => (
+const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
     <Spinner animation="grow" />
     <p className="lead">please wait...</p>
   </div>
 );
 
-const Markdown2PDF: React.FC = () => {
+const Markdown2PDF = ({ loader_text }: { loader_text: string }) => {
   const [markdown, setMarkdown] = useState<string>("");
   useEffect(() => {
     (async () => {
@@ -35,7 +34,7 @@ const Markdown2PDF: React.FC = () => {
   return (
     <>
       {showLoader ? (
-        <Loader />
+        <Loader loader_text={loader_text} />
       ) : (
         <div className="md-2pdf">
           <div className="editor">

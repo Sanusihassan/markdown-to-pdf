@@ -8,12 +8,10 @@ import { ToolState, hideTool, setPath, setShowDownloadBtn } from "../src/store";
 import { useRouter } from "next/router";
 import type { edit_page, tools, downloadFile } from "../content";
 import type { errors as _ } from "../content";
-import ErrorElement from "./ErrorElement";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useFileStore } from "../src/file-store";
-import { FileInputForm } from "./Tool/FileInputForm";
-import DownloadFile from "./DownloadFile";
+// import DownloadFile from "./DownloadFile";
 import Markdown2PDF from "./Markdown2PDF";
 
 export type errorType = {
@@ -102,7 +100,11 @@ const Tool: React.FC<ToolProps> = ({
   };
 
   return (
-    <Markdown2PDF />
+    <div className="tools-page position-relative">
+      <div className="md-2pdf">
+        <Markdown2PDF loader_text={edit_page.loader_text} />
+      </div>
+    </div>
   );
 };
 

@@ -8,18 +8,18 @@ export const tool = {
   },
 };
 
-// export const edit_page = {
-//   edit_page_titles: {
-//     merge_pdf: "Merge PDF options",
-//   },
-//   loader_text: "please wait...",
-//   add_more_button: "Add more files",
-//   action_buttons: {
-//     merge_pdf: "Merge PDF",
-//   },
-//   pages: "pages",
-//   page: "page",
-// };
+export const edit_page = {
+  edit_page_titles: {
+    merge_pdf: "Merge PDF options",
+  },
+  loader_text: "please wait...",
+  add_more_button: "Add more files",
+  action_buttons: {
+    merge_pdf: "Merge PDF",
+  },
+  pages: "pages",
+  page: "page",
+};
 
 export const tools = {
   select: "Select",
