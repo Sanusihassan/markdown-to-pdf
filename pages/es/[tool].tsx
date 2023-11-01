@@ -64,5 +64,5 @@ export default ({ item, lang }: { item: data_type; lang: string }) => {
 // export default ToolPage;
 export const routes = {
   "/markdown-to-pdf": { item: tool["Markdown_to_PDF"] },
-  "/pdf-to-markdown": { item: tool["PDF_to_Markdown"] },
+
 };

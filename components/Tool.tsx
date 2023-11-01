@@ -102,55 +102,7 @@ const Tool: React.FC<ToolProps> = ({
   };
 
   return (
-    <>
-      {statePath === "markdown-to-pdf" ? (
-        <Markdown2PDF />
-      ) : (
-        <div
-          className="tools-page container-fluid position-relative"
-          {...(stateShowTool && getRootProps())}
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
-          {isDragActive && (
-            <div className="overlay display-4">{tools.drop_files}</div>
-          )}
-          <div
-            className={`text-center ${
-              !showTool ? "" : "d-flex"
-            } flex-column tools ${stateShowTool ? "" : "d-none"}`}
-          >
-            <h1 className="display-3">
-              <bdi>{data.title}</bdi>
-            </h1>
-            <p className="lead">
-              <bdi>{data.description}</bdi>
-            </p>
-            <FileInputForm
-              lang={lang}
-              data={data}
-              errors={errors}
-              tools={tools}
-              acceptedFileTypes={acceptedFileTypes}
-            />
-            <p>{tools.or_drop}</p>
-            <ErrorElement />
-          </div>
-          {/* ) : ( */}
-          {/* <EditPage
-            extension={data.type}
-            edit_page={edit_page}
-            pages={pages}
-            page={page}
-            lang={lang}
-            errors={errors}
-          /> */}
-          <DownloadFile lang={lang} downloadFile={downloadFile} />
-          {/* )} */}
-        </div>
-      )}
-    </>
+    <Markdown2PDF />
   );
 };
 

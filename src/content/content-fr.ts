@@ -17,13 +17,6 @@ export const tool: _tool = {
     type: ".pdf",
     to: "/markdown-to-pdf",
   },
-  PDF_to_Markdown: {
-    title: "PDF en Markdown",
-    description: "Convertir des fichiers PDF en format Markdown",
-    color: "#FF4136",
-    type: ".pdf",
-    to: "/pdf-to-markdown",
-  },
 };
 
 export const tools: _tools = {
@@ -39,24 +32,15 @@ export const downloadFile: _downloadFile = {
       "Conversion de fichiers Markdown en PDF réussie !",
       "Conversion de fichier Markdown en PDF réussie !",
     ],
-    "pdf-to-markdown": [
-      "Conversion de fichiers PDF en Markdown réussie !",
-      "Conversion de fichier PDF en Markdown réussie !",
-    ],
   },
   btnText: {
     "markdown-to-pdf": [
       "Télécharger les fichiers PDF convertis",
       "Télécharger le fichier PDF converti",
     ],
-    "pdf-to-markdown": [
-      "Télécharger les fichiers Markdown convertis",
-      "Télécharger le fichier Markdown converti",
-    ],
   },
   backto: {
     "markdown-to-pdf": "Retour à Markdown vers PDF",
-    "pdf-to-markdown": "Retour à PDF vers Markdown",
   },
 };
 
@@ -102,21 +86,6 @@ export const errors: _errors = {
       "Le fichier est corrompu et ne peut pas être traité. Veuillez choisir un fichier valide.",
     code: "ERR_FILE_CORRUPT",
   },
-  MISSING_FONTS: {
-    message:
-      "Le fichier contient des polices manquantes. Veuillez vous assurer que toutes les polices sont intégrées dans le fichier PDF.",
-    code: "ERR_MISSING_FONTS",
-  },
-  INVALID_IMAGE_DATA: {
-    message:
-      "Le fichier contient des données d'image non valides. Veuillez vous assurer que toutes les images sont correctement formatées.",
-    code: "ERR_INVALID_IMAGE_DATA",
-  },
-  SECURITY_RISK: {
-    message:
-      "Le fichier contient un risque de sécurité et ne peut pas être traité. Veuillez choisir un fichier valide.",
-    code: "ERR_SECURITY_RISK",
-  },
   MAX_FILES_EXCEEDED: {
     message:
       "Vous avez dépassé le nombre maximal de fichiers autorisés. Veuillez supprimer certains fichiers et réessayer.",
@@ -136,9 +105,5 @@ export const errors: _errors = {
     message:
       "Une erreur de réseau s'est produite. Veuillez vérifier votre connexion Internet et réessayer.",
     code: "ERR_NETWORK",
-  },
-  ERR_UPLOAD_COUNT: {
-    message: "Veuillez télécharger au moins deux fichiers à fusionner.",
-    code: "ERR_UPLOAD_COUNT",
   },
 };

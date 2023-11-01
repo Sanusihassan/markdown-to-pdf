@@ -17,13 +17,6 @@ export const tool: _tool = {
     type: ".pdf",
     to: "/markdown-to-pdf",
   },
-  PDF_to_Markdown: {
-    title: "PDF 转 Markdown",
-    description: "将 PDF 文件转换为 Markdown 格式",
-    color: "#FF4136",
-    type: ".pdf",
-    to: "/pdf-to-markdown",
-  },
 };
 
 export const downloadFile: _downloadFile = {
@@ -32,18 +25,12 @@ export const downloadFile: _downloadFile = {
       "Markdown文件已转换为PDF！",
       "Markdown文件已转换为PDF！",
     ],
-    "pdf-to-markdown": [
-      "PDF文件已转换为Markdown！",
-      "PDF文件已转换为Markdown！",
-    ],
   },
   btnText: {
     "markdown-to-pdf": ["下载转换后的PDF文件", "下载转换后的PDF文件"],
-    "pdf-to-markdown": ["下载转换后的Markdown文件", "下载转换后的Markdown文件"],
   },
   backto: {
     "markdown-to-pdf": "返回Markdown转PDF",
-    "pdf-to-markdown": "返回PDF转Markdown",
   },
 };
 
@@ -95,18 +82,6 @@ export const errors: _errors = {
     message: "文件已损坏，无法处理。请选择一个有效的文件。",
     code: "ERR_FILE_CORRUPT",
   },
-  MISSING_FONTS: {
-    message: "文件缺少字体。请确保所有字体都嵌入在PDF文件中。",
-    code: "ERR_MISSING_FONTS",
-  },
-  INVALID_IMAGE_DATA: {
-    message: "文件包含无效的图像数据。请确保所有图像格式正确。",
-    code: "ERR_INVALID_IMAGE_DATA",
-  },
-  SECURITY_RISK: {
-    message: "文件存在安全风险，无法处理。请选择一个有效的文件。",
-    code: "ERR_SECURITY_RISK",
-  },
   MAX_FILES_EXCEEDED: {
     message: "您已超出允许的最大文件数。请删除一些文件并重试。",
     code: "ERR_MAX_FILES_EXCEEDED",
@@ -122,9 +97,5 @@ export const errors: _errors = {
   ERR_NETWORK: {
     message: "网络错误，请检查您的互联网连接并重试。",
     code: "ERR_NETWORK",
-  },
-  ERR_UPLOAD_COUNT: {
-    message: "请至少上传两个文件以合并。",
-    code: "ERR_UPLOAD_COUNT",
   },
 };
