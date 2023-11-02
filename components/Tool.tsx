@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { useFileStore } from "../src/file-store";
 // import DownloadFile from "./DownloadFile";
 import Markdown2PDF from "./Markdown2PDF";
+import ToolBar from "./ToolBar";
 
 export type errorType = {
   response: {
@@ -101,7 +102,8 @@ const Tool: React.FC<ToolProps> = ({
 
   return (
     <div className="tools-page position-relative">
-      <div className="md-2pdf">
+      <ToolBar toolbar={edit_page.toolbar} lang={lang} />
+      <div className="rest">
         <Markdown2PDF loader_text={edit_page.loader_text} />
       </div>
     </div>

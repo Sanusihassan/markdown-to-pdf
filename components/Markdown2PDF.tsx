@@ -58,7 +58,7 @@ const Markdown2PDF = ({ loader_text }: { loader_text: string }) => {
                     />
                   ) : (
                     <code {...rest} className={className}>
-                      {children}
+                      {children === "undefined" ? "" : children}
                     </code>
                   );
                 },

@@ -39,7 +39,7 @@ const CodeEditor = ({
         enableLiveAutocompletion: true,
         enableSnippets: true,
       }}
-      style={{ width: "100%", minHeight: "100vh" }}
+      style={{ width: "100%", minHeight: "500px", height: "100vh" }}
       value={value}
     />
   );

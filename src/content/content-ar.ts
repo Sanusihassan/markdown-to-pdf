@@ -15,7 +15,7 @@ export const tool: _tool = {
     color: "#6c5ce7",
     type: ".pdf",
     to: "/markdown-to-pdf",
-  }
+  },
 };
 
 export const tools: _tools = {
@@ -51,6 +51,11 @@ export const edit_page: _edit_page = {
   },
   pages: "صفحة",
   page: "صفحة واحدة",
+  toolbar: {
+    rename_file: "إعادة تسمية الملف",
+    upload_file: "تحميل الملف",
+    upload_from_github: "تحميل من جيتهاب",
+  },
 };
 
 export const errors: _errors = {

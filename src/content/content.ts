@@ -19,6 +19,11 @@ export const edit_page = {
   },
   pages: "pages",
   page: "page",
+  toolbar: {
+    rename_file: "Rename File",
+    upload_file: "Upload File",
+    upload_from_github: "Upload from GitHub",
+  },
 };
 
 export const tools = {

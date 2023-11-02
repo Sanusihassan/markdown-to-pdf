@@ -74,6 +74,11 @@ export const edit_page: _edit_page = {
   },
   pages: "पृष्ठों",
   page: "पृष्ठ",
+  toolbar: {
+    rename_file: "फ़ाइल का नाम बदलें",
+    upload_file: "फ़ाइल अपलोड करें",
+    upload_from_github: "GitHub से अपलोड करें",
+  },
 };
 
 export const tools: _tools = {

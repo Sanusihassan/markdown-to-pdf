@@ -55,6 +55,11 @@ export const edit_page: _edit_page = {
   },
   pages: "pages",
   page: "page",
+  toolbar: {
+    rename_file: "Renommer le fichier",
+    upload_file: "Télécharger le fichier",
+    upload_from_github: "Télécharger depuis GitHub",
+  },
 };
 
 export const errors: _errors = {

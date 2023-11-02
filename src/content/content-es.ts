@@ -16,7 +16,7 @@ export const tool: _tool = {
     color: "#6c5ce7",
     type: ".pdf",
     to: "/markdown-to-pdf",
-  }
+  },
 };
 
 export const edit_page: _edit_page = {
@@ -30,6 +30,11 @@ export const edit_page: _edit_page = {
   },
   pages: "paginas",
   page: "página",
+  toolbar: {
+    rename_file: "Renombrar archivo",
+    upload_file: "Subir archivo",
+    upload_from_github: "Subir desde GitHub",
+  },
 };
 
 export const tools: _tools = {

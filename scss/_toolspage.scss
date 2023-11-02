@@ -15,6 +15,24 @@
 }
 
 .tools-page {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  display: flex;
+  .tool-bar {
+    flex: 0 1 7.333%;
+    @include extend("d-flex flex-column");
+    .icon {
+      width: 3em;
+      height: 3em;
+    }
+    .tool-bar-button {
+      @include extend("btn");
+    }
+  }
+  .rest {
+    flex: 1;
+  }
   // overlay
   .overlay {
     position: absolute;
@@ -91,6 +109,8 @@
   .react-markdown-container {
     flex: 0 1 50%;
     padding: 15px;
+    max-height: 100vh;
+    overflow: auto;
   }
 }
 

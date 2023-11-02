@@ -45,6 +45,11 @@ export const edit_page: _edit_page = {
   },
   pages: "页",
   page: "页",
+  toolbar: {
+    rename_file: "重命名文件",
+    upload_file: "上传文件",
+    upload_from_github: "从GitHub上传",
+  },
 };
 
 export const tools: _tools = {
