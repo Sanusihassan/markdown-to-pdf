@@ -5,7 +5,6 @@ export interface ToolState {
   isSubmitted: boolean;
   errorMessage: string;
   showErrorMessage: boolean;
-  compressPdf: string | number;
   errorCode: string | null;
   path: string;
   click: boolean;
@@ -13,6 +12,7 @@ export interface ToolState {
   showDownloadBtn: boolean;
   showOptions: boolean;
   nav_height: number;
+  document_name: string;
 }
 
 const initialState: ToolState = {
@@ -20,7 +20,6 @@ const initialState: ToolState = {
   errorMessage: "",
   showErrorMessage: false,
   isSubmitted: false,
-  compressPdf: "recommended",
   errorCode: null,
   path: "",
   click: false,
@@ -28,6 +27,7 @@ const initialState: ToolState = {
   showDownloadBtn: false,
   showOptions: false,
   nav_height: 0,
+  document_name: "",
 };
 
 const toolSlice = createSlice({
@@ -62,9 +62,7 @@ const toolSlice = createSlice({
       state.errorCode = null;
       state.isSubmitted = false;
     },
-    setCompressPdf(state: ToolState, action: PayloadAction<string | number>) {
-      state.compressPdf = action.payload;
-    },
+
     setErrorCode(state: ToolState, action: PayloadAction<string | null>) {
       state.errorCode = action.payload;
     },
@@ -77,6 +75,9 @@ const toolSlice = createSlice({
     setNavHeight(state: ToolState, action: PayloadAction<number>) {
       state.nav_height = action.payload;
     },
+    setDocumentName(state: ToolState, action: PayloadAction<string>) {
+      state.document_name = action.payload;
+    },
   },
 });
 
@@ -85,7 +86,6 @@ export const {
   hideTool,
   setErrorMessage,
   resetErrorMessage,
-  setCompressPdf,
   setErrorCode,
   setIsSubmitted,
   setPath,
@@ -94,6 +94,7 @@ export const {
   setShowDownloadBtn,
   setShowOptions,
   setNavHeight,
+  setDocumentName,
 } = toolSlice.actions;
 
 export default toolSlice.reducer;

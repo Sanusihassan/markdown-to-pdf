@@ -35,6 +35,10 @@ export const edit_page: _edit_page = {
     upload_file: "Subir archivo",
     upload_from_github: "Subir desde GitHub",
   },
+  document_name: {
+    doc_name: "NOMBRE DEL DOCUMENTO",
+    untitled: "Documento sin título",
+  },
 };
 
 export const tools: _tools = {

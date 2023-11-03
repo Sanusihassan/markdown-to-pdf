@@ -200,12 +200,6 @@ export const validateFiles = (
     "application/vnd.ms-powerpoint",
     "application/vnd.ms-excel",
   ];
-  // validation for merge-pdf page & empty files
-  if (state.path == "merge-pdf" && files.length <= 1) {
-    dispatch(setErrorMessage(errors.ERR_UPLOAD_COUNT.message));
-    dispatch(setErrorCode("ERR_UPLOAD_COUNT"));
-    return false;
-  }
   if (files.length == 0 && (state.click || state.focus)) {
     dispatch(setErrorMessage(errors.NO_FILES_SELECTED.message));
     dispatch(setErrorCode("ERR_NO_FILES_SELECTED"));
@@ -258,19 +252,6 @@ export const validateFiles = (
       dispatch(setErrorMessage(errors.EMPTY_FILE.message));
       dispatch(setErrorCode("ERR_EMPTY_FILE"));
       return false;
-    } else if (file.type.startsWith("image/")) {
-      // handle INVALID_IMAGE_DATA error
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const img = new Image();
-        img.src = reader.result as string;
-        img.onerror = () => {
-          dispatch(setErrorMessage(errors.INVALID_IMAGE_DATA.message));
-          return false;
-        };
-      };
-      return true;
     }
   }
   return true;

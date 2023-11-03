@@ -24,6 +24,10 @@ export const edit_page = {
     upload_file: "Upload File",
     upload_from_github: "Upload from GitHub",
   },
+  document_name: {
+    doc_name: "DOCUMENT NAME",
+    untitled: "Untitled Document",
+  },
 };
 
 export const tools = {
