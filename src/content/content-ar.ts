@@ -56,6 +56,10 @@ export const edit_page: _edit_page = {
     upload_file: "تحميل الملف",
     upload_from_github: "تحميل من جيتهاب",
   },
+  document_name: {
+    doc_name: "اسم المستند",
+    untitled: "مستند بلا عنوان",
+  },
 };
 
 export const errors: _errors = {

@@ -60,6 +60,10 @@ export const edit_page: _edit_page = {
     upload_file: "Télécharger le fichier",
     upload_from_github: "Télécharger depuis GitHub",
   },
+  document_name: {
+    doc_name: "NOM DU DOCUMENT",
+    untitled: "Document sans titre",
+  },
 };
 
 export const errors: _errors = {

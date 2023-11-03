@@ -79,6 +79,10 @@ export const edit_page: _edit_page = {
     upload_file: "फ़ाइल अपलोड करें",
     upload_from_github: "GitHub से अपलोड करें",
   },
+  document_name: {
+    doc_name: "दस्तावेज़ नाम",
+    untitled: "शीर्षक रहित दस्तावेज़",
+  },
 };
 
 export const tools: _tools = {

@@ -12,6 +12,7 @@ export interface FileStore {
   fileInput: RefObject<HTMLInputElement> | null;
   submitBtn: React.RefObject<HTMLButtonElement> | null;
   downloadBtn: React.RefObject<HTMLAnchorElement> | null;
+  fileNameInputRef: React.RefObject<HTMLDivElement> | null;
   filesLengthOnSubmit: number;
   imageUrls: {
     file: File;
@@ -21,6 +22,7 @@ export interface FileStore {
   setFileInput: (refEl: RefObject<HTMLInputElement> | null) => void;
   setSubmitBtn: (refEl: React.RefObject<HTMLButtonElement> | null) => void;
   setDownloadBtn: (refEl: React.RefObject<HTMLAnchorElement> | null) => void;
+  setfileNameInputRef: (refEl: React.RefObject<HTMLDivElement> | null) => void;
   setImageUrls: Dispatch<
     SetStateAction<
       {
@@ -37,6 +39,7 @@ export const useFileStore = createStore<FileStore>((set) => ({
   fileInput: null,
   downloadBtn: null,
   submitBtn: null,
+  fileNameInputRef: null,
   imageUrls: [],
   filesLengthOnSubmit: 0,
   setFiles: (files: FileList | File[]) => {
@@ -58,6 +61,9 @@ export const useFileStore = createStore<FileStore>((set) => ({
   },
   setDownloadBtn(refEl: React.RefObject<HTMLAnchorElement> | null) {
     set({ downloadBtn: refEl });
+  },
+  setfileNameInputRef(refEl) {
+    set({fileNameInputRef: refEl});
   },
   setImageUrls(value: SetStateAction<{ file: File; imageUrl: string }[]>) {
     set((prevState) => ({

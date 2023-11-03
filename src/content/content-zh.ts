@@ -50,6 +50,10 @@ export const edit_page: _edit_page = {
     upload_file: "上传文件",
     upload_from_github: "从GitHub上传",
   },
+  document_name: {
+    doc_name: "文件名称",
+    untitled: "无标题文件",
+  },
 };
 
 export const tools: _tools = {
