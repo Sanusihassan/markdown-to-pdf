@@ -104,7 +104,12 @@ const Tool: React.FC<ToolProps> = ({
   return (
     <>
       <div className="tools-page position-relative">
-        <ToolBar toolbar={edit_page.toolbar} lang={lang} />
+        <ToolBar
+          toolbar={edit_page.toolbar}
+          errors={errors}
+          github_popup={edit_page.github_popup}
+          lang={lang}
+        />
         <div className="rest">
           <DocumentName document_name={edit_page.document_name} />
           <Markdown2PDF loader_text={edit_page.loader_text} />

@@ -64,6 +64,11 @@ export const edit_page: _edit_page = {
     doc_name: "NOM DU DOCUMENT",
     untitled: "Document sans titre",
   },
+  github_popup: {
+    label: "URL du dossier GitHub :",
+    placeholder: "Entrez l'URL GitHub",
+    submit: "Valider",
+  },
 };
 
 export const errors: _errors = {

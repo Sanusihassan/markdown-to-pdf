@@ -53,12 +53,17 @@ export const edit_page: _edit_page = {
   page: "صفحة واحدة",
   toolbar: {
     rename_file: "إعادة تسمية الملف",
-    upload_file: "تحميل الملف",
-    upload_from_github: "تحميل من جيتهاب",
+    upload_file: "رفع ملف",
+    upload_from_github: "تحميل من GitHub",
   },
   document_name: {
     doc_name: "اسم المستند",
     untitled: "مستند بلا عنوان",
+  },
+  github_popup: {
+    label: "عنوان المجلد في GitHub:",
+    placeholder: "أدخل عنوان GitHub",
+    submit: "موافق",
   },
 };
 
