@@ -28,6 +28,11 @@ export const edit_page = {
     doc_name: "DOCUMENT NAME",
     untitled: "Untitled Document",
   },
+  github_popup: {
+    label: "GitHub Folder URL:",
+    placeholder: "Enter GitHub URL",
+    submit: "OK",
+  },
 };
 
 export const tools = {

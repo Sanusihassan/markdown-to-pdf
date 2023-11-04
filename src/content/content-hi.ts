@@ -83,6 +83,11 @@ export const edit_page: _edit_page = {
     doc_name: "दस्तावेज़ नाम",
     untitled: "शीर्षक रहित दस्तावेज़",
   },
+  github_popup: {
+    label: "GitHub फ़ोल्डर URL:",
+    placeholder: "GitHub URL दर्ज करें",
+    submit: "ठीक है",
+  },
 };
 
 export const tools: _tools = {

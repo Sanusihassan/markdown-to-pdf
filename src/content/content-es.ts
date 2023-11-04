@@ -39,6 +39,11 @@ export const edit_page: _edit_page = {
     doc_name: "NOMBRE DEL DOCUMENTO",
     untitled: "Documento sin título",
   },
+  github_popup: {
+    label: "URL de la carpeta de GitHub:",
+    placeholder: "Introduce la URL de GitHub",
+    submit: "Aceptar",
+  },
 };
 
 export const tools: _tools = {

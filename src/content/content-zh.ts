@@ -54,6 +54,11 @@ export const edit_page: _edit_page = {
     doc_name: "文件名称",
     untitled: "无标题文件",
   },
+  github_popup: {
+    label: "GitHub文件夹网址：",
+    placeholder: "输入GitHub网址",
+    submit: "确定",
+  },
 };
 
 export const tools: _tools = {
