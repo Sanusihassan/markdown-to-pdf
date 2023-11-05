@@ -16,9 +16,9 @@ type OmitFileName<T extends ActionProps> = Omit<T, "fileName">;
 type CardProps = OmitFileName<ActionProps> & {
   index: number;
   file: File;
-  isDraggable: boolean;
-  provided: DraggableProvided;
-  snapshot: DraggableStateSnapshot;
+  isDraggable?: boolean;
+  provided?: DraggableProvided;
+  snapshot?: DraggableStateSnapshot;
   errors: _;
   loader_text: string;
   fileDetailProps: [string, string, string];
@@ -66,20 +66,7 @@ const FileCard = ({
     const processFile = async () => {
       try {
         setShowLoader(true);
-        if (extension && extension === ".pdf") {
-          if (isSubscribed) {
-            setImageUrl(await getFirstPageAsImage(file, dispatch, errors));
-          }
-        } else if (extension && extension !== ".jpg") {
-          console.log(fileDetailProps);
-          if (isSubscribed) {
-            setImageUrl(
-              !file.size
-                ? "/images/corrupted.png"
-                : getPlaceHoderImageUrl(extension)
-            );
-          }
-        }
+        setImageUrl("/images/file-markdown.png");
       } catch (error) {
         console.error("Error processing files:", error);
       } finally {
@@ -97,7 +84,7 @@ const FileCard = ({
       data-tooltip-id={`item-tooltip-${index}`}
       data-tooltip-content={tooltipSize}
       data-tooltip-place="top"
-      {...(isDraggable ? provided.dragHandleProps : {})}
+      {...(isDraggable ? provided?.dragHandleProps : {})}
     >
       {showLoader ? <Loader loader_text={loader_text} /> : null}
       <bdi>

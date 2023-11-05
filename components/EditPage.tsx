@@ -58,8 +58,8 @@ const EditPage = ({
   const errorCode = useSelector(
     (state: { tool: ToolState }) => state.tool.errorCode
   );
-  const showTool = useSelector(
-    (state: { tool: ToolState }) => state.tool.showTool
+  const show_files_list = useSelector(
+    (state: { tool: ToolState }) => state.tool.show_files_list
   );
   const showDownloadBtn = useSelector(
     (state: { tool: ToolState }) => state.tool.showDownloadBtn
@@ -70,6 +70,9 @@ const EditPage = ({
   const dispatch = useDispatch();
   // actual files;
   const { files, fileInput } = useFileStore.getState();
+  const stateFiles = useSelector(
+    (state: { tool: ToolState }) => state.tool.files
+  );
   useEffect(() => {
     if (errorCode == "ERR_NO_FILES_SELECTED" && files.length > 0) {
       dispatch(resetErrorMessage());
@@ -83,7 +86,9 @@ const EditPage = ({
   let k = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
   return (
     <aside
-      className={`edit-page ${showTool || showDownloadBtn ? "d-none" : ""}`}
+      className={`edit-page ${
+        !show_files_list || showDownloadBtn ? "d-none" : ""
+      }`}
     >
       <section className="edit-area position-relative">
         <DisplayFile
@@ -96,16 +101,18 @@ const EditPage = ({
         />
         {/* {state?.showErrorMessage ? <ErrorElement state={state} /> : null} */}
         <ErrorElement />
-        <AddMoreButton
-          onClick={() => {
-            if (fileInput) {
-              fileInput?.current?.click();
-            }
-          }}
-          lang={lang}
-          path={statePath}
-          text={edit_page.add_more_button}
-        />
+        {!stateFiles.length ? (
+          <AddMoreButton
+            onClick={() => {
+              if (fileInput) {
+                fileInput?.current?.click();
+              }
+            }}
+            lang={lang}
+            path={statePath}
+            text={edit_page.add_more_button}
+          />
+        ) : null}
         {/* when clicking on this  */}
         <button
           className="gear-button btn btn-light"
@@ -129,7 +136,7 @@ const EditPage = ({
         {process.env.NODE_ENV == "development" ? (
           <Options layout={k as OptionsProps["layout"]} edit_page={edit_page} />
         ) : null}
-        <SubmitBtn k={k} edit_page={edit_page} />
+        <SubmitBtn k={k} edit_page={edit_page} errors={errors} />
       </section>
     </aside>
   );

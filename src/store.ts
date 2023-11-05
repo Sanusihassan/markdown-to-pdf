@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ToolState {
-  showTool: boolean;
   isSubmitted: boolean;
   errorMessage: string;
   showErrorMessage: boolean;
@@ -13,10 +12,11 @@ export interface ToolState {
   showOptions: boolean;
   nav_height: number;
   document_name: string;
+  show_files_list: boolean;
+  files: { name: string; size: number }[];
 }
 
 const initialState: ToolState = {
-  showTool: true,
   errorMessage: "",
   showErrorMessage: false,
   isSubmitted: false,
@@ -28,15 +28,14 @@ const initialState: ToolState = {
   showOptions: false,
   nav_height: 0,
   document_name: "",
+  show_files_list: false,
+  files: [],
 };
 
 const toolSlice = createSlice({
   name: "tool",
   initialState,
   reducers: {
-    showTool(state: ToolState) {
-      state.showTool = true;
-    },
     setClick(state: ToolState, action: PayloadAction<boolean>) {
       state.click = action.payload;
     },
@@ -48,9 +47,6 @@ const toolSlice = createSlice({
     },
     setPath(state: ToolState, action: PayloadAction<string>) {
       state.path = action.payload;
-    },
-    hideTool(state: ToolState) {
-      state.showTool = false;
     },
     setErrorMessage(state: ToolState, action: PayloadAction<string>) {
       state.errorMessage = action.payload;
@@ -78,12 +74,19 @@ const toolSlice = createSlice({
     setDocumentName(state: ToolState, action: PayloadAction<string>) {
       state.document_name = action.payload;
     },
+    setShowFilesList(state: ToolState, action: PayloadAction<boolean>) {
+      state.show_files_list = action.payload;
+    },
+    setStateFiles(
+      state: ToolState,
+      action: PayloadAction<{ name: string; size: number }[]>
+    ) {
+      state.files = action.payload;
+    },
   },
 });
 
 export const {
-  showTool,
-  hideTool,
   setErrorMessage,
   resetErrorMessage,
   setErrorCode,
@@ -95,6 +98,8 @@ export const {
   setShowOptions,
   setNavHeight,
   setDocumentName,
+  setShowFilesList,
+  setStateFiles,
 } = toolSlice.actions;
 
 export default toolSlice.reducer;
