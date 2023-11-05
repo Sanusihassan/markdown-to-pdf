@@ -3,7 +3,12 @@ import { useCallback, useEffect, useRef, useState, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 
 // import EditPage from "./EditPage";
-import { ToolState, hideTool, setPath, setShowDownloadBtn } from "../src/store";
+import {
+  ToolState,
+  setPath,
+  setShowDownloadBtn,
+  setShowFilesList,
+} from "../src/store";
 
 import { useRouter } from "next/router";
 import type { edit_page, tools, downloadFile } from "../content";
@@ -15,6 +20,7 @@ import { useFileStore } from "../src/file-store";
 import Markdown2PDF from "./Markdown2PDF";
 import ToolBar from "./ToolBar";
 import DocumentName from "./DocumentName";
+import { FilesList } from "./FilesList";
 
 export type errorType = {
   response: {
@@ -57,11 +63,11 @@ const Tool: React.FC<ToolProps> = ({
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
-  const stateShowTool = useSelector(
-    (state: { tool: ToolState }) => state.tool.showTool
-  );
   const errorMessage = useSelector(
     (state: { tool: ToolState }) => state.tool.errorMessage
+  );
+  const showFilesList = useSelector(
+    (state: { tool: ToolState }) => state.tool.show_files_list
   );
   // the files:
   const { setFiles } = useFileStore.getState();
@@ -69,7 +75,7 @@ const Tool: React.FC<ToolProps> = ({
   // const dispatch = useDispatch();
   const router = useRouter();
   const handleHideTool = () => {
-    dispatch(dispatch(hideTool()));
+    dispatch(dispatch(setShowFilesList(false)));
   };
   let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
   useEffect(() => {
@@ -78,6 +84,7 @@ const Tool: React.FC<ToolProps> = ({
       dispatch(setPath(path));
     }
     dispatch(setShowDownloadBtn(false));
+    console.log(errorMessage);
   }, []);
 
   // endpoint
@@ -89,21 +96,20 @@ const Tool: React.FC<ToolProps> = ({
   }, []);
   const { getRootProps, isDragActive } = useDropzone({ onDrop });
 
-  // file input change handler
-  let showTool = stateShowTool && errorMessage?.length > 0;
-  // accepted file types
-  const acceptedFileTypes = {
-    ".pdf": ".pdf, .PDF",
-    ".pptx": ".pptx, .ppt",
-    ".docx": ".docx, .doc",
-    ".xlsx": ".xlsx, .xls",
-    ".jpg": ".jpg, .jpeg",
-    ".html": ".html, .htm",
-  };
-
   return (
     <>
-      <div className="tools-page position-relative">
+      <FilesList
+        edit_page={edit_page}
+        errors={errors}
+        lang={lang}
+        page={page}
+        pages={pages}
+      />
+      <div
+        className={`tools-page position-relative${
+          showFilesList ? " d-none" : ""
+        }`}
+      >
         <ToolBar
           toolbar={edit_page.toolbar}
           errors={errors}

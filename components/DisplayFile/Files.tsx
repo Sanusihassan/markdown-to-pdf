@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import type { errors as _ } from "../../content";
-import ImageCard from "./ImageCard";
 import FileCard from "./FileCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { isDraggableExtension } from "../../src/utils";
@@ -27,7 +26,7 @@ const Files = ({
   fileDetailProps,
 }: FileProps) => {
   // const store = useSelector((state: { tool: ToolState }) => state.tool);
-  const { files, imageUrls, setImageUrls } = useFileStore.getState();
+  const { files } = useFileStore.getState();
 
   useEffect(() => {}, [files]);
 
@@ -75,33 +74,17 @@ const Files = ({
                       }}
                     >
                       {/* isDraggableExtension(extension) ? ( */}
-                      {extension === ".jpg" ? (
-                        (() => {
-                          return (
-                            <ImageCard
-                              index={index}
-                              provided={provided}
-                              extension={extension}
-                              errors={errors}
-                              fileDetailProps={fileDetailProps}
-                              file={file}
-                              loader_text={loader_text}
-                            />
-                          );
-                        })()
-                      ) : (
-                        <FileCard
-                          extension={extension}
-                          file={file}
-                          index={index}
-                          isDraggable={isDraggableExtension(extension, router)}
-                          provided={provided}
-                          snapshot={snapshot}
-                          errors={errors}
-                          loader_text={loader_text}
-                          fileDetailProps={fileDetailProps}
-                        />
-                      )}
+                      <FileCard
+                        extension={extension}
+                        file={file}
+                        index={index}
+                        isDraggable={isDraggableExtension(extension, router)}
+                        provided={provided}
+                        snapshot={snapshot}
+                        errors={errors}
+                        loader_text={loader_text}
+                        fileDetailProps={fileDetailProps}
+                      />
                     </div>
                   )}
                 </Draggable>

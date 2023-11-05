@@ -10,12 +10,12 @@ export const tool = {
 
 export const edit_page = {
   edit_page_titles: {
-    merge_pdf: "Merge PDF options",
+    markdown_to_pdf: "Markdown To PDF options",
   },
   loader_text: "please wait...",
   add_more_button: "Add more files",
   action_buttons: {
-    merge_pdf: "Merge PDF",
+    markdown_to_pdf: "Markdown to PDF",
   },
   pages: "pages",
   page: "page",
@@ -109,5 +109,9 @@ export const errors = {
     message:
       "A network error occurred. Please check your internet connection and try again.",
     code: "ERR_NETWORK",
+  },
+  INVALID_GITHUB_URL: {
+    message: "The GitHub URL is invalid. Please enter a valid GitHub URL.",
+    code: "ERR_INVALID_GITHUB_URL",
   },
 };

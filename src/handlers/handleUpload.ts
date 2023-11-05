@@ -14,19 +14,20 @@ import {
 
 // this is the handleUpload function that is calling the download function maybe the issue is here
 export const handleUpload = async (
-  e: React.FormEvent<HTMLFormElement>,
-  downloadBtn: RefObject<HTMLAnchorElement>,
+  downloadBtn: RefObject<HTMLAnchorElement> | null,
   dispatch: Dispatch<AnyAction>,
   state: {
     path: string;
     errorMessage: string;
   },
   files: File[],
+  stateFiles: ToolState["files"],
   errors: _,
   filesLengthOnSubmit: number,
-  setFilesLengthOnSubmit: (value: number) => void
+  setFilesLengthOnSubmit: (value: number) => void,
+  e?: React.FormEvent<HTMLFormElement>
 ) => {
-  e.preventDefault();
+  e?.preventDefault();
   dispatch(setIsSubmitted(true));
 
   if (!files) return;
@@ -113,12 +114,13 @@ export const handleUpload = async (
     const { outputFileMimeType, outputFileName } = mimeTypeData;
 
     dispatch(setShowDownloadBtn(true));
-    downloadConvertedFile(
-      response,
-      outputFileMimeType,
-      outputFileName,
-      downloadBtn
-    );
+    if (downloadBtn)
+      downloadConvertedFile(
+        response,
+        outputFileMimeType,
+        outputFileName,
+        downloadBtn
+      );
     setFilesLengthOnSubmit(files.length);
 
     if (response.status !== 200) {

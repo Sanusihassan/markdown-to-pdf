@@ -189,17 +189,7 @@ export const validateFiles = (
   }
 ) => {
   const files = Array.from(_files); // convert FileList to File[] array
-
-  let allowedMimeTypes = [
-    "application/pdf",
-    "text/html",
-    "image/jpeg",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-    "application/vnd.ms-powerpoint",
-    "application/vnd.ms-excel",
-  ];
+  let allowedMimeTypes = ["text/markdown"];
   if (files.length == 0 && (state.click || state.focus)) {
     dispatch(setErrorMessage(errors.NO_FILES_SELECTED.message));
     dispatch(setErrorCode("ERR_NO_FILES_SELECTED"));
@@ -211,38 +201,31 @@ export const validateFiles = (
     extension = extension.replace(".", "").toUpperCase();
     let file_extension = file.name.split(".").pop()?.toUpperCase() || "";
     // this contains all types and some special types that might potentially be of than one extension
-    const types = [
-      "ppt",
-      "pptx",
-      "doc",
-      "docx",
-      "xls",
-      "xlsx",
-      "html",
-      "htm",
-      "jpg",
-      "pdf",
-    ];
+    const types = ["md"];
 
     if (!file || !file.name) {
       // handle FILE_CORRUPT error
       dispatch(setErrorMessage(errors.FILE_CORRUPT.message));
       return false;
-    } else if (!file.type) {
-      // handle NOT_SUPPORTED_TYPE error
-      dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
-      return false;
-    } else if (
-      !allowedMimeTypes.includes(file.type) ||
-      !types.includes(file_extension.toLowerCase())
-    ) {
-      const errorMessage =
-        errors.NOT_SUPPORTED_TYPE.types[
-          extension as keyof typeof errors.NOT_SUPPORTED_TYPE.types
-        ] || errors.NOT_SUPPORTED_TYPE.message;
-      dispatch(setErrorMessage(errorMessage));
-      return false;
-    } else if (file.size > fileSizeLimit) {
+    }
+    // else if (!file.type) {
+    //   // handle NOT_SUPPORTED_TYPE error
+    //   dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
+    //   console.log("here...");
+    //   return false;
+    // }
+    // else if (
+    //   !allowedMimeTypes.includes(file.type) ||
+    //   !types.includes(file_extension.toLowerCase())
+    // ) {
+    //   const errorMessage =
+    //     errors.NOT_SUPPORTED_TYPE.types[
+    //       extension as keyof typeof errors.NOT_SUPPORTED_TYPE.types
+    //     ] || errors.NOT_SUPPORTED_TYPE.message;
+    //   dispatch(setErrorMessage(errorMessage));
+    //   return false;
+    // }
+    else if (file.size > fileSizeLimit) {
       // handle FILE_TOO_LARGE error
       dispatch(setErrorMessage(errors.FILE_TOO_LARGE.message));
       return false;

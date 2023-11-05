@@ -1,12 +1,5 @@
-import { useEffect, useState, RefObject, useContext } from "react";
+import { useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
-
-import {
-  getFileDetailsTooltipContent,
-  getFirstPageAsImage,
-  getPlaceHoderImageUrl,
-  isDraggableExtension,
-} from "../src/utils";
 
 import { useRouter } from "next/router";
 
@@ -18,6 +11,7 @@ import Files from "./DisplayFile/Files";
 import { useSelector, useDispatch } from "react-redux";
 import { ToolState, resetErrorMessage, setPath } from "../src/store";
 import { useFileStore } from "../src/file-store";
+import FileCard from "./DisplayFile/FileCard";
 type propTypes = {
   extension: string;
   pages: string;
@@ -38,7 +32,7 @@ const DisplayFile = ({
   const [showSpinner, setShowSpinner] = useState(true);
   const [toolTipSizes, setToolTipSizes] = useState<string[]>([]);
   // actual files
-  const { files, setFiles, imageUrls, setImageUrls } = useFileStore.getState();
+  const { files } = useFileStore.getState();
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
@@ -47,6 +41,9 @@ const DisplayFile = ({
   );
   const stateClick = useSelector(
     (state: { tool: ToolState }) => state.tool.click
+  );
+  const stateFiles = useSelector(
+    (state: { tool: ToolState }) => state.tool.files
   );
   const dispatch = useDispatch();
   // router
@@ -70,7 +67,7 @@ const DisplayFile = ({
     // if (state && files.length > max_files) {
     //   state?.setErrorMessage(errors.MAX_FILES_EXCEEDED.message);
     // }
-    let isSubscribed = true;
+    // let isSubscribed = true;
     // const tooltipSizes = files.map((file: File) =>
     //   getFileDetailsTooltipContent(file, pages, page, lang, dispatch, errors)
     // );
@@ -78,77 +75,100 @@ const DisplayFile = ({
     //   setToolTipSizes(sizes);
     // });
 
-    const processFiles = async () => {
-      try {
-        setShowSpinner(true);
+    // const processFiles = async () => {
+    //   try {
+    //     setShowSpinner(true);
 
-        if (extension && extension === ".pdf") {
-          const newImageUrls: { file: File; imageUrl: string }[] = [];
-          const pdfPromises = files.map(async (file: File) => {
-            const imageUrl = await getFirstPageAsImage(file, dispatch, errors);
-            newImageUrls.push({ file, imageUrl });
-          });
+    //     if (extension && extension === ".pdf") {
+    //       const newImageUrls: { file: File; imageUrl: string }[] = [];
+    //       const pdfPromises = files.map(async (file: File) => {
+    //         const imageUrl = await getFirstPageAsImage(file, dispatch, errors);
+    //         newImageUrls.push({ file, imageUrl });
+    //       });
 
-          await Promise.all(pdfPromises);
-          if (isSubscribed) {
-            setImageUrls([...newImageUrls]);
-          }
-        } else if (extension && extension !== ".jpg") {
-          const newImageUrls: { file: File; imageUrl: string }[] = [];
-          files.forEach((file: File) => {
-            let imageUrl = !file.size
-              ? "/images/corrupted.png"
-              : getPlaceHoderImageUrl(extension);
-            newImageUrls.push({ file, imageUrl });
-          });
+    //       await Promise.all(pdfPromises);
+    //       if (isSubscribed) {
+    //         setImageUrls([...newImageUrls]);
+    //       }
+    //     } else if (extension && extension !== ".jpg") {
+    //       const newImageUrls: { file: File; imageUrl: string }[] = [];
+    //       files.forEach((file: File) => {
+    //         let imageUrl = !file.size
+    //           ? "/images/corrupted.png"
+    //           : getPlaceHoderImageUrl(extension);
+    //         newImageUrls.push({ file, imageUrl });
+    //       });
 
-          if (isSubscribed) {
-            setImageUrls([...newImageUrls]);
-          }
-        } else if (extension && extension === ".jpg") {
-          const newImageUrls: { file: File; imageUrl: string }[] = [];
-          files.forEach((file: File) => {
-            const reader = new FileReader();
-            reader.onload = function (event: ProgressEvent<FileReader>) {
-              const imageUrl = (event.target as FileReader).result as string;
-              newImageUrls.push({ file, imageUrl });
-              if (isSubscribed) {
-                setImageUrls([...newImageUrls]);
-              }
-            };
-            reader.readAsDataURL(file);
-          });
-        }
-      } catch (error) {
-        console.error("Error processing files:", error);
-      } finally {
-        setShowSpinner(false);
-      }
-    };
+    //       if (isSubscribed) {
+    //         setImageUrls([...newImageUrls]);
+    //       }
+    //     } else if (extension && extension === ".jpg") {
+    //       const newImageUrls: { file: File; imageUrl: string }[] = [];
+    //       files.forEach((file: File) => {
+    //         const reader = new FileReader();
+    //         reader.onload = function (event: ProgressEvent<FileReader>) {
+    //           const imageUrl = (event.target as FileReader).result as string;
+    //           newImageUrls.push({ file, imageUrl });
+    //           if (isSubscribed) {
+    //             setImageUrls([...newImageUrls]);
+    //           }
+    //         };
+    //         reader.readAsDataURL(file);
+    //       });
+    //     }
+    //   } catch (error) {
+    //     console.error("Error processing files:", error);
+    //   } finally {
+    //     setShowSpinner(false);
+    //   }
+    // };
 
     // processFiles();
 
-    return () => {
-      isSubscribed = false;
-    };
-  }, [extension]);
-  const handleDragEnd = (result: any) => {
-    if (!result.destination) {
-      return;
-    }
-  };
+    // return () => {
+    //   isSubscribed = false;
+    // };
+    console.log(stateFiles);
+  }, [extension, files, stateFiles]);
+  // const handleDragEnd = (result: any) => {
+  //   if (!result.destination) {
+  //     return;
+  //   }
+  // };
 
   return (
     <>
-      <Files
-        errors={errors}
-        extension={extension}
-        setToolTipSizes={setToolTipSizes}
-        toolTipSizes={toolTipSizes}
-        loader_text={edit_page.loader_text}
-        showSpinner={showSpinner}
-        fileDetailProps={[pages, page, lang]}
-      />
+      {stateFiles.length > 0 ? (
+        <>
+          <div className="display-file">
+            {stateFiles.map((file, i) => {
+              return (
+                <div className="drag-element">
+                  <FileCard
+                    file={file as File}
+                    errors={errors}
+                    extension={extension}
+                    loader_text={edit_page.loader_text}
+                    fileDetailProps={[pages, page, lang]}
+                    index={i}
+                    key={i}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <Files
+          errors={errors}
+          extension={extension}
+          setToolTipSizes={setToolTipSizes}
+          toolTipSizes={toolTipSizes}
+          loader_text={edit_page.loader_text}
+          showSpinner={showSpinner}
+          fileDetailProps={[pages, page, lang]}
+        />
+      )}
     </>
   );
 };

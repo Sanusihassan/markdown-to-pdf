@@ -8,7 +8,7 @@ import { handleChange } from "@/src/handlers/handleChange";
 import { useDispatch, useSelector } from "react-redux";
 import { ToolState } from "@/src/store";
 import GitHubPopUp from "./GitHubPopUP";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const ToolBar = ({
   toolbar,
   errors,
@@ -31,6 +31,11 @@ const ToolBar = ({
   const stateClick = useSelector(
     (state: { tool: ToolState }) => state.tool.click
   );
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { setFileInput } = useFileStore.getState();
+  useEffect(() => {
+    setFileInput(fileInputRef);
+  }, []);
   const [showGitHubModal, setShoGitHubModal] = useState(false);
   const { files, setFiles } = useFileStore.getState();
   const focusOnLastCharacter = () => {
@@ -88,6 +93,7 @@ const ToolBar = ({
           type="file"
           accept=".md"
           multiple
+          ref={fileInputRef}
         />
       </button>
       <button
@@ -106,6 +112,7 @@ const ToolBar = ({
         onHide={() => setShoGitHubModal(false)}
         github_popup={github_popup}
         lang={lang}
+        errors={errors}
       />
     </div>
   );

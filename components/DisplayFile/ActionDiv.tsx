@@ -1,12 +1,10 @@
-import { RefreshIcon, TrashIcon } from "@heroicons/react/solid";
-import { useRotatedImage, validateFiles } from "../../src/utils";
-import { Dispatch, SetStateAction, useCallback, useContext } from "react";
+import { TrashIcon } from "@heroicons/react/solid";
 import type { errors as _ } from "../../content";
-// import { ToolStoreContext } from "../../src/ToolStoreContext";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-import { ToolState, setRerender } from "../../src/store";
 import { useFileStore } from "../../src/file-store";
+import { ToolState, setStateFiles } from "@/src/store";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export type ActionProps = {
   index: number;
@@ -28,10 +26,19 @@ export const ActionDiv = ({
 }: ActionProps) => {
   // the files:
   const { files, setFiles } = useFileStore.getState();
+  const stateFiles = useSelector(
+    (state: { tool: ToolState }) => state.tool.files
+  );
+  const dispatch = useDispatch();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     //  const newFiles = store.files.filter((file) => file.name !== item.file.name);
-    const newFiles = files.filter((file) => file.name !== fileName);
-    setFiles(newFiles);
+    if(stateFiles.length > 0) {
+      const newFiles = stateFiles.filter((file) => file.name !== fileName);
+      dispatch(setStateFiles(newFiles));
+    } else {
+      const newFiles = files.filter((file) => file.name !== fileName);
+      setFiles(newFiles);
+    }
   };
   // const rotatedImageUrl = useRotatedImage(item.imageUrl);
   // router and tool path
