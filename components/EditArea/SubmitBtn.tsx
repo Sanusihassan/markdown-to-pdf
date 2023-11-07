@@ -21,15 +21,18 @@ export function SubmitBtn({
   const isSubmitted = useSelector(
     (state: { tool: ToolState }) => state.tool.isSubmitted
   );
-  const { submitBtn, downloadBtn, files, filesLengthOnSubmit, setFilesLengthOnSubmit } = useFileStore.getState();
+  const {
+    submitBtn,
+    downloadBtn,
+    files,
+    filesLengthOnSubmit,
+    setFilesLengthOnSubmit,
+  } = useFileStore.getState();
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
-  const stateFocus = useSelector(
-    (state: { tool: ToolState }) => state.tool.focus
-  );
-  const stateClick = useSelector(
-    (state: { tool: ToolState }) => state.tool.click
+  const documentName = useSelector(
+    (state: { tool: ToolState }) => state.tool.document_name
   );
   const stateFiles = useSelector(
     (state: { tool: ToolState }) => state.tool.files
@@ -49,14 +52,15 @@ export function SubmitBtn({
           dispatch,
           {
             errorMessage,
-            path: statePath
+            path: statePath,
           },
           files,
           stateFiles,
+          documentName,
           errors,
           filesLengthOnSubmit,
           setFilesLengthOnSubmit
-        )
+        );
       }}
       disabled={errorMessage.length > 0}
     >
