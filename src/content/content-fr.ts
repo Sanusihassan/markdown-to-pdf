@@ -69,6 +69,7 @@ export const edit_page: _edit_page = {
     placeholder: "Entrez l'URL GitHub",
     submit: "Valider",
   },
+  download_pdf_text: "Télécharger le PDF",
 };
 
 export const errors: _errors = {

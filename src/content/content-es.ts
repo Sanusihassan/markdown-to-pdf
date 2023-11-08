@@ -44,6 +44,7 @@ export const edit_page: _edit_page = {
     placeholder: "Introduce la URL de GitHub",
     submit: "Aceptar",
   },
+  download_pdf_text: "Descargar PDF",
 };
 
 export const tools: _tools = {

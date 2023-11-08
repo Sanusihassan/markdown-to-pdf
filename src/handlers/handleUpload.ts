@@ -5,7 +5,6 @@ import type { errors as _ } from "../../content";
 import { AnyAction } from "@reduxjs/toolkit";
 // import { shallow } from "zustand"
 import {
-  ToolState,
   resetErrorMessage,
   setErrorMessage,
   setIsSubmitted,
@@ -26,7 +25,8 @@ export const handleUpload = async (
   errors: _,
   filesLengthOnSubmit: number,
   setFilesLengthOnSubmit: (value: number) => void,
-  e?: React.FormEvent<HTMLFormElement>
+  e?: React.FormEvent<HTMLFormElement>,
+  markdown?: string
 ) => {
   e?.preventDefault();
   dispatch(setIsSubmitted(true));
@@ -45,10 +45,13 @@ export const handleUpload = async (
   }
   formData.append("stateFiles", JSON.stringify(stateFiles));
   formData.append("document_name", JSON.stringify(document_name));
+  if (markdown) {
+    formData.append("markdown", JSON.stringify(markdown));
+  }
   let url;
   // @ts-ignore
   if (process.env.NODE_ENV === "development") {
-    url = `http://127.0.0.1:5000/${state.path}`;
+    url = `https://r18h2995-5000.uks1.devtunnels.ms/${state.path}`;
     // url = `https://5000-planetcreat-pdfequipsap-te4zoi6qkr3.ws-eu102.gitpod.io/${state.path}`;
   } else {
     url = `/api/${state.path}`;

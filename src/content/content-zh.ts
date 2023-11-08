@@ -59,6 +59,7 @@ export const edit_page: _edit_page = {
     placeholder: "输入GitHub网址",
     submit: "确定",
   },
+  download_pdf_text: "下载PDF",
 };
 
 export const tools: _tools = {

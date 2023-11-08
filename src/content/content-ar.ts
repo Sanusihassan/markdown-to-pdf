@@ -65,6 +65,7 @@ export const edit_page: _edit_page = {
     placeholder: "أدخل عنوان GitHub",
     submit: "موافق",
   },
+  download_pdf_text: "تحميل ملف PDF"
 };
 
 export const errors: _errors = {

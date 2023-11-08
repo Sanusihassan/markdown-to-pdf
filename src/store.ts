@@ -14,6 +14,7 @@ export interface ToolState {
   document_name: string;
   show_files_list: boolean;
   files: { name: string; size: number }[];
+  markdown: string;
 }
 
 const initialState: ToolState = {
@@ -30,6 +31,7 @@ const initialState: ToolState = {
   document_name: "",
   show_files_list: false,
   files: [],
+  markdown: "",
 };
 
 const toolSlice = createSlice({
@@ -83,6 +85,9 @@ const toolSlice = createSlice({
     ) {
       state.files = action.payload;
     },
+    setMarkDown(state: ToolState, action: PayloadAction<string>) {
+      state.markdown = action.payload;
+    },
   },
 });
 
@@ -100,6 +105,7 @@ export const {
   setDocumentName,
   setShowFilesList,
   setStateFiles,
+  setMarkDown,
 } = toolSlice.actions;
 
 export default toolSlice.reducer;

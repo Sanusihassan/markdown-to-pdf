@@ -15,15 +15,13 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
-const CodeEditor = ({
-  onChange,
-  value,
-}: {
-  onChange: Dispatch<SetStateAction<string>>;
-  value: string;
-}) => {
+import { useDispatch } from "react-redux";
+import { setMarkDown } from "@/src/store";
+const CodeEditor = ({ value }: { value: string }) => {
+  const dispatch = useDispatch();
   const handleEditorChange = (value: string) => {
-    onChange(value);
+    // onChange(value);
+    dispatch(setMarkDown(value));
   };
 
   return (
