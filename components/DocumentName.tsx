@@ -14,6 +14,7 @@ const DocumentName = ({
   const { setfileNameInputRef } = useFileStore.getState();
   useEffect(() => {
     setfileNameInputRef(fileNameInputRef);
+    dispatch(setDocumentName(document_name.untitled))
   }, []);
   return (
     <div className="document-name text-center bg-light p-1">

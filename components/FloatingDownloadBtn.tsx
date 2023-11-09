@@ -33,6 +33,9 @@ const FloatingDownloadBtn: React.FC<{
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown
   );
+  const documentName = useSelector(
+    (state: { tool: ToolState }) => state.tool.document_name
+  );
   const dispatch = useDispatch();
   const handleDownload = () => {
     // Implement your download logic here
@@ -46,14 +49,13 @@ const FloatingDownloadBtn: React.FC<{
       dispatch,
       {
         errorMessage,
-        path: "markdown-to-pdf",
+        path: "md-text-to-pdf",
       },
       errors,
       filesLengthOnSubmit,
       setFilesLengthOnSubmit,
-      { files, stateFiles, markdown }
+      { files, stateFiles, markdown, document_name: documentName }
     );
-    console.log("Downloading...");
   };
   useEffect(() => {
     setDownloadBtn(downloadBtnRef);
