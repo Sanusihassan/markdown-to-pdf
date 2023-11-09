@@ -128,7 +128,6 @@ const DisplayFile = ({
     // return () => {
     //   isSubscribed = false;
     // };
-    console.log(stateFiles);
   }, [extension, files, stateFiles]);
   // const handleDragEnd = (result: any) => {
   //   if (!result.destination) {

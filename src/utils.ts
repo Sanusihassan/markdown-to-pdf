@@ -147,7 +147,6 @@ export async function getFirstPageAsImage(
       return canvas.toDataURL();
     } catch (error) {
       dispatch(setErrorMessage(errors.FILE_CORRUPT.message));
-      console.log(error);
       return DEFAULT_PDF_IMAGE; // Return the placeholder image URL when an error occurs
     }
   }
@@ -189,7 +188,6 @@ export const validateFiles = (
   }
 ) => {
   const files = Array.from(_files); // convert FileList to File[] array
-  let allowedMimeTypes = ["text/markdown"];
   if (files.length == 0 && (state.click || state.focus)) {
     dispatch(setErrorMessage(errors.NO_FILES_SELECTED.message));
     dispatch(setErrorCode("ERR_NO_FILES_SELECTED"));
@@ -201,17 +199,18 @@ export const validateFiles = (
     extension = extension.replace(".", "").toUpperCase();
     let file_extension = file.name.split(".").pop()?.toUpperCase() || "";
     // this contains all types and some special types that might potentially be of than one extension
-    const types = ["md"];
-
     if (!file || !file.name) {
       // handle FILE_CORRUPT error
       dispatch(setErrorMessage(errors.FILE_CORRUPT.message));
       return false;
     }
+    // if (extension !== ".md") {
+    //   dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
+    //   return false;
+    // }
     // else if (!file.type) {
     //   // handle NOT_SUPPORTED_TYPE error
     //   dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
-    //   console.log("here...");
     //   return false;
     // }
     // else if (
@@ -231,7 +230,6 @@ export const validateFiles = (
       return false;
     } else if (!file.size) {
       // handle EMPTY_FILE error
-      console.log("file.size", file.size);
       dispatch(setErrorMessage(errors.EMPTY_FILE.message));
       dispatch(setErrorCode("ERR_EMPTY_FILE"));
       return false;

@@ -88,6 +88,7 @@ export const edit_page: _edit_page = {
     placeholder: "GitHub URL दर्ज करें",
     submit: "ठीक है",
   },
+  download_pdf_text: "PDF डाउनलोड करें",
 };
 
 export const tools: _tools = {

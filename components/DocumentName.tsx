@@ -25,7 +25,6 @@ const DocumentName = ({
         onInput={(e) => {
           // @ts-ignore
           dispatch(setDocumentName(e.target.textContent));
-          // console.log()
         }}
         ref={fileNameInputRef}
       >

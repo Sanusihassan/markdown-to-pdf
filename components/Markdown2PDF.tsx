@@ -5,6 +5,9 @@ import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import dark from "react-syntax-highlighter/dist/cjs/styles/prism/dark";
+import { ToolState, setMarkDown } from "@/src/store";
+import { useDispatch, useSelector } from "react-redux";
+import FloatingDownloadBtn from "./FloatingDownloadBtn";
 
 const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
@@ -13,13 +16,23 @@ const Loader = ({ loader_text }: { loader_text: string }) => (
   </div>
 );
 
-const Markdown2PDF = ({ loader_text }: { loader_text: string }) => {
-  const [markdown, setMarkdown] = useState<string>("");
+const Markdown2PDF = ({
+  loader_text,
+  download_pdf_text,
+}: {
+  loader_text: string;
+  download_pdf_text: string;
+}) => {
+  const dispatch = useDispatch();
+  const markdown = useSelector(
+    (state: { tool: ToolState }) => state.tool.markdown
+  );
+  // const [markdown, setMarkdown] = useState<string>("");
   useEffect(() => {
     (async () => {
       const content = (await fetch("/defaultcontent.json")).json();
       content.then((v) => {
-        setMarkdown(v.md);
+        dispatch(setMarkDown(v.md));
       });
       // if (containerRef.current) {
       //   containerRef.current.scrollTop = 50;
@@ -38,7 +51,7 @@ const Markdown2PDF = ({ loader_text }: { loader_text: string }) => {
       ) : (
         <div className="md-2pdf">
           <div className="editor">
-            <CodeEditor value={markdown} onChange={setMarkdown} />
+            <CodeEditor value={markdown} />
           </div>
           <div className="react-markdown-container">
             <ReactMarkdown
@@ -65,6 +78,8 @@ const Markdown2PDF = ({ loader_text }: { loader_text: string }) => {
               }}
             />
           </div>
+          {/* download button */}
+          <FloatingDownloadBtn text={download_pdf_text} />
         </div>
       )}
     </>

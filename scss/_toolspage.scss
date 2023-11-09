@@ -137,6 +137,21 @@
     max-height: 100vh;
     overflow: auto;
   }
+  .floating-button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+  .download-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .download-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: white;
+  }
 }
 
 .upload-btn,

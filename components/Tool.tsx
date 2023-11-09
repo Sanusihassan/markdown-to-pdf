@@ -63,9 +63,6 @@ const Tool: React.FC<ToolProps> = ({
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
-  const errorMessage = useSelector(
-    (state: { tool: ToolState }) => state.tool.errorMessage
-  );
   const showFilesList = useSelector(
     (state: { tool: ToolState }) => state.tool.show_files_list
   );
@@ -84,7 +81,6 @@ const Tool: React.FC<ToolProps> = ({
       dispatch(setPath(path));
     }
     dispatch(setShowDownloadBtn(false));
-    console.log(errorMessage);
   }, []);
 
   // endpoint
@@ -118,7 +114,7 @@ const Tool: React.FC<ToolProps> = ({
         />
         <div className="rest">
           <DocumentName document_name={edit_page.document_name} />
-          <Markdown2PDF loader_text={edit_page.loader_text} />
+          <Markdown2PDF loader_text={edit_page.loader_text} download_pdf_text={edit_page.download_pdf_text} />
         </div>
       </div>
     </>

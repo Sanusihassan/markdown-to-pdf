@@ -33,6 +33,7 @@ export const edit_page = {
     placeholder: "Enter GitHub URL",
     submit: "OK",
   },
+  download_pdf_text: "Download PDF",
 };
 
 export const tools = {
