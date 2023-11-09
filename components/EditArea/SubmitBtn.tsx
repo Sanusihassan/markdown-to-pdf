@@ -54,12 +54,10 @@ export function SubmitBtn({
             errorMessage,
             path: statePath,
           },
-          files,
-          stateFiles,
-          documentName,
           errors,
           filesLengthOnSubmit,
-          setFilesLengthOnSubmit
+          setFilesLengthOnSubmit,
+          { files, stateFiles, document_name: documentName }
         );
       }}
       disabled={errorMessage.length > 0}

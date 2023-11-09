@@ -19,21 +19,25 @@ export const handleUpload = async (
     path: string;
     errorMessage: string;
   },
-  files: File[],
-  stateFiles: { name: string; size: number }[],
-  document_name: string,
   errors: _,
   filesLengthOnSubmit: number,
   setFilesLengthOnSubmit: (value: number) => void,
-  e?: React.FormEvent<HTMLFormElement>,
-  markdown?: string
+  data: {
+    files?: File[];
+    stateFiles?: { name: string; size: number }[];
+    document_name?: string;
+    markdown?: string;
+  },
+  e?: React.FormEvent<HTMLFormElement>
 ) => {
-  e?.preventDefault();
+  if (e) {
+    e?.preventDefault();
+  }
   dispatch(setIsSubmitted(true));
-
+  const { document_name, files, stateFiles, markdown } = data;
   if (!files) return;
   // subscribe to the files state and get the previous files
-  if (filesLengthOnSubmit == files.length) {
+  if (filesLengthOnSubmit == files.length && markdown?.length === 0) {
     dispatch(setShowDownloadBtn(true));
     dispatch(resetErrorMessage());
     return;
@@ -43,15 +47,14 @@ export const handleUpload = async (
   for (let i = 0; i < files.length; i++) {
     formData.append("files", files[i]);
   }
-  formData.append("stateFiles", JSON.stringify(stateFiles));
-  formData.append("document_name", JSON.stringify(document_name));
-  if (markdown) {
-    formData.append("markdown", JSON.stringify(markdown));
-  }
+  formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
+  formData.append("markdown", JSON.stringify(markdown));
+
+  // formData.append("document_name", JSON.stringify(document_name));
   let url;
   // @ts-ignore
   if (process.env.NODE_ENV === "development") {
-    url = `https://r18h2995-5000.uks1.devtunnels.ms/${state.path}`;
+    url = `https://5000-planetcreat-pdfequipsap-o51h4y0fppz.ws-eu106.gitpod.io/api/${state.path}`;
     // url = `https://5000-planetcreat-pdfequipsap-te4zoi6qkr3.ws-eu102.gitpod.io/${state.path}`;
   } else {
     url = `/api/${state.path}`;
@@ -79,6 +82,7 @@ export const handleUpload = async (
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
     });
+    console.log(response);
     // const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
     const mimeType = response.data.type || response.headers["content-type"];
     const mimeTypeData = mimeTypeLookupTable[mimeType] || {
@@ -104,6 +108,11 @@ export const handleUpload = async (
       dispatch(setIsSubmitted(false));
     }
   } catch (error) {
+    console.log(error);
+    // @ts-ignore
+    const dataView = new DataView(error.response.data);
+    const decoder = new TextDecoder("utf8");
+    console.log(JSON.parse(decoder.decode(dataView)));
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setErrorMessage(errors.ERR_NETWORK.message));
       return;
