@@ -48,7 +48,7 @@ export const handleUpload = async (
     formData.append("files", files[i]);
   }
   formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
-  formData.append("markdown", JSON.stringify(markdown));
+  formData.append("markdown", JSON.stringify({ markdown }));
 
   // formData.append("document_name", JSON.stringify(document_name));
   let url;
@@ -63,7 +63,8 @@ export const handleUpload = async (
     return;
   }
   // formData.append("compress_amount", String(state.compressPdf));
-  const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
+  const originalFileName =
+    files[0]?.name?.split(".").slice(0, -1).join(".") || document_name;
 
   const mimeTypeLookupTable: {
     [key: string]: { outputFileMimeType: string; outputFileName: string };
@@ -96,7 +97,7 @@ export const handleUpload = async (
       downloadConvertedFile(
         response,
         outputFileMimeType,
-        outputFileName,
+        (document_name || "output") + ".pdf",
         downloadBtn
       );
     setFilesLengthOnSubmit(files.length);
@@ -108,10 +109,11 @@ export const handleUpload = async (
       dispatch(setIsSubmitted(false));
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error.response.data);
     // @ts-ignore
     const dataView = new DataView(error.response.data);
     const decoder = new TextDecoder("utf8");
+    console.log(decoder.decode(dataView));
     console.log(JSON.parse(decoder.decode(dataView)));
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setErrorMessage(errors.ERR_NETWORK.message));
