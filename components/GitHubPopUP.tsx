@@ -48,7 +48,7 @@ const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
     // Fetch the markdown files from your backend
     try {
       const response = await axios.get(
-        `https://5000-planetcreat-pdfequipsap-o51h4y0fppz.ws-eu105.gitpod.io/api/get-md-files?url=${encodeURIComponent(
+        `https://5000-planetcreat-pdfequipsap-o51h4y0fppz.ws-eu106.gitpod.io/api/get-md-files?url=${encodeURIComponent(
           url
         )}`
       );
