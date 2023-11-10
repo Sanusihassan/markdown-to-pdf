@@ -21,6 +21,7 @@ import Markdown2PDF from "./Markdown2PDF";
 import ToolBar from "./ToolBar";
 import DocumentName from "./DocumentName";
 import { FilesList } from "./FilesList";
+import DownloadFile from "./DownloadFile";
 
 export type errorType = {
   response: {
@@ -114,8 +115,14 @@ const Tool: React.FC<ToolProps> = ({
         />
         <div className="rest">
           <DocumentName document_name={edit_page.document_name} />
-          <Markdown2PDF loader_text={edit_page.loader_text} download_pdf_text={edit_page.download_pdf_text} />
+          <Markdown2PDF
+            loader_text={edit_page.loader_text}
+            download_pdf_text={edit_page.download_pdf_text}
+          />
         </div>
+      </div>
+      <div className="tools-page d-flex justify-content-center">
+        <DownloadFile downloadFile={downloadFile} lang={lang} />
       </div>
     </>
   );

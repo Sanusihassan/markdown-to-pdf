@@ -97,7 +97,11 @@ export const handleUpload = async (
       downloadConvertedFile(
         response,
         outputFileMimeType,
-        (document_name || "output") + ".pdf",
+        (outputFileName
+          ? outputFileName === document_name
+            ? outputFileName + ".pdf"
+            : outputFileName
+          : "output.pdf"),
         downloadBtn
       );
     setFilesLengthOnSubmit(files.length);
