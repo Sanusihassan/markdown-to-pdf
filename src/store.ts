@@ -13,7 +13,7 @@ export interface ToolState {
   nav_height: number;
   document_name: string;
   show_files_list: boolean;
-  files: { name: string; size: number }[];
+  files: { name: string; size: number, url: string }[];
   markdown: string;
 }
 
@@ -81,7 +81,7 @@ const toolSlice = createSlice({
     },
     setStateFiles(
       state: ToolState,
-      action: PayloadAction<{ name: string; size: number }[]>
+      action: PayloadAction<{ name: string; size: number, url: string }[]>
     ) {
       state.files = action.payload;
     },
