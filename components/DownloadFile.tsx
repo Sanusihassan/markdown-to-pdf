@@ -19,8 +19,14 @@ const DownloadFile = ({
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
+  const stateFiles = useSelector(
+    (state: { tool: ToolState }) => state.tool.files
+  );
   const showDownloadBtn = useSelector(
     (state: { tool: ToolState }) => state.tool.showDownloadBtn
+  );
+  const documentName = useSelector(
+    (state: { tool: ToolState }) => state.tool.document_name
   );
   const path = statePath;
   useEffect(() => {}, [downloadFile, showDownloadBtn]);
@@ -35,7 +41,7 @@ const DownloadFile = ({
           {downloadFile.titles &&
             downloadFile.titles[path as keyof typeof downloadFile.titles] &&
             downloadFile.titles[path as keyof typeof downloadFile.titles][
-              files && files.length > 1 ? 0 : 1
+              files && (files.length > 1 || stateFiles.length > 1) ? 0 : 1
             ]}
         </bdi>
       </h3>
@@ -62,6 +68,7 @@ const DownloadFile = ({
               downloadBtn.current.click();
             }
           }}
+          title={documentName}
         >
           <DownloadIcon className="icon text-white mr-2" />
           <bdi>

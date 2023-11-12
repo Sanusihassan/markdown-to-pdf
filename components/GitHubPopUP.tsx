@@ -14,6 +14,8 @@ interface GitHubPopUpProps {
   errors: errors;
 }
 
+// in this component i want to close the pop up programmatically when there is a response from the server which is ok
+
 const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
   show,
   onHide,
@@ -54,6 +56,8 @@ const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
       );
       dispatch(setStateFiles(response.data));
       dispatch(setShowFilesList(true));
+      // Close the modal after a successful response
+      onHide();
     } catch (error) {
       // Handle error response
       console.error("Failed to fetch repository contents", error);

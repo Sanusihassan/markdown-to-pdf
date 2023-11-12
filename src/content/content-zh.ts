@@ -36,12 +36,12 @@ export const downloadFile: _downloadFile = {
 
 export const edit_page: _edit_page = {
   edit_page_titles: {
-    merge_pdf: "合并PDF选项",
+    markdown_to_pdf: "Markdown 到 PDF 的选项",
   },
   loader_text: "请稍等...",
   add_more_button: "添加更多文件",
   action_buttons: {
-    merge_pdf: "合并PDF",
+    markdown_to_pdf: "Markdown 到 PDF",
   },
   pages: "页",
   page: "页",
@@ -112,5 +112,9 @@ export const errors: _errors = {
   ERR_NETWORK: {
     message: "网络错误，请检查您的互联网连接并重试。",
     code: "ERR_NETWORK",
+  },
+  INVALID_GITHUB_URL: {
+    message: "GitHub URL 无效。请输入有效的 GitHub URL。",
+    code: "ERR_INVALID_GITHUB_URL",
   },
 };

@@ -35,7 +35,8 @@ export const ActionDiv = ({
     if(stateFiles.length > 0) {
       const newFiles = stateFiles.filter((file) => file.name !== fileName);
       dispatch(setStateFiles(newFiles));
-    } else {
+    }
+    if(files.length > 0) {
       const newFiles = files.filter((file) => file.name !== fileName);
       setFiles(newFiles);
     }

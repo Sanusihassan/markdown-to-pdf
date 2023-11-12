@@ -21,12 +21,12 @@ export const tool: _tool = {
 
 export const edit_page: _edit_page = {
   edit_page_titles: {
-    merge_pdf: "Opciones para fusionar PDF",
+    markdown_to_pdf: "Opciones de Markdown a PDF",
   },
   loader_text: "Por favor espera...",
   add_more_button: "Agrega más archivos",
   action_buttons: {
-    merge_pdf: "Combinar PDF",
+    markdown_to_pdf: "Markdown a PDF",
   },
   pages: "paginas",
   page: "página",
@@ -120,5 +120,10 @@ export const errors: _errors = {
     message:
       "Ha ocurrido un error en la red. Por favor, comprueba tu conexión a internet e inténtalo de nuevo.",
     code: "ERR_NETWORK",
+  },
+  INVALID_GITHUB_URL: {
+    message:
+      "La URL de GitHub no es válida. Por favor, ingrese una URL de GitHub válida.",
+    code: "ERR_INVALID_GITHUB_URL",
   },
 };

@@ -46,12 +46,12 @@ export const downloadFile: _downloadFile = {
 
 export const edit_page: _edit_page = {
   edit_page_titles: {
-    merge_pdf: "Options de fusion de PDF",
+    markdown_to_pdf: "Options de Markdown vers PDF",
   },
   loader_text: "Veuillez patienter...",
   add_more_button: "Ajouter plus de fichiers",
   action_buttons: {
-    merge_pdf: "Fusionner PDF",
+    markdown_to_pdf: "Markdown vers PDF",
   },
   pages: "pages",
   page: "page",
@@ -120,5 +120,10 @@ export const errors: _errors = {
     message:
       "Une erreur de réseau s'est produite. Veuillez vérifier votre connexion Internet et réessayer.",
     code: "ERR_NETWORK",
+  },
+  INVALID_GITHUB_URL: {
+    message:
+      "L'URL GitHub n'est pas valide. Veuillez entrer une URL GitHub valide.",
+    code: "ERR_INVALID_GITHUB_URL",
   },
 };

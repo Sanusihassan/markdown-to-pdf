@@ -42,12 +42,12 @@ export const downloadFile: _downloadFile = {
 
 export const edit_page: _edit_page = {
   edit_page_titles: {
-    merge_pdf: "خيارات دمج ملف PDF",
+    markdown_to_pdf: "خيارات تحويل ماركداون إلى PDF",
   },
   loader_text: "يرجى الانتظار...",
   add_more_button: "إضافة المزيد من الملفات",
   action_buttons: {
-    merge_pdf: "دمج PDF",
+    markdown_to_pdf: "تحويل ماركداون إلى PDF",
   },
   pages: "صفحة",
   page: "صفحة واحدة",
@@ -65,7 +65,7 @@ export const edit_page: _edit_page = {
     placeholder: "أدخل عنوان GitHub",
     submit: "موافق",
   },
-  download_pdf_text: "تحميل ملف PDF"
+  download_pdf_text: "تحميل ملف PDF",
 };
 
 export const errors: _errors = {
@@ -115,4 +115,8 @@ export const errors: _errors = {
       "حدث خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
     code: "ERR_NETWORK",
   },
+  INVALID_GITHUB_URL: {
+    message: "رابط GitHub غير صالح. يرجى إدخال رابط GitHub صالح.",
+    code: "ERR_INVALID_GITHUB_URL",
+  }
 };

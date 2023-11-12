@@ -13,8 +13,9 @@ export interface ToolState {
   nav_height: number;
   document_name: string;
   show_files_list: boolean;
-  files: { name: string; size: number, url: string }[];
+  files: { name: string; size: number; url: string }[];
   markdown: string;
+  alertVarient: "success" | "info" | "warning" | "error";
 }
 
 const initialState: ToolState = {
@@ -32,6 +33,7 @@ const initialState: ToolState = {
   show_files_list: false,
   files: [],
   markdown: "",
+  alertVarient: "error",
 };
 
 const toolSlice = createSlice({
@@ -81,12 +83,18 @@ const toolSlice = createSlice({
     },
     setStateFiles(
       state: ToolState,
-      action: PayloadAction<{ name: string; size: number, url: string }[]>
+      action: PayloadAction<{ name: string; size: number; url: string }[]>
     ) {
       state.files = action.payload;
     },
     setMarkDown(state: ToolState, action: PayloadAction<string>) {
       state.markdown = action.payload;
+    },
+    setAlertVarient(
+      state: ToolState,
+      action: PayloadAction<"success" | "info" | "warning" | "error">
+    ) {
+      state.alertVarient = action.payload;
     },
   },
 });
