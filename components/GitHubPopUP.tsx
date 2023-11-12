@@ -14,6 +14,8 @@ interface GitHubPopUpProps {
   errors: errors;
 }
 
+// in this component i want to close the pop up programmatically when there is a response from the server which is ok
+
 const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
   show,
   onHide,
@@ -48,12 +50,14 @@ const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
     // Fetch the markdown files from your backend
     try {
       const response = await axios.get(
-        `https://5000-planetcreat-pdfequipsap-o51h4y0fppz.ws-eu105.gitpod.io/api/get-md-files?url=${encodeURIComponent(
+        `https://5000-planetcreat-pdfequipsap-o51h4y0fppz.ws-eu106.gitpod.io/api/get-md-files?url=${encodeURIComponent(
           url
         )}`
       );
       dispatch(setStateFiles(response.data));
       dispatch(setShowFilesList(true));
+      // Close the modal after a successful response
+      onHide();
     } catch (error) {
       // Handle error response
       console.error("Failed to fetch repository contents", error);

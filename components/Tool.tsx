@@ -1,7 +1,7 @@
 // this is a very crowded tsx component, how can i simplify it further by separating the logics / parts to other components
-import { useCallback, useEffect, useRef, useState, useContext } from "react";
+import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-
+import "react-toastify/dist/ReactToastify.css";
 // import EditPage from "./EditPage";
 import {
   ToolState,
@@ -21,6 +21,9 @@ import Markdown2PDF from "./Markdown2PDF";
 import ToolBar from "./ToolBar";
 import DocumentName from "./DocumentName";
 import { FilesList } from "./FilesList";
+import DownloadFile from "./DownloadFile";
+import PopUpAlert from "./PopUpAlert";
+import { ToastContainer } from "react-toastify";
 
 export type errorType = {
   response: {
@@ -65,6 +68,9 @@ const Tool: React.FC<ToolProps> = ({
   );
   const showFilesList = useSelector(
     (state: { tool: ToolState }) => state.tool.show_files_list
+  );
+  const alertVarient = useSelector(
+    (state: { tool: ToolState }) => state.tool.alertVarient
   );
   // the files:
   const { setFiles } = useFileStore.getState();
@@ -114,9 +120,17 @@ const Tool: React.FC<ToolProps> = ({
         />
         <div className="rest">
           <DocumentName document_name={edit_page.document_name} />
-          <Markdown2PDF loader_text={edit_page.loader_text} download_pdf_text={edit_page.download_pdf_text} />
+          <Markdown2PDF
+            loader_text={edit_page.loader_text}
+            download_pdf_text={edit_page.download_pdf_text}
+          />
         </div>
       </div>
+      <div className="tools-page d-flex justify-content-center">
+        <DownloadFile downloadFile={downloadFile} lang={lang} />
+      </div>
+      <ToastContainer />
+      <PopUpAlert varient={alertVarient} />
     </>
   );
 };

@@ -204,27 +204,11 @@ export const validateFiles = (
       dispatch(setErrorMessage(errors.FILE_CORRUPT.message));
       return false;
     }
-    // if (extension !== ".md") {
-    //   dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
-    //   return false;
-    // }
-    // else if (!file.type) {
-    //   // handle NOT_SUPPORTED_TYPE error
-    //   dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
-    //   return false;
-    // }
-    // else if (
-    //   !allowedMimeTypes.includes(file.type) ||
-    //   !types.includes(file_extension.toLowerCase())
-    // ) {
-    //   const errorMessage =
-    //     errors.NOT_SUPPORTED_TYPE.types[
-    //       extension as keyof typeof errors.NOT_SUPPORTED_TYPE.types
-    //     ] || errors.NOT_SUPPORTED_TYPE.message;
-    //   dispatch(setErrorMessage(errorMessage));
-    //   return false;
-    // }
-    else if (file.size > fileSizeLimit) {
+    if (file_extension !== "MD") {
+      // handle NOT_SUPPORTED_TYPE error
+      dispatch(setErrorMessage(errors.NOT_SUPPORTED_TYPE.message));
+      return false;
+    } else if (file.size > fileSizeLimit) {
       // handle FILE_TOO_LARGE error
       dispatch(setErrorMessage(errors.FILE_TOO_LARGE.message));
       return false;
