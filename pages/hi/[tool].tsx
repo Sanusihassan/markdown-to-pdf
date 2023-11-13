@@ -38,7 +38,7 @@ export async function getStaticProps({
 }
 
 export default ({ item, lang }: { item: data_type; lang: string }) => {
-  const { files, setFiles } = useFileStore.getState();
+  const { files, setFiles } = useFileStore();
   return (
     <>
       <Head>
@@ -63,5 +63,4 @@ export default ({ item, lang }: { item: data_type; lang: string }) => {
 
 export const routes = {
   "/markdown-to-pdf": { item: tool["Markdown_to_PDF"] },
-
 };

@@ -77,7 +77,7 @@ const FileCard = ({
     return () => {
       isSubscribed = false;
     };
-  }, [extension, file]);
+  }, [extension]);
   return (
     <div
       className="card item"

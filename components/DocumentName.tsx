@@ -11,10 +11,10 @@ const DocumentName = ({
 }) => {
   const dispatch = useDispatch();
   const fileNameInputRef = useRef<HTMLDivElement>(null);
-  const { setfileNameInputRef } = useFileStore.getState();
+  const { setfileNameInputRef } = useFileStore();
   useEffect(() => {
     setfileNameInputRef(fileNameInputRef);
-    dispatch(setDocumentName(document_name.untitled))
+    dispatch(setDocumentName(document_name.untitled));
   }, []);
   return (
     <div className="document-name text-center bg-light p-1">

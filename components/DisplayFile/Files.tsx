@@ -26,7 +26,7 @@ const Files = ({
   fileDetailProps,
 }: FileProps) => {
   // const store = useSelector((state: { tool: ToolState }) => state.tool);
-  const { files } = useFileStore.getState();
+  const { files } = useFileStore();
 
   useEffect(() => {}, [files]);
 

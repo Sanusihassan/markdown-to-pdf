@@ -38,7 +38,7 @@ export async function getStaticProps({
 }
 
 export default ({ item }: { item: data_type }) => {
-  const { files, setFiles } = useFileStore.getState();
+  const { files, setFiles } = useFileStore();
   return (
     <>
       <Head>

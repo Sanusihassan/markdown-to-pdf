@@ -69,7 +69,7 @@ const EditPage = ({
   );
   const dispatch = useDispatch();
   // actual files;
-  const { files, fileInput } = useFileStore.getState();
+  const { files, fileInput } = useFileStore();
   const stateFiles = useSelector(
     (state: { tool: ToolState }) => state.tool.files
   );

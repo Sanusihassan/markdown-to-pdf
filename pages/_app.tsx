@@ -6,19 +6,6 @@ import { Provider as ReduxProvider } from "react-redux";
 // @ts-ignore
 import { configureStore } from "@reduxjs/toolkit";
 import toolReducer from "../src/store";
-
-// zustand store
-import { createStore } from "zustand";
-interface FileStore {
-  files: File[];
-  setFiles: (files: File[]) => void;
-}
-
-export const useFileStore = createStore<FileStore>((set) => ({
-  files: [],
-  setFiles: (files) => set({ files }),
-}));
-
 const store = configureStore({
   reducer: {
     tool: toolReducer,
@@ -46,7 +33,7 @@ function MyApp({ Component, pageProps, lang }: AppProps & { lang: string }) {
         ></script>
       </Head>
       <ReduxProvider store={store}>
-        <Component useFileStore={useFileStore} {...pageProps} lang={lang} />
+        <Component {...pageProps} lang={lang} />
       </ReduxProvider>
     </>
   );

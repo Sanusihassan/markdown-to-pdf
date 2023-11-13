@@ -27,7 +27,7 @@ export function SubmitBtn({
     files,
     filesLengthOnSubmit,
     setFilesLengthOnSubmit,
-  } = useFileStore.getState();
+  } = useFileStore();
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );

@@ -114,6 +114,7 @@ export const {
   setShowFilesList,
   setStateFiles,
   setMarkDown,
+  setAlertVarient,
 } = toolSlice.actions;
 
 export default toolSlice.reducer;

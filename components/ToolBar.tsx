@@ -20,7 +20,7 @@ const ToolBar = ({
   errors: errors;
   lang: string;
 }) => {
-  const { fileNameInputRef } = useFileStore.getState();
+  const { fileNameInputRef } = useFileStore();
   const dispatch = useDispatch();
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
@@ -32,12 +32,12 @@ const ToolBar = ({
     (state: { tool: ToolState }) => state.tool.click
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { setFileInput } = useFileStore.getState();
+  const { setFileInput } = useFileStore();
   useEffect(() => {
     setFileInput(fileInputRef);
   }, []);
   const [showGitHubModal, setShoGitHubModal] = useState(false);
-  const { files, setFiles } = useFileStore.getState();
+  const { files, setFiles } = useFileStore();
   const focusOnLastCharacter = () => {
     if (fileNameInputRef)
       if (fileNameInputRef.current) {

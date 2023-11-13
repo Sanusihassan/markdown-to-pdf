@@ -25,26 +25,36 @@ export const ActionDiv = ({
   fileName,
 }: ActionProps) => {
   // the files:
-  const { files, setFiles } = useFileStore.getState();
+  /**
+   * it says this statement is not callable
+   * but the useFileStore has 3 members:
+   * useFileStore.setState
+   * useFileStore
+   * useFileStore.subscribe
+   *
+   */
+  const { setFiles } = useFileStore();
+  const files = useFileStore().files;
   const stateFiles = useSelector(
     (state: { tool: ToolState }) => state.tool.files
   );
   const dispatch = useDispatch();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     //  const newFiles = store.files.filter((file) => file.name !== item.file.name);
-    if(stateFiles.length > 0) {
+    if (stateFiles.length > 0) {
       const newFiles = stateFiles.filter((file) => file.name !== fileName);
       dispatch(setStateFiles(newFiles));
     }
-    if(files.length > 0) {
+    if (files.length > 0 && "undefined" !== typeof window) {
       const newFiles = files.filter((file) => file.name !== fileName);
       setFiles(newFiles);
+      // console.log(newFiles);
     }
   };
   // const rotatedImageUrl = useRotatedImage(item.imageUrl);
   // router and tool path
-  const router = useRouter();
-  let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
+  // const router = useRouter();
+  // let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
   // const handleRotateImage = useCallback(() => {
   //   if (rotatedImageUrl) {
   //     const newImageUrls = [...imageUrls];
@@ -52,7 +62,6 @@ export const ActionDiv = ({
   //     setImageUrls(newImageUrls);
   //   }
   // }, [index, imageUrls, setImageUrls, rotatedImageUrl]);
-
   return (
     <div
       className={`action-div d-flex ${

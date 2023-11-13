@@ -13,7 +13,7 @@ const DownloadFile = ({
   lang: string;
   downloadFile: downloadFile;
 }) => {
-  const { files, downloadBtn } = useFileStore.getState();
+  const { files, downloadBtn } = useFileStore();
 
   const dispatch = useDispatch();
   const statePath = useSelector(

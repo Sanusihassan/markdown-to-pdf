@@ -19,7 +19,7 @@ const FloatingDownloadBtn: React.FC<{
     files,
     filesLengthOnSubmit,
     setFilesLengthOnSubmit,
-  } = useFileStore.getState();
+  } = useFileStore();
   // state variables:
   const errorMessage = useSelector(
     (state: { tool: ToolState }) => state.tool.errorMessage

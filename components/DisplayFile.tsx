@@ -32,7 +32,7 @@ const DisplayFile = ({
   const [showSpinner, setShowSpinner] = useState(true);
   const [toolTipSizes, setToolTipSizes] = useState<string[]>([]);
   // actual files
-  const { files } = useFileStore.getState();
+  const { files } = useFileStore();
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
@@ -144,7 +144,7 @@ const DisplayFile = ({
               return (
                 <div className="drag-element">
                   <FileCard
-                    file={file as File}
+                    file={file as unknown as File}
                     errors={errors}
                     extension={extension}
                     loader_text={edit_page.loader_text}
