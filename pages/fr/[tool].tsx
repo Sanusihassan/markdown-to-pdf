@@ -1,5 +1,5 @@
 import Head from "next/head";
-import NavBar from "@/components/NavBar/NavBar";
+import NavBar from ""pdfequips-navbar/NavBar"";
 import Tool from "../../components/Tool";
 
 import {

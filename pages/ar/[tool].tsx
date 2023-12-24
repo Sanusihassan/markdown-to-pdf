@@ -1,7 +1,6 @@
 import Head from "next/head";
-import NavBar from "@/components/NavBar/NavBar";
+import NavBar from "pdfequips-navbar/NavBar";
 import Tool from "../../components/Tool";
-import { useRouter } from "next/router";
 import {
   edit_page,
   errors,
@@ -47,7 +46,7 @@ export default ({ item, lang }: { item: data_type; lang: string }) => {
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <NavBar setFiles={setFiles} files={files} lang={lang} />
+      <NavBar path="/markdown-to-pdf" shadow={false} lang={lang} />
       <Tool
         tools={tools}
         data={item}

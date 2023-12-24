@@ -1,5 +1,5 @@
 import Head from "next/head";
-import NavBar from "@/components/NavBar/NavBar";
+import NavBar from "pdfequips-navbar/NavBar";
 import Tool from "../components/Tool";
 import {
   edit_page,
@@ -51,7 +51,7 @@ export default ({ item }: { item: data_type }) => {
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         />
       </Head>
-      <NavBar setFiles={setFiles} files={files} lang="" />
+      <NavBar path="/markdown-to-pdf" lang="" />
       <Tool
         tools={tools}
         data={item}
