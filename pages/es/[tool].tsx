@@ -1,5 +1,5 @@
 import Head from "next/head";
-import NavBar from ""pdfequips-navbar/NavBar"";
+import NavBar from "pdfequips-navbar/NavBar";
 import Tool from "../../components/Tool";
 import {
   edit_page,
@@ -9,6 +9,8 @@ import {
 } from "../../src/content/content-es";
 import { errors } from "../../src/content/content-es";
 import { useFileStore } from "@/src/file-store";
+import { useRouter } from "next/router";
+import { MarkdownToPDFHOWTO_ES } from "@/src/how-to";
 
 type data_type = {
   title: string;
@@ -38,15 +40,35 @@ export async function getStaticProps({
 }
 
 export default ({ item, lang }: { item: data_type; lang: string }) => {
-  const { files, setFiles } = useFileStore();
+  const router = useRouter();
+  const { asPath } = router;
+  const websiteSchema = {
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    name: `PDFEquips ${item.title}`,
+    description: item.description,
+    url: `https://www.pdfequips.com${asPath}`,
+  };
   return (
     <>
       <Head>
         <title>{`PDFEquips | ${item.title}`}</title>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(MarkdownToPDFHOWTO_ES),
+          }}
+        />
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <NavBar setFiles={setFiles} files={files} lang={lang} />
+      <NavBar path="markdown-to-pdf" lang={lang} />
       <Tool
         tools={tools}
         data={item}

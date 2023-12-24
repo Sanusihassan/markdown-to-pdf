@@ -9,6 +9,8 @@ import {
   downloadFile,
 } from "../src/content/content";
 import { useFileStore } from "@/src/file-store";
+import { useRouter } from "next/router";
+import { MarkdownToPDFHOWTO } from "@/src/how-to";
 
 type data_type = {
   title: string;
@@ -38,20 +40,39 @@ export async function getStaticProps({
 }
 
 export default ({ item }: { item: data_type }) => {
-  const { files, setFiles } = useFileStore();
+  const router = useRouter();
+  const { asPath } = router;
+  const websiteSchema = {
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    name: `PDFEquips ${item.title}`,
+    description: item.description,
+    url: `https://www.pdfequips.com${asPath}`,
+  };
   return (
     <>
       <Head>
         <title>{`PDFEquips | ${item.title}`}</title>
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
-        {/* needed for styles */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(MarkdownToPDFHOWTO),
+          }}
+        />
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         />
       </Head>
-      <NavBar path="/markdown-to-pdf" lang="" />
+      <NavBar path="markdown-to-pdf" lang="" />
       <Tool
         tools={tools}
         data={item}
