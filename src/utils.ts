@@ -1,4 +1,3 @@
-// this is my code:
 import { NextRouter } from "next/router";
 import { Dispatch, useEffect, useMemo, useState } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
@@ -62,7 +61,7 @@ export const getFileDetailsTooltipContent = async (
     unit: "byte",
     unitDisplay: "narrow",
   }).format(sizeInBytes);
-  let tooltipContent = size;
+  let tooltipContent =  "<bdi>" + size;
   if (file.size === 0) {
     emptyPDFHandler(dispatch, errors);
     throw Error("ERROR: FILE_SIZE_ZERO");
@@ -80,7 +79,7 @@ export const getFileDetailsTooltipContent = async (
         image.src = URL.createObjectURL(file);
         await new Promise<void>((resolve) => {
           image.onload = () => {
-            tooltipContent += ` - ${image.width} x ${image.height}`;
+            tooltipContent += `</bdi> - <bdi>${image.width} x ${image.height}</bdi>`;
             resolve();
           };
         });
