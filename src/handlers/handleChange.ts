@@ -19,10 +19,10 @@ export const handleChange = (
   }
 ) => {
   const _files = (e.target?.files as FileList) || null;
+  const isValid = validateFiles(_files, extension, errors, dispatch, state);
   if (isValid) {
     setFiles([...files, ...Array.from(!_files ? [] : _files)]);
   }
-  const isValid = validateFiles(_files, extension, errors, dispatch, state);
   if (isValid && files) {
     dispatch(setShowFilesList(true));
     dispatch(resetErrorMessage());
