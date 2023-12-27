@@ -2,7 +2,7 @@ import { NextRouter } from "next/router";
 import { Dispatch, useEffect, useMemo, useState } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
 import type { errors as _ } from "../content";
-import { setErrorCode, setErrorMessage, ToolState } from "./store";
+import { setErrorCode, setErrorMessage } from "./store";
 import { getDocument } from "pdfjs-dist";
 import { PDFDocumentProxy, PageViewport, RenderTask } from "pdfjs-dist";
 const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
@@ -43,7 +43,7 @@ function emptyPDFHandler(dispatch: Dispatch<AnyAction>, errors: _) {
   dispatch(setErrorCode("ERR_EMPTY_FILE"));
   return DEFAULT_PDF_IMAGE;
 }
-// i don't know why but when i pass any other file type except images or pdfs this function will cause the application to crash by entering an infinite loop
+
 export const getFileDetailsTooltipContent = async (
   file: File,
   pages: string,
@@ -61,7 +61,7 @@ export const getFileDetailsTooltipContent = async (
     unit: "byte",
     unitDisplay: "narrow",
   }).format(sizeInBytes);
-  let tooltipContent =  "<bdi>" + size;
+  let tooltipContent = "<bdi>" + size;
   if (file.size === 0) {
     emptyPDFHandler(dispatch, errors);
     throw Error("ERROR: FILE_SIZE_ZERO");
@@ -88,9 +88,13 @@ export const getFileDetailsTooltipContent = async (
         const pdf = await getDocument(url).promise;
 
         const pageCount = pdf.numPages || 0;
-        tooltipContent += ` - ${
-          lang === "ar" && pageCount === 1 ? "" : pageCount + " "
-        }${pageCount > 1 ? pages : page}`;
+        if (pageCount === 2 && lang === "ar") {
+          tooltipContent += " - صفحتين</bdi>";
+        } else {
+          tooltipContent += ` - ${
+            lang === "ar" && pageCount === 1 ? "" : pageCount + " "
+          }${pageCount > 1 ? pages : page}</bdi>`;
+        }
         URL.revokeObjectURL(url);
         if (!file.size) {
           emptyPDFHandler(dispatch, errors);

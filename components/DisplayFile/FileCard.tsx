@@ -4,9 +4,7 @@ import { Tooltip } from "react-tooltip";
 import type { errors as _ } from "../../content";
 import { useEffect, useState } from "react";
 import { Loader } from "./Loader";
-import {
-  getFileDetailsTooltipContent,
-} from "../../src/utils";
+import { getFileDetailsTooltipContent } from "../../src/utils";
 import { useDispatch } from "react-redux";
 type OmitFileName<T extends ActionProps> = Omit<T, "fileName">;
 
@@ -84,9 +82,7 @@ const FileCard = ({
       {...(isDraggable ? provided?.dragHandleProps : {})}
     >
       {showLoader ? <Loader loader_text={loader_text} /> : null}
-      <bdi>
-        <Tooltip id={`item-tooltip-${index}`} />
-      </bdi>
+      <Tooltip id={`item-tooltip-${index}`} />
       <ActionDiv
         extension={extension}
         index={index}
