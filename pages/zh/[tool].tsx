@@ -8,7 +8,6 @@ import {
   downloadFile,
 } from "../../src/content/content-zh";
 import { errors } from "../../src/content/content-zh";
-import { useFileStore } from "@/src/file-store";
 import { useRouter } from "next/router";
 import { MarkdownToPDFHOWTO_ZH } from "@/src/how-to";
 
@@ -68,7 +67,7 @@ export default ({ item, lang }: { item: data_type; lang: string }) => {
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <NavBar path="markdown-to-pdf" lang={lang} />
+      <NavBar path="markdown-to-pdf" shadow={false} lang={lang} />
       <Tool
         tools={tools}
         data={item}

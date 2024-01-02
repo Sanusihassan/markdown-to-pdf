@@ -67,17 +67,13 @@ const Tool: React.FC<ToolProps> = ({
   const alertVarient = useSelector(
     (state: { tool: ToolState }) => state.tool.alertVarient
   );
-  // the files:
-  const { setFiles } = useFileStore();
   const dispatch = useDispatch();
-  // const dispatch = useDispatch();
   const router = useRouter();
   const handleHideTool = () => {
     dispatch(dispatch(setShowFilesList(false)));
   };
   let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
   useEffect(() => {
-    // set the path if it has not been set yet
     if (statePath == "") {
       dispatch(setPath(path));
     }

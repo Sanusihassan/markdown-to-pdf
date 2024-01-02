@@ -17,8 +17,8 @@ const FloatingDownloadBtn: React.FC<{
     setDownloadBtn,
     downloadBtn,
     files,
-    filesLengthOnSubmit,
-    setFilesLengthOnSubmit,
+    filesOnSubmit,
+    setFilesOnSubmit,
   } = useFileStore();
   // state variables:
   const errorMessage = useSelector(
@@ -52,8 +52,8 @@ const FloatingDownloadBtn: React.FC<{
         path: "md-text-to-pdf",
       },
       errors,
-      filesLengthOnSubmit,
-      setFilesLengthOnSubmit,
+      filesOnSubmit,
+      setFilesOnSubmit,
       { files, stateFiles, markdown, document_name: documentName }
     );
   };

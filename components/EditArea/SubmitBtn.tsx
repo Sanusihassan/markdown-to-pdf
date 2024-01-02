@@ -21,13 +21,8 @@ export function SubmitBtn({
   const isSubmitted = useSelector(
     (state: { tool: ToolState }) => state.tool.isSubmitted
   );
-  const {
-    submitBtn,
-    downloadBtn,
-    files,
-    filesLengthOnSubmit,
-    setFilesLengthOnSubmit,
-  } = useFileStore();
+  const { submitBtn, downloadBtn, files, filesOnSubmit, setFilesOnSubmit } =
+    useFileStore();
   const statePath = useSelector(
     (state: { tool: ToolState }) => state.tool.path
   );
@@ -55,8 +50,8 @@ export function SubmitBtn({
             path: statePath,
           },
           errors,
-          filesLengthOnSubmit,
-          setFilesLengthOnSubmit,
+          filesOnSubmit,
+          setFilesOnSubmit,
           { files, stateFiles, document_name: documentName }
         );
       }}

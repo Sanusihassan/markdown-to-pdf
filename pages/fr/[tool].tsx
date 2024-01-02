@@ -1,7 +1,6 @@
 import Head from "next/head";
 import NavBar from "pdfequips-navbar/NavBar";
 import Tool from "../../components/Tool";
-
 import {
   edit_page,
   tool,
@@ -9,7 +8,6 @@ import {
   downloadFile,
 } from "../../src/content/content-fr";
 import { errors } from "../../src/content/content-fr";
-import { useFileStore } from "@/src/file-store";
 import { useRouter } from "next/router";
 import { MarkdownToPDFHOWTO_FR } from "@/src/how-to";
 
@@ -69,7 +67,7 @@ export default ({ item, lang }: { item: data_type; lang: string }) => {
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <NavBar path="markdown-to-pdf" lang={lang} />
+      <NavBar path="markdown-to-pdf" shadow={false} lang={lang} />
       <Tool
         tools={tools}
         data={item}

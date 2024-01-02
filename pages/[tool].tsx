@@ -8,7 +8,6 @@ import {
   tools,
   downloadFile,
 } from "../src/content/content";
-import { useFileStore } from "@/src/file-store";
 import { useRouter } from "next/router";
 import { MarkdownToPDFHOWTO } from "@/src/how-to";
 

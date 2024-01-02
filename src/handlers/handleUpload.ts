@@ -11,6 +11,11 @@ import {
   setShowDownloadBtn,
 } from "../store";
 
+let prevState = {} as {
+  stateFiles?: { name: string; size: number; url: string }[];
+  markdown?: string;
+};
+
 // this is the handleUpload function that is calling the download function maybe the issue is here
 export const handleUpload = async (
   downloadBtn: RefObject<HTMLAnchorElement> | null,
@@ -20,8 +25,8 @@ export const handleUpload = async (
     errorMessage: string;
   },
   errors: _,
-  filesLengthOnSubmit: number,
-  setFilesLengthOnSubmit: (value: number) => void,
+  filesOnSubmit: string[],
+  setFilesOnSubmit: (value: string[]) => void,
   data: {
     files?: File[];
     stateFiles?: { name: string; size: number; url: string }[];
@@ -36,8 +41,18 @@ export const handleUpload = async (
   dispatch(setIsSubmitted(true));
   const { document_name, files, stateFiles, markdown } = data;
   if (!files) return;
-  // subscribe to the files state and get the previous files
-  if (filesLengthOnSubmit == files.length && markdown?.length === 0) {
+  // Extract file names from the File[] array
+  const fileNames = files.map((file) => file.name);
+
+  // Check if every file name in files is present in filesOnSubmit
+  const allFilesPresent = fileNames.every((fileName) =>
+    filesOnSubmit.includes(fileName)
+  );
+
+  if (
+    (allFilesPresent && files.length === filesOnSubmit.length) ||
+    (prevState?.stateFiles === stateFiles && prevState?.markdown === markdown)
+  ) {
     dispatch(setShowDownloadBtn(true));
     dispatch(resetErrorMessage());
     return;
@@ -83,7 +98,7 @@ export const handleUpload = async (
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
     });
-    
+
     // const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
     const mimeType = response.data.type || response.headers["content-type"];
     const mimeTypeData = mimeTypeLookupTable[mimeType] || {
@@ -104,7 +119,9 @@ export const handleUpload = async (
           : "output.pdf",
         downloadBtn
       );
-    setFilesLengthOnSubmit(files.length);
+    setFilesOnSubmit(files.map((f) => f.name));
+    // set prevState to the current state
+    prevState = { stateFiles, markdown };
 
     if (response.status !== 200) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -113,12 +130,8 @@ export const handleUpload = async (
       dispatch(setIsSubmitted(false));
     }
   } catch (error) {
-    // 
-    // @ts-ignore
-    const dataView = new DataView(error.response.data);
-    const decoder = new TextDecoder("utf8");
-    );
-    ));
+    // const dataView = new DataView(error!.response!.data);
+    // const decoder = new TextDecoder("utf8");
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setErrorMessage(errors.ERR_NETWORK.message));
       return;
