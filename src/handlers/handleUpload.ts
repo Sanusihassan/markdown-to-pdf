@@ -83,7 +83,7 @@ export const handleUpload = async (
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
     });
-    console.log(response);
+    
     // const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
     const mimeType = response.data.type || response.headers["content-type"];
     const mimeTypeData = mimeTypeLookupTable[mimeType] || {
@@ -113,12 +113,12 @@ export const handleUpload = async (
       dispatch(setIsSubmitted(false));
     }
   } catch (error) {
-    // console.log(error.response.data);
+    // 
     // @ts-ignore
     const dataView = new DataView(error.response.data);
     const decoder = new TextDecoder("utf8");
-    console.log(decoder.decode(dataView));
-    console.log(JSON.parse(decoder.decode(dataView)));
+    );
+    ));
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setErrorMessage(errors.ERR_NETWORK.message));
       return;

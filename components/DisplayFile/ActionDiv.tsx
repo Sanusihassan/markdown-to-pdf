@@ -48,7 +48,7 @@ export const ActionDiv = ({
     if (files.length > 0 && "undefined" !== typeof window) {
       const newFiles = files.filter((file) => file.name !== fileName);
       setFiles(newFiles);
-      // console.log(newFiles);
+      //
     }
   };
   // const rotatedImageUrl = useRotatedImage(item.imageUrl);

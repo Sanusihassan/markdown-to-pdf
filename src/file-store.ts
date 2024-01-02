@@ -38,7 +38,7 @@ export const useFileStore = create<FileStore>((set) => ({
   filesLengthOnSubmit: 0,
   setFiles: (files: FileList | File[]) => {
     const uniqueFiles = new Set<File>();
-    console.log("invoked");
+
     if (files instanceof FileList) {
       Array.from(files).forEach((file) => uniqueFiles.add(file));
     } else {

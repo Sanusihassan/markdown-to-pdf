@@ -1,8 +1,6 @@
-// this is a very crowded tsx component, how can i simplify it further by separating the logics / parts to other components
 import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import "react-toastify/dist/ReactToastify.css";
-// import EditPage from "./EditPage";
 import {
   ToolState,
   setPath,
@@ -16,7 +14,6 @@ import type { errors as _ } from "../content";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useFileStore } from "../src/file-store";
-// import DownloadFile from "./DownloadFile";
 import Markdown2PDF from "./Markdown2PDF";
 import ToolBar from "./ToolBar";
 import DocumentName from "./DocumentName";
@@ -53,8 +50,6 @@ type ToolProps = {
 };
 
 const Tool: React.FC<ToolProps> = ({
-  data,
-  tools,
   lang,
   errors,
   edit_page,
@@ -89,15 +84,6 @@ const Tool: React.FC<ToolProps> = ({
     dispatch(setShowDownloadBtn(false));
   }, []);
 
-  // endpoint
-  // const [endpoint, setEndpoint] = useState("");
-  // drag and drop input handling
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFiles(acceptedFiles);
-    handleHideTool();
-  }, []);
-  const { getRootProps, isDragActive } = useDropzone({ onDrop });
-
   return (
     <>
       <FilesList
@@ -123,6 +109,7 @@ const Tool: React.FC<ToolProps> = ({
           <Markdown2PDF
             loader_text={edit_page.loader_text}
             download_pdf_text={edit_page.download_pdf_text}
+            errors={errors}
           />
         </div>
       </div>

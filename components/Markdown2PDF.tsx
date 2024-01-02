@@ -1,27 +1,29 @@
-// the issue with this code is that the initial render of the component when the markdown is set from the json file that markdown is not highlighted.
 import ReactMarkdown from "react-markdown";
 import { LegacyRef, useEffect, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import dark from "react-syntax-highlighter/dist/cjs/styles/prism/dark";
+import SyntaxHighlighter from "react-syntax-highlighter";
 import { ToolState, setMarkDown } from "@/src/store";
 import { useDispatch, useSelector } from "react-redux";
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
+import { errors } from "@/content";
+import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
 
 const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
     <Spinner animation="grow" />
-    <p className="lead">please wait...</p>
+    <p className="lead">{loader_text}</p>
   </div>
 );
 
 const Markdown2PDF = ({
   loader_text,
   download_pdf_text,
+  errors,
 }: {
   loader_text: string;
   download_pdf_text: string;
+  errors: errors;
 }) => {
   const dispatch = useDispatch();
   const markdown = useSelector(
@@ -63,23 +65,25 @@ const Markdown2PDF = ({
                   return match ? (
                     <SyntaxHighlighter
                       {...rest}
-                      children={String(children).replace(/\n$/, "")}
-                      style={dark}
+                      children={String(children || "").replace(/\n$/, "")}
+                      style={github}
+                      theme={github}
                       language={match[1]}
                       PreTag="div"
                       ref={node as LegacyRef<SyntaxHighlighter> | undefined}
                     />
                   ) : (
                     <code {...rest} className={className}>
-                      {children === "undefined" ? "" : children}
+                      {children === "undefined" || children === undefined
+                        ? ""
+                        : children}
                     </code>
                   );
                 },
               }}
             />
           </div>
-          {/* download button */}
-          <FloatingDownloadBtn text={download_pdf_text} />
+          <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
         </div>
       )}
     </>

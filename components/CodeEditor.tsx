@@ -12,7 +12,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import AceEditor from "react-ace";
 
-import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,6 @@ const CodeEditor = ({ value }: { value: string }) => {
   };
 
   return (
-    // this is my react ace-editor i want to add a default value to it meaning the default text to show when it's initially loaded, then the user should change it after that:
     <AceEditor
       mode="markdown"
       theme="monokai"
@@ -36,6 +35,7 @@ const CodeEditor = ({ value }: { value: string }) => {
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true,
         enableSnippets: true,
+        setReadOnly: false,
       }}
       style={{ width: "100%", minHeight: "500px", height: "100vh" }}
       value={value}
