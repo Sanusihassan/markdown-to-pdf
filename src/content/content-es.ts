@@ -12,6 +12,8 @@ import type {
 export const tool: _tool = {
   Markdown_to_PDF: {
     title: "Markdown a PDF",
+    seoTitle:
+      "Convertir Markdown a PDF - Herramienta para convertir Markdown a PDF",
     description: "Convertir Markdown a PDF",
     color: "#6c5ce7",
     type: ".pdf",

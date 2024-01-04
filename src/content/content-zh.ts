@@ -12,6 +12,7 @@ import type {
 export const tool: _tool = {
   Markdown_to_PDF: {
     title: "Markdown 转 PDF",
+    seoTitle: "Markdown 转 PDF - Markdown 到 PDF 转换工具",
     description: "将 Markdown 转换为 PDF",
     color: "#6c5ce7",
     type: ".pdf",

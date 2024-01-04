@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import type { tool as _tool } from "../../content";
 import DisplayFile from "./DisplayFile";
 import {
   Dispatch,

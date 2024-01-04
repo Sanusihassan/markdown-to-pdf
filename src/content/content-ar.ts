@@ -11,6 +11,7 @@ import type {
 export const tool: _tool = {
   Markdown_to_PDF: {
     title: "تحويل النص بتنسيق ماركداون إلى ملف PDF",
+    seoTitle: "تحويل النص بتنسيق ماركداون إلى PDF - تحويل ماركداون إلى ملف PDF",
     description: "تحويل النص بتنسيق ماركداون إلى ملف PDF",
     color: "#6c5ce7",
     type: ".pdf",
@@ -118,5 +119,5 @@ export const errors: _errors = {
   INVALID_GITHUB_URL: {
     message: "رابط GitHub غير صالح. يرجى إدخال رابط GitHub صالح.",
     code: "ERR_INVALID_GITHUB_URL",
-  }
+  },
 };

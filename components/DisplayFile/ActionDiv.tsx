@@ -1,6 +1,7 @@
 import { TrashIcon } from "@heroicons/react/solid";
 import type { errors as _ } from "../../content";
 import { useRouter } from "next/router";
+import type { tool as _tool } from "../../content";
 import { useFileStore } from "../../src/file-store";
 import { ToolState, setStateFiles } from "@/src/store";
 import { useSelector } from "react-redux";

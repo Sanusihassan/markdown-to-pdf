@@ -1,6 +1,7 @@
 export const tool = {
   Markdown_to_PDF: {
     title: "Markdown to PDF",
+    seoTitle: "Markdown to PDF - Convert Markdown to PDF",
     description: "Convert Markdown to PDF",
     color: "#6c5ce7",
     type: ".pdf",

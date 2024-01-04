@@ -29,7 +29,6 @@ const Markdown2PDF = ({
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown
   );
-  // const [markdown, setMarkdown] = useState<string>("");
   useEffect(() => {
     (async () => {
       const content = (await fetch("/defaultcontent.json")).json();

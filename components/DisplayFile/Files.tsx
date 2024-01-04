@@ -4,6 +4,7 @@ import FileCard from "./FileCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { isDraggableExtension } from "../../src/utils";
 import { useRouter } from "next/router";
+import type { tool as _tool } from "../../content";
 import { useSelector, useDispatch } from "react-redux";
 import store, { ToolState } from "../../src/store";
 import { useFileStore } from "../../src/file-store";

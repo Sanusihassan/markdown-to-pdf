@@ -9,7 +9,8 @@
 // please provide me with the code for this CodeEditor component based on the ace-editor keep in mind that my app is a next.js app
 // the editor should be working with syntax hightlighting and autocompletion:
 
-import React, { Dispatch, SetStateAction } from "react";
+// i'm using AceEditor in a next.js app, and i'm allowing markdown editing, what i want to allow also is drag and drop markdown files on the editor itself
+import React, { useEffect, useRef } from "react";
 import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-markdown";
@@ -19,13 +20,39 @@ import { useDispatch } from "react-redux";
 import { setMarkDown } from "@/src/store";
 const CodeEditor = ({ value }: { value: string }) => {
   const dispatch = useDispatch();
+  const editorRef = useRef(null);
+
   const handleEditorChange = (value: string) => {
-    // onChange(value);
     dispatch(setMarkDown(value));
   };
+  const handleFileDrop = (e: DragEvent) => {
+    e.preventDefault();
+    console.log("test");
+    const file = e?.dataTransfer?.files[0];
+    console.log(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const contents = e?.target?.result;
+        handleEditorChange(contents as string);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  useEffect(() => {
+    // @ts-ignore
+    const editor = editorRef!.current!.editor;
+    editor.container.addEventListener("drop", handleFileDrop);
+    return () => {
+      // Cleanup the event listener when the component unmounts
+      editor.container.removeEventListener("drop", handleFileDrop);
+    };
+  }, []);
 
   return (
     <AceEditor
+      ref={editorRef}
       mode="markdown"
       theme="monokai"
       onChange={handleEditorChange}
@@ -36,7 +63,10 @@ const CodeEditor = ({ value }: { value: string }) => {
         enableLiveAutocompletion: true,
         enableSnippets: true,
         setReadOnly: false,
+        dragEnabled: true,
+        dragDelay: 0,
       }}
+      
       style={{ width: "100%", minHeight: "500px", height: "100vh" }}
       value={value}
     />
