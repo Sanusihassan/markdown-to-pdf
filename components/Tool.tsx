@@ -9,7 +9,6 @@ import {
 } from "../src/store";
 
 import { useRouter } from "next/router";
-import type { tool as _tool } from "../../content";
 import type { edit_page, tools, downloadFile } from "../content";
 import type { errors as _ } from "../content";
 import { useSelector } from "react-redux";
@@ -91,9 +90,8 @@ const Tool: React.FC<ToolProps> = ({
         pages={pages}
       />
       <div
-        className={`tools-page position-relative${
-          showFilesList ? " d-none" : ""
-        }`}
+        className={`tools-page position-relative${showFilesList ? " d-none" : ""
+          }`}
       >
         <ToolBar
           toolbar={edit_page.toolbar}

@@ -7,7 +7,7 @@ module.exports = withTM({
   sassOptions: {
     includePaths: [path.join(__dirname, "node_modules")],
   },
-  // assetPrefix: isProd ? "/tool-pdf" : "",
+  assetPrefix: isProd ? "/markdown-to-pdf" : "",
   output: "standalone",
   webpack: (config, { isServer }) => {
     // Only run this configuration on the client side
