@@ -4,10 +4,12 @@ import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { ToolState, setMarkDown } from "@/src/store";
+
 import { useDispatch, useSelector } from "react-redux";
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
 import { errors } from "@/content";
 import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
+import { default_markdown } from "@/src/content/content";
 
 const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
@@ -30,15 +32,7 @@ const Markdown2PDF = ({
     (state: { tool: ToolState }) => state.tool.markdown
   );
   useEffect(() => {
-    (async () => {
-      const content = (await fetch("/defaultcontent.json")).json();
-      content.then((v) => {
-        dispatch(setMarkDown(v.md));
-      });
-      // if (containerRef.current) {
-      //   containerRef.current.scrollTop = 50;
-      // }
-    })();
+    setMarkDown(default_markdown);
   }, []);
   const [showLoader, setShowLoader] = useState(true);
   useEffect(() => {

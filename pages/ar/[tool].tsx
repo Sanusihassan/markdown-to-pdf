@@ -67,7 +67,7 @@ export default ({
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <NavBar path="/markdown-to-pdf" shadow={false} lang={lang} />
+      <NavBar path="markdown-to-pdf" shadow={false} lang={lang} />
       <Tool
         tools={tools}
         data={item}
