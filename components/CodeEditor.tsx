@@ -1,15 +1,3 @@
-// import dynamic from "next/dynamic";
-// import "ace-builds/src-noconflict/mode-markdown";
-// import "ace-builds/src-noconflict/theme-github";
-// import "ace-builds/src-noconflict/ext-language_tools";
-// import { Dispatch, SetStateAction } from "react";
-// import ace, { IAceEditorProps } from "react-ace";
-// const AceEditor = dynamic(() => import("react-ace"), { ssr: false });
-
-// please provide me with the code for this CodeEditor component based on the ace-editor keep in mind that my app is a next.js app
-// the editor should be working with syntax hightlighting and autocompletion:
-
-// i'm using AceEditor in a next.js app, and i'm allowing markdown editing, what i want to allow also is drag and drop markdown files on the editor itself
 import React, { useEffect, useRef } from "react";
 import AceEditor from "react-ace";
 
@@ -66,7 +54,7 @@ const CodeEditor = ({ value }: { value: string }) => {
         dragEnabled: true,
         dragDelay: 0,
       }}
-      
+
       style={{ width: "100%", minHeight: "500px", height: "100vh" }}
       value={value}
     />

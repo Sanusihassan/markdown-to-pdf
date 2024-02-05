@@ -3,7 +3,7 @@ import { LegacyRef, useEffect, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { ToolState, setMarkDown } from "@/src/store";
+import { ToolState } from "@/src/store";
 
 import { useDispatch, useSelector } from "react-redux";
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
@@ -27,12 +27,9 @@ const Markdown2PDF = ({
   download_pdf_text: string;
   errors: errors;
 }) => {
-  const dispatch = useDispatch();
-  const markdown = useSelector(
-    (state: { tool: ToolState }) => state.tool.markdown
-  );
+
   useEffect(() => {
-    setMarkDown(default_markdown);
+
   }, []);
   const [showLoader, setShowLoader] = useState(true);
   useEffect(() => {
@@ -46,11 +43,11 @@ const Markdown2PDF = ({
       ) : (
         <div className="md-2pdf">
           <div className="editor">
-            <CodeEditor value={markdown} />
+            <CodeEditor value={default_markdown} />
           </div>
           <div className="react-markdown-container">
             <ReactMarkdown
-              children={markdown}
+              children={default_markdown}
               components={{
                 code(props) {
                   const { children, className, node, ...rest } = props;

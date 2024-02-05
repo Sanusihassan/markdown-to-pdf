@@ -12,20 +12,20 @@ const DocumentName = ({
   const dispatch = useDispatch();
   const fileNameInputRef = useRef<HTMLDivElement>(null);
   const { setfileNameInputRef } = useFileStore();
+
   useEffect(() => {
     setfileNameInputRef(fileNameInputRef);
     dispatch(setDocumentName(document_name.untitled));
   }, []);
+
   return (
     <div className="document-name text-center bg-light p-1">
       <small className="text-muted">{document_name.doc_name}</small>
-      {/* Property 'textContent' does not exist on type 'EventTarget'.ts(2339) */}
       <div
         className="input"
         contentEditable
         onInput={(e) => {
-          // @ts-ignore
-          dispatch(setDocumentName(e.target.textContent));
+          dispatch(setDocumentName(e.currentTarget.textContent ?? ''));
         }}
         ref={fileNameInputRef}
       >
