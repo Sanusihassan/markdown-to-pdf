@@ -3,13 +3,14 @@ import EditPage from "./EditPage";
 import { useEffect } from "react";
 import { useFileStore } from "@/src/file-store";
 import { useDispatch } from "react-redux";
-import { setErrorMessage, setErrorCode, setAlertVarient } from "@/src/store";
+import { setField } from "@/src/store";
 type FileListProps = {
   lang: string;
   errors: errors;
   edit_page: edit_page;
   pages: string;
   page: string;
+  path: string;
 };
 
 export const FilesList = ({
@@ -18,14 +19,15 @@ export const FilesList = ({
   lang,
   page,
   pages,
+  path
 }: FileListProps) => {
   const { files } = useFileStore();
   const dispatch = useDispatch();
   useEffect(() => {
     if (files.length == 0) {
-      dispatch(setErrorMessage(errors.NO_FILES_SELECTED.message));
-      dispatch(setErrorCode("ERR_NO_FILES_SELECTED"));
-      dispatch(setAlertVarient("info"));
+      dispatch(setField({ errorMessage: errors.NO_FILES_SELECTED.message }));
+      dispatch(setField({ errorCode: "ERR_NO_FILES_SELECTED" }));
+      dispatch(setField({ alertVarient: "info" }));
     }
   }, [files]);
   return (
@@ -37,6 +39,7 @@ export const FilesList = ({
         lang={lang}
         page={page}
         pages={pages}
+        path={path}
       />
     </>
   );

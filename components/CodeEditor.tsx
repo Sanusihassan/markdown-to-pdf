@@ -5,13 +5,13 @@ import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useDispatch } from "react-redux";
-import { setMarkDown } from "@/src/store";
+import { setField } from "@/src/store";
 const CodeEditor = ({ value }: { value: string }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
 
   const handleEditorChange = (value: string) => {
-    dispatch(setMarkDown(value));
+    dispatch(setField({ markdown: value }));
   };
   const handleFileDrop = (e: DragEvent) => {
     e.preventDefault();

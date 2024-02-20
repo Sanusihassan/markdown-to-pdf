@@ -1,6 +1,6 @@
 import type { edit_page } from "@/content";
 import { useFileStore } from "@/src/file-store";
-import { setDocumentName } from "@/src/store";
+import { setField } from "@/src/store";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
@@ -15,7 +15,7 @@ const DocumentName = ({
 
   useEffect(() => {
     setfileNameInputRef(fileNameInputRef);
-    dispatch(setDocumentName(document_name.untitled));
+    dispatch(setField({ document_name: document_name.untitled }));
   }, []);
 
   return (
@@ -25,7 +25,7 @@ const DocumentName = ({
         className="input"
         contentEditable
         onInput={(e) => {
-          dispatch(setDocumentName(e.currentTarget.textContent ?? ''));
+          dispatch(setField({ document_name: e.currentTarget.textContent ?? '' }));
         }}
         ref={fileNameInputRef}
       >

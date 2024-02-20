@@ -3,7 +3,7 @@ import { Modal, Form } from "react-bootstrap";
 import { XIcon } from "@heroicons/react/solid";
 import { edit_page, errors } from "@/content";
 import { useDispatch } from "react-redux";
-import { setErrorMessage, setShowFilesList, setStateFiles } from "@/src/store";
+import { setField } from "@/src/store";
 import axios from "axios";
 interface GitHubPopUpProps {
   show: boolean;
@@ -43,7 +43,7 @@ const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
     event.preventDefault();
     const isValidUrl = isGitHubUrlValid(url);
     if (!isValidUrl) {
-      dispatch(setErrorMessage(errors.INVALID_GITHUB_URL.message));
+      dispatch(setField({ errorMessage: errors.INVALID_GITHUB_URL.message }));
       return;
     }
 
@@ -54,8 +54,8 @@ const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
           url
         )}`
       );
-      dispatch(setStateFiles(response.data));
-      dispatch(setShowFilesList(true));
+      dispatch(setField({ files: response.data }));
+      dispatch(setField({ show_files_list: true }));
       // Close the modal after a successful response
       onHide();
     } catch (error) {

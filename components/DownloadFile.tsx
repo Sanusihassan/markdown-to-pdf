@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { setShowDownloadBtn, type ToolState } from "../src/store";
+import { setField, type ToolState } from "../src/store";
 import { DownloadIcon, ArrowLeftIcon } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
 import { Tooltip } from "react-tooltip";
@@ -29,19 +29,18 @@ const DownloadFile = ({
     (state: { tool: ToolState }) => state.tool.document_name
   );
   const path = statePath;
-  useEffect(() => {}, [downloadFile, showDownloadBtn]);
+  useEffect(() => { }, [downloadFile, showDownloadBtn]);
   return (
     <div
-      className={`download-page flex-column align-items-center justify-content-center text-center${
-        showDownloadBtn ? " d-flex" : " d-none"
-      }`}
+      className={`download-page flex-column align-items-center justify-content-center text-center${showDownloadBtn ? " d-flex" : " d-none"
+        }`}
     >
       <h3 className="text-center mb-4">
         <bdi>
           {downloadFile.titles &&
             downloadFile.titles[path as keyof typeof downloadFile.titles] &&
             downloadFile.titles[path as keyof typeof downloadFile.titles][
-              files && (files.length > 1 || stateFiles.length > 1) ? 0 : 1
+            files && (files.length > 1 || stateFiles.length > 1) ? 0 : 1
             ]}
         </bdi>
       </h3>
@@ -55,7 +54,7 @@ const DownloadFile = ({
           data-tooltip-id="download-btn-tooltip"
           data-tooltip-place="left"
           onClick={() => {
-            dispatch(setShowDownloadBtn(false));
+            dispatch(setField({ showDownloadBtn: false }));
           }}
         >
           <ArrowLeftIcon className="icon" />
@@ -75,7 +74,7 @@ const DownloadFile = ({
             {downloadFile.btnText &&
               downloadFile.btnText[path as keyof typeof downloadFile.btnText] &&
               downloadFile.btnText[path as keyof typeof downloadFile.btnText][
-                files && files.length > 1 ? 0 : 1
+              files && files.length > 1 ? 0 : 1
               ]}
           </bdi>
         </button>

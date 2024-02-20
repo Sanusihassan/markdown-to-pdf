@@ -3,7 +3,7 @@ import type { errors as _ } from "../../content";
 import { useRouter } from "next/router";
 import type { tool as _tool } from "../../content";
 import { useFileStore } from "../../src/file-store";
-import { ToolState, setStateFiles } from "@/src/store";
+import { ToolState } from "@/src/store";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -39,12 +39,11 @@ export const ActionDiv = ({
   const stateFiles = useSelector(
     (state: { tool: ToolState }) => state.tool.files
   );
-  const dispatch = useDispatch();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     //  const newFiles = store.files.filter((file) => file.name !== item.file.name);
     if (stateFiles.length > 0) {
       const newFiles = stateFiles.filter((file) => file.name !== fileName);
-      dispatch(setStateFiles(newFiles));
+      // dispatch(setStateFiles(newFiles));
     }
     if (files.length > 0 && "undefined" !== typeof window) {
       const newFiles = files.filter((file) => file.name !== fileName);
@@ -65,9 +64,8 @@ export const ActionDiv = ({
   // }, [index, imageUrls, setImageUrls, rotatedImageUrl]);
   return (
     <div
-      className={`action-div d-flex ${
-        extension == ".html" ? "justify-content-end" : "justify-content-between"
-      }`}
+      className={`action-div d-flex ${extension == ".html" ? "justify-content-end" : "justify-content-between"
+        }`}
     >
       <button
         className="btn btn-light"

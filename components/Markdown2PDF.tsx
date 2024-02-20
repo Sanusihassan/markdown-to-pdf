@@ -3,9 +3,7 @@ import { LegacyRef, useEffect, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { ToolState } from "@/src/store";
 
-import { useDispatch, useSelector } from "react-redux";
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
 import { errors } from "@/content";
 import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";

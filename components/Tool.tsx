@@ -1,11 +1,8 @@
-import { useCallback, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
+import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   ToolState,
-  setPath,
-  setShowDownloadBtn,
-  setShowFilesList,
+  setField
 } from "../src/store";
 
 import { useRouter } from "next/router";
@@ -13,7 +10,6 @@ import type { edit_page, tools, downloadFile } from "../content";
 import type { errors as _ } from "../content";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useFileStore } from "../src/file-store";
 import Markdown2PDF from "./Markdown2PDF";
 import ToolBar from "./ToolBar";
 import DocumentName from "./DocumentName";
@@ -36,6 +32,7 @@ export type ToolData = {
   description: string;
   color: string;
   type: string;
+  to: string;
 };
 
 type ToolProps = {
@@ -56,11 +53,9 @@ const Tool: React.FC<ToolProps> = ({
   pages,
   page,
   downloadFile,
+  data
 }) => {
-  // state variables:
-  const statePath = useSelector(
-    (state: { tool: ToolState }) => state.tool.path
-  );
+  // state variables
   const showFilesList = useSelector(
     (state: { tool: ToolState }) => state.tool.show_files_list
   );
@@ -68,16 +63,11 @@ const Tool: React.FC<ToolProps> = ({
     (state: { tool: ToolState }) => state.tool.alertVarient
   );
   const dispatch = useDispatch();
-  const router = useRouter();
   const handleHideTool = () => {
-    dispatch(dispatch(setShowFilesList(false)));
+    // dispatch(dispatch(setShowFilesList(false)));
   };
-  let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
   useEffect(() => {
-    if (statePath == "") {
-      dispatch(setPath(path));
-    }
-    dispatch(setShowDownloadBtn(false));
+    dispatch(setField({ showDownloadBtn: false }));
   }, []);
 
   return (
@@ -88,6 +78,7 @@ const Tool: React.FC<ToolProps> = ({
         lang={lang}
         page={page}
         pages={pages}
+        path={data.to}
       />
       <div
         className={`tools-page position-relative${showFilesList ? " d-none" : ""

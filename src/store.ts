@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, Draft } from "@reduxjs/toolkit";
+type WritableDraft<T> = {
+  -readonly [K in keyof T]: Draft<T[K]>;
+};
+
+type k = keyof WritableDraft<ToolState>;
 
 export interface ToolState {
   isSubmitted: boolean;
@@ -40,81 +45,30 @@ const toolSlice = createSlice({
   name: "tool",
   initialState,
   reducers: {
-    setClick(state: ToolState, action: PayloadAction<boolean>) {
-      state.click = action.payload;
-    },
-    setFocus(state: ToolState, action: PayloadAction<boolean>) {
-      state.focus = action.payload;
-    },
-    setShowDownloadBtn(state: ToolState, action: PayloadAction<boolean>) {
-      state.showDownloadBtn = action.payload;
-    },
-    setPath(state: ToolState, action: PayloadAction<string>) {
-      state.path = action.payload;
-    },
-    setErrorMessage(state: ToolState, action: PayloadAction<string>) {
-      state.errorMessage = action.payload;
-      state.showErrorMessage = true; // set the showErrorMessage property to true when an error message is set
-    },
     resetErrorMessage(state: ToolState) {
       state.errorMessage = "";
-      state.showErrorMessage = false; // reset the showErrorMessage property to false when the error message is reset
+      state.showErrorMessage = false;
       state.errorCode = null;
       state.isSubmitted = false;
     },
-
-    setErrorCode(state: ToolState, action: PayloadAction<string | null>) {
-      state.errorCode = action.payload;
-    },
-    setIsSubmitted(state: ToolState, action: PayloadAction<boolean>) {
-      state.isSubmitted = action.payload;
-    },
-    setShowOptions(state: ToolState, action: PayloadAction<boolean>) {
-      state.showOptions = action.payload;
-    },
-    setNavHeight(state: ToolState, action: PayloadAction<number>) {
-      state.nav_height = action.payload;
-    },
-    setDocumentName(state: ToolState, action: PayloadAction<string>) {
-      state.document_name = action.payload;
-    },
-    setShowFilesList(state: ToolState, action: PayloadAction<boolean>) {
-      state.show_files_list = action.payload;
-    },
-    setStateFiles(
-      state: ToolState,
-      action: PayloadAction<{ name: string; size: number; url: string }[]>
-    ) {
-      state.files = action.payload;
-    },
-    setMarkDown(state: ToolState, action: PayloadAction<string>) {
-      state.markdown = action.payload;
-    },
-    setAlertVarient(
-      state: ToolState,
-      action: PayloadAction<"success" | "info" | "warning" | "error">
-    ) {
-      state.alertVarient = action.payload;
+    setField(state, action: PayloadAction<Partial<ToolState>>) {
+      // Loop over all the keys in the action payload
+      Object.keys(action.payload).forEach((key) => {
+        // Cast the key to keyof ToolState to ensure it's a valid key
+        const typedKey = key as k;
+        const value = action.payload[typedKey];
+        if (value !== undefined) {
+          // @ts-ignore
+          state[typedKey] = value;
+        }
+      });
     },
   },
 });
 
 export const {
-  setErrorMessage,
   resetErrorMessage,
-  setErrorCode,
-  setIsSubmitted,
-  setPath,
-  setClick,
-  setFocus,
-  setShowDownloadBtn,
-  setShowOptions,
-  setNavHeight,
-  setDocumentName,
-  setShowFilesList,
-  setStateFiles,
-  setMarkDown,
-  setAlertVarient,
+  setField
 } = toolSlice.actions;
 
 export default toolSlice.reducer;

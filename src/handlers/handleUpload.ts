@@ -3,12 +3,9 @@ import { Dispatch, RefObject } from "react";
 import { downloadConvertedFile } from "../downloadFile";
 import type { errors as _ } from "../../content";
 import { AnyAction } from "@reduxjs/toolkit";
-// import { shallow } from "zustand"
 import {
   resetErrorMessage,
-  setErrorMessage,
-  setIsSubmitted,
-  setShowDownloadBtn,
+  setField
 } from "../store";
 
 let prevState = {} as {
@@ -16,7 +13,6 @@ let prevState = {} as {
   markdown?: string;
 };
 
-// this is the handleUpload function that is calling the download function maybe the issue is here
 export const handleUpload = async (
   downloadBtn: RefObject<HTMLAnchorElement> | null,
   dispatch: Dispatch<AnyAction>,
@@ -38,48 +34,48 @@ export const handleUpload = async (
   if (e) {
     e?.preventDefault();
   }
-  dispatch(setIsSubmitted(true));
+  dispatch(setField({ isSubmitted: true }));
   const { document_name, files, stateFiles, markdown } = data;
-  if (!files) return;
-  // Extract file names from the File[] array
-  const fileNames = files.map((file) => file.name);
-
-  // Check if every file name in files is present in filesOnSubmit
-  const allFilesPresent = fileNames.every((fileName) =>
-    filesOnSubmit.includes(fileName)
-  );
-
-  if (
-    (allFilesPresent && files.length === filesOnSubmit.length) ||
-    (prevState?.stateFiles === stateFiles && prevState?.markdown === markdown)
-  ) {
-    dispatch(setShowDownloadBtn(true));
-    dispatch(resetErrorMessage());
-    return;
-  }
-
+  let originalFileName = null;
   const formData = new FormData();
-  for (let i = 0; i < files.length; i++) {
-    formData.append("files", files[i]);
+  if (files && files.length) {
+    const fileNames = files.map((file) => file.name);
+    // Check if every file name in files is present in filesOnSubmit
+    const allFilesPresent = fileNames.every((fileName) =>
+      filesOnSubmit.includes(fileName)
+    );
+    if (
+      (allFilesPresent && files.length === filesOnSubmit.length) ||
+      (prevState?.stateFiles === stateFiles && prevState?.markdown === markdown)
+    ) {
+      dispatch(setField({ showDownloadBtn: true }));
+      dispatch(resetErrorMessage());
+      return;
+    }
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    originalFileName =
+      files[0]?.name?.split(".").slice(0, -1).join(".") || document_name;
   }
+
+
+
   formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
   formData.append("markdown", JSON.stringify({ markdown }));
 
-  // formData.append("document_name", JSON.stringify(document_name));
   let url;
-  // @ts-ignore
   if (process.env.NODE_ENV === "development") {
-    url = `https://5000-planetcreat-pdfequipsap-o51h4y0fppz.ws-eu106.gitpod.io/api/${state.path}`;
-    // url = `https://5000-planetcreat-pdfequipsap-te4zoi6qkr3.ws-eu102.gitpod.io/${state.path}`;
+    url = `https://www.pdfequips.com/api/${state.path}`;
   } else {
     url = `/api/${state.path}`;
   }
   if (state.errorMessage) {
-    return;
+    console.log("returning errormessage:", state.errorMessage)
+    // return;
   }
   // formData.append("compress_amount", String(state.compressPdf));
-  const originalFileName =
-    files[0]?.name?.split(".").slice(0, -1).join(".") || document_name;
+
 
   const mimeTypeLookupTable: {
     [key: string]: { outputFileMimeType: string; outputFileName: string };
@@ -90,7 +86,7 @@ export const handleUpload = async (
     },
     "application/pdf": {
       outputFileMimeType: "application/pdf",
-      outputFileName: `${originalFileName}.pdf`,
+      outputFileName: `${originalFileName || document_name}.pdf`,
     },
   };
 
@@ -107,7 +103,7 @@ export const handleUpload = async (
     };
     const { outputFileMimeType, outputFileName } = mimeTypeData;
 
-    dispatch(setShowDownloadBtn(true));
+    dispatch(setField({ showDownloadBtn: true }));
     if (downloadBtn)
       downloadConvertedFile(
         response,
@@ -119,7 +115,9 @@ export const handleUpload = async (
           : "output.pdf",
         downloadBtn
       );
-    setFilesOnSubmit(files.map((f) => f.name));
+    if (files) {
+      setFilesOnSubmit(files.map((f) => f.name));
+    }
     // set prevState to the current state
     prevState = { stateFiles, markdown };
 
@@ -127,17 +125,17 @@ export const handleUpload = async (
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
       dispatch(resetErrorMessage());
-      dispatch(setIsSubmitted(false));
+      dispatch(setField({ isSubmitted: false }));
     }
   } catch (error) {
     // const dataView = new DataView(error!.response!.data);
     // const decoder = new TextDecoder("utf8");
     if ((error as { code: string }).code === "ERR_NETWORK") {
-      dispatch(setErrorMessage(errors.ERR_NETWORK.message));
+      dispatch(setField({ errorMessage: errors.ERR_NETWORK.message }));
       return;
     }
-    dispatch(setIsSubmitted(false));
+    dispatch(setField({ isSubmitted: false }));
   } finally {
-    dispatch(setIsSubmitted(false));
+    dispatch(setField({ isSubmitted: false }));
   }
 };

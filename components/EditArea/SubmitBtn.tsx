@@ -1,7 +1,7 @@
 import { Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useFileStore } from "../../src/file-store";
-import { ToolState, setIsSubmitted, setShowOptions } from "../../src/store";
+import { ToolState, setField } from "../../src/store";
 import type { edit_page, errors } from "../../content";
 import { handleUpload } from "@/src/handlers/handleUpload";
 export function SubmitBtn({
@@ -23,9 +23,6 @@ export function SubmitBtn({
   );
   const { submitBtn, downloadBtn, files, filesOnSubmit, setFilesOnSubmit } =
     useFileStore();
-  const statePath = useSelector(
-    (state: { tool: ToolState }) => state.tool.path
-  );
   const documentName = useSelector(
     (state: { tool: ToolState }) => state.tool.document_name
   );
@@ -35,10 +32,10 @@ export function SubmitBtn({
 
   return (
     <button
-      className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k} grid-footer`}
+      className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k.replace("/", "")} grid-footer`}
       onClick={() => {
-        dispatch(setIsSubmitted(true));
-        dispatch(setShowOptions(false));
+        dispatch(setField({ isSubmitted: true }));
+        dispatch(setField({ showOptions: false }));
         if (submitBtn) {
           submitBtn?.current?.click();
         }
@@ -47,7 +44,7 @@ export function SubmitBtn({
           dispatch,
           {
             errorMessage,
-            path: statePath,
+            path: k,
           },
           errors,
           filesOnSubmit,
@@ -60,7 +57,7 @@ export function SubmitBtn({
       <bdi>
         {
           edit_page.action_buttons[
-            k.replace(/-/g, "_") as keyof typeof edit_page.action_buttons
+          k.replace(/-/g, "_") as keyof typeof edit_page.action_buttons
           ]
         }
       </bdi>{" "}

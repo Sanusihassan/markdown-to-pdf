@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { DownloadIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { ToolState, setIsSubmitted, setShowOptions } from "@/src/store";
+import { ToolState, setField } from "@/src/store";
 import { Spinner } from "react-bootstrap";
 import { handleUpload } from "@/src/handlers/handleUpload";
 import { useFileStore } from "@/src/file-store";
@@ -39,11 +39,12 @@ const FloatingDownloadBtn: React.FC<{
   const dispatch = useDispatch();
   const handleDownload = () => {
     // Implement your download logic here
-    dispatch(setIsSubmitted(true));
-    dispatch(setShowOptions(false));
+    dispatch(setField({ isSubmitted: true }));
+    dispatch(setField({ showOptions: false }));
     // if (submitBtn) {
     //   submitBtn?.current?.click();
     // }
+    console.log("clicked")
     handleUpload(
       downloadBtn,
       dispatch,
