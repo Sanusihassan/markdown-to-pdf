@@ -66,7 +66,7 @@ export const handleUpload = async (
 
   let url;
   if (process.env.NODE_ENV === "development") {
-    url = `https://www.pdfequips.com/api/${state.path}`;
+    url = `http://207.180.196.128:4001/api/${state.path}`;
   } else {
     url = `/api/${state.path}`;
   }
@@ -94,6 +94,7 @@ export const handleUpload = async (
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
     });
+    console.log("RESPONSE ==>", response);
 
     // const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
     const mimeType = response.data.type || response.headers["content-type"];

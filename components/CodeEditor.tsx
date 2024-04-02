@@ -6,18 +6,23 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useDispatch } from "react-redux";
 import { setField } from "@/src/store";
-const CodeEditor = ({ value }: { value: string }) => {
+import {
+  ToolState
+} from "../src/store";
+import { useSelector } from "react-redux";
+const CodeEditor = () => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
+  const markdown = useSelector(
+    (state: { tool: ToolState }) => state.tool.markdown
+  );
 
-  const handleEditorChange = (value: string) => {
-    dispatch(setField({ markdown: value }));
+  const handleEditorChange = (v: string) => {
+    dispatch(setField({ markdown: v }));
   };
   const handleFileDrop = (e: DragEvent) => {
     e.preventDefault();
-    console.log("test");
     const file = e?.dataTransfer?.files[0];
-    console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -56,7 +61,7 @@ const CodeEditor = ({ value }: { value: string }) => {
       }}
 
       style={{ width: "100%", minHeight: "500px", height: "100vh" }}
-      value={value}
+      value={markdown}
     />
   );
 };
