@@ -1,0 +1,95 @@
+.trigger-button {
+    @include extend("btn btn-primary");
+}
+
+.modal-wrapper {
+    @include extend("modal fade d-block");
+
+    // Styles for the modal wrapper
+    .modal-dialog {
+        @include extend("modal-dialog modal-dialog-centered modal-xl");
+    }
+
+    .modal-content {
+
+        @include extend("modal-content");
+
+        // Styles for the modal content
+        .modal-header {
+            @include extend("modal-header");
+
+            // Styles for the modal header
+            .modal-title {
+                @include extend("modal-title");
+                // Styles for the modal title
+            }
+
+            .close-button {
+                @include extend("btn-close");
+                // Styles for the close button
+            }
+        }
+
+        .modal-body {
+            @include extend("modal-body");
+
+            // Styles for the modal body
+            .tab-navigation {
+                @include extend("nav nav-tabs");
+
+                // Styles for the tab navigation
+                .tab-item {
+                    @include extend("nav-item");
+
+                    // Styles for the tab item
+                    .tab-link {
+                        @include extend("nav-link");
+                        // Styles for the tab link
+                    }
+                }
+            }
+
+            .tab-content-wrapper {
+                @include extend("tab-content mt-3");
+
+                // Styles for the tab content wrapper
+                .tab-pane {
+                    @include extend("tab-pane fade");
+
+                    // Styles for the tab pane
+                    &.active {
+                        @include extend("active");
+                        // Styles for active tab pane
+                    }
+
+                    .option {
+
+                        // Styles for the option
+                        .option-input {
+                            // Styles for the option input
+                        }
+
+                        .option-label {
+                            // Styles for the option label
+                        }
+                    }
+                }
+            }
+        }
+
+        .modal-footer {
+            @include extend("modal-footer");
+
+            // Styles for the modal footer
+            .close-button {
+                @include extend("btn btn-secondary");
+                // Styles for the close button in modal footer
+            }
+
+            .save-button {
+                @include extend("btn btn-primary");
+                // Styles for the save button in modal footer
+            }
+        }
+    }
+}

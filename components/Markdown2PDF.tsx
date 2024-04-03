@@ -19,6 +19,21 @@ const Loader = ({ loader_text }: { loader_text: string }) => (
   </div>
 );
 
+const INTIAL_MARKUP = `<head><link rel="stylesheet" href="/themes/github.css" /></head>
+<div class="markdown-body"><h1 id="convert-your-markdown-to-pdf-with-pdfequips">Convert your Markdown to PDF with PDFEquips</h1>
+<p>To convert your Markdown to PDF, simply start by typing in the editor or paste from your clipboard. You can also drop your Markdown file into the editor.</p>
+<p><strong>tip:</strong> Click on the pencil icon on the left to clear the editor</p>
+<h2 id="privacy-first">Privacy First</h2>
+<p>At PDFEquips, we prioritize your privacy. Unlike version 1 of Markdown to PDF, your content is no longer stored in a file before being read/converted and subsequently removed from our servers. Instead, your content is now sent securely via our API before returning the converted file. This ensures that your data is never stored and remains secure.</p>
+<h2 id="github-flavored-styling-by-default">GitHub-Flavored Styling by Default</h2>
+<p>We use GitHub-flavored styling by default, so your PDF files will have a clean and modern look.</p>
+<h2 id="image-support">Image Support</h2>
+<p>Images are base64-encoded into the PDF document, so they do not depend on a remote source that could go offline, rendering your image broken. Moreover, they do not require an internet connection.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Up next, we&#39;re working on Emoji support, which will make your PDF documents more fun and expressive! Stay tuned for more updates.</p>
+</div>
+`;
+
 const Markdown2PDF = ({
   loader_text,
   download_pdf_text,
@@ -44,8 +59,8 @@ const Markdown2PDF = ({
     const htmlString = renderToString(
       <>
         <ReactMarkdown
-          children={markdown || "# hello"}
-          className="github"
+          children={markdown}
+          className="github markdown-body"
           components={{
             code(props) {
               const { children, className, node, ...rest } = props;
@@ -73,11 +88,11 @@ const Markdown2PDF = ({
     )
     const iframe = iframeRef.current;
     const iframeDoc = iframe?.contentDocument || iframe?.contentWindow?.document;
-    // depend on the theme next, time: 
+    if (iframeDoc?.body?.innerHTML == "") {
+      iframeDoc.body.innerHTML = htmlString;
+    }
     if (!themeInitialized && iframeDoc) {
       iframeDoc.head.innerHTML = `<link rel="stylesheet" href="/themes/github.css" />`;
-      iframeDoc.body.className = "markdown-body";
-      iframeDoc.body.innerHTML = htmlString;
       setThemeInitialized(true);
     }
     if (iframe && iframeDoc) {
@@ -96,7 +111,7 @@ const Markdown2PDF = ({
             <CodeEditor />
           </div>
           <div className="react-markdown-container">
-            <iframe ref={iframeRef} id="_html" />
+            <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} />
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
         </div>

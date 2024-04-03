@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Modal, Form } from "react-bootstrap";
 import { XIcon } from "@heroicons/react/solid";
 import { edit_page, errors } from "@/content";
@@ -16,7 +16,7 @@ interface GitHubPopUpProps {
 
 // in this component i want to close the pop up programmatically when there is a response from the server which is ok
 
-const GitHubPopUp: React.FC<GitHubPopUpProps> = ({
+const GitHubPopUp: FC<GitHubPopUpProps> = ({
   show,
   onHide,
   title,
