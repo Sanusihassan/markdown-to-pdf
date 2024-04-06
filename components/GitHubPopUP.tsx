@@ -14,8 +14,6 @@ interface GitHubPopUpProps {
   errors: errors;
 }
 
-// in this component i want to close the pop up programmatically when there is a response from the server which is ok
-
 const GitHubPopUp: FC<GitHubPopUpProps> = ({
   show,
   onHide,

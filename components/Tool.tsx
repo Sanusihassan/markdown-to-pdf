@@ -89,6 +89,7 @@ const Tool: React.FC<ToolProps> = ({
           errors={errors}
           github_popup={edit_page.github_popup}
           lang={lang}
+          options={edit_page.options}
         />
         <div className="rest">
           <DocumentName document_name={edit_page.document_name} />

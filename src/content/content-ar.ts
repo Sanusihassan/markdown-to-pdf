@@ -56,6 +56,7 @@ export const edit_page: _edit_page = {
     rename_file: "إعادة تسمية الملف",
     upload_file: "رفع ملف",
     upload_from_github: "تحميل من GitHub",
+    options: "الخيارات"
   },
   document_name: {
     doc_name: "اسم المستند",
@@ -67,6 +68,29 @@ export const edit_page: _edit_page = {
     submit: "موافق",
   },
   download_pdf_text: "تحميل ملف PDF",
+  options: {
+    title: "الخيارات",
+    theme: "السمة",
+    screen_size: "حجم الشاشة",
+    orientation: "الاتجاه",
+    margin: "الهامش",
+    page_size: "حجم الصفحة",
+    labels: {
+      orientation: ["عمودي", "أفقي"],
+      screen_sizes: {
+        your_screen: "شاشتك",
+        desktop_hd: "سطح المكتب HD (1920 بكسل)",
+        desktop_144: "سطح المكتب (1440 بكسل)",
+        tablet: "الجهاز اللوحي 768 بكسل",
+        mobile: "الهاتف المحمول (320 بكسل)"
+      },
+      margin: {
+        no_margin: "بلا هوامش",
+        small: "صغير",
+        big: "كبير"
+      }
+    }
+  }
 };
 
 export const errors: _errors = {

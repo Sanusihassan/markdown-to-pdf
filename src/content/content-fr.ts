@@ -61,6 +61,7 @@ export const edit_page: _edit_page = {
     rename_file: "Renommer le fichier",
     upload_file: "Télécharger le fichier",
     upload_from_github: "Télécharger depuis GitHub",
+    options: "Options"
   },
   document_name: {
     doc_name: "NOM DU DOCUMENT",
@@ -72,6 +73,31 @@ export const edit_page: _edit_page = {
     submit: "Valider",
   },
   download_pdf_text: "Télécharger le PDF",
+  options: {
+    title: "Options",
+    theme: "Thème",
+    screen_size: "Taille de l'écran",
+    orientation: "Orientation",
+    margin: "Marge",
+    page_size: "Taille de la Page",
+    labels: {
+      orientation: ["Portrait", "Paysage"],
+      screen_sizes: {
+        your_screen: "Votre Écran",
+        desktop_hd: "Bureau HD (1920px)",
+        desktop_144: "Bureau (1440px)",
+        tablet: "Tablette 768px",
+        mobile: "Mobile (320px)"
+      },
+      margin: {
+        no_margin: "Sans Marge",
+        small: "Petit",
+        big: "Grand"
+      }
+    }
+
+  }
+
 };
 
 export const errors: _errors = {

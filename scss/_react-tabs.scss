@@ -1,0 +1,47 @@
+#myTab {
+  // Bootstrap classes for the outer container
+  @include extend("tabs");
+
+  .react-tabs__tab-list {
+    // Bootstrap classes for the tab list
+    @include extend("nav nav-tabs");
+
+    .react-tabs__tab {
+      // Bootstrap classes for each tab item
+      @include extend("nav-item");
+
+      &--selected {
+        // Bootstrap classes for the selected tab item
+        @include extend("active");
+      }
+
+      .nav-link {
+        // Bootstrap classes for the tab link button
+        @include extend("btn");
+
+        &.active {
+          @include extend("active");
+
+        }
+      }
+    }
+  }
+
+  .react-tabs__tab-panel {
+    // Bootstrap classes for the tab panel container
+    @include extend("tab-content");
+
+    .tab-pane {
+      // Bootstrap classes for each tab panel
+      @include extend("tab-pane fade");
+
+      &--selected {
+        // Bootstrap classes for the selected tab panel
+        @include extend("show active");
+      }
+    }
+  }
+
+  // Additional styles for the Select component and its children
+  // You can add more specific styles as per your requirement
+}

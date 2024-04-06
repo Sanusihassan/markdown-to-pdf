@@ -1,126 +1,169 @@
-import { useRouter } from "next/router";
-import type { tool as _tool } from "../content";
+"use client";
+
+import type { tool as _tool, edit_page } from "../content";
 import type { edit_page as _ } from "../content";
-import { XIcon } from "@primer/octicons-react";
-import { url } from "inspector";
-import { title } from "process";
-import { Modal, Form } from "react-bootstrap";
+import { XIcon } from "@heroicons/react/solid";
+import { Modal } from "react-bootstrap";
 export interface OptionsProps {
-  layout?: string;
-  edit_page: _;
+  show: boolean,
+  onHide: () => void,
+  options: edit_page["options"]
 }
-// i want a bs modal with tabs just using regular html and bs classes
-// first tab is for the theme, the theme can be one of these:
-/**
- * 'github'
-  | 'github-dark'
-  | 'almond'
-  | 'awsm'
-  | 'axist'
-  | 'bamboo'
-  | 'bullframe'
-  | 'holiday'
-  | 'kacit'
-  | 'latex'
-  | 'marx'
-  | 'mini'
-  | 'modest'
-  | 'new'
-  | 'no-class'
-  | 'pico'
-  | 'retro'
-  | 'sakura'
-  | 'sakura-vader'
-  | 'semantic'
-  | 'simple'
-  | 'style-sans'
-  | 'style-serif'
-  | 'stylize'
-  | 'superstylin'
-  | 'tacit'
-  | 'vanilla'
-  | 'water'
-  | 'water-dark'
-  | 'writ';
- */
-
-// second tab is for screen size ['Your screen {window.screen}', "Desktop HD (1920px)", "Desktop (1440px)", "Tablet 768px", "Mobile (320px)"]
-// third tab Orientation [Portrait, Landscape]
-// fourth tab Page margin [No margin, Small, Big]
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+// import 'react-tabs/style/react-tabs.css';
 
-
-const Options: React.FC<OptionsProps> = ({ layout, edit_page }) => {
+const Options: React.FC<OptionsProps> = ({ show,
+  onHide, options }) => {
   // Define options for each tab
-  const themes = [
-    'github', 'github-dark', 'almond', 'awsm', 'axist', 'bamboo', 'bullframe',
-    'holiday', 'kacit', 'latex', 'marx', 'mini', 'modest', 'new', 'no-class',
-    'pico', 'retro', 'sakura', 'sakura-vader', 'semantic', 'simple',
-    'style-sans', 'style-serif', 'stylize', 'superstylin', 'tacit',
-    'vanilla', 'water', 'water-dark', 'writ'
+  const themeOptions = [
+    { value: 'github', label: 'Github' },
+    { value: 'github-dark', label: 'Github Dark' },
+    { value: 'almond', label: 'Almond' },
+    { value: 'awsm', label: 'Awsm' },
+    { value: 'axist', label: 'Axist' },
+    { value: 'bamboo', label: 'Bamboo' },
+    { value: 'bullframe', label: 'Bullframe' },
+    { value: 'holiday', label: 'Holiday' },
+    { value: 'kacit', label: 'Kacit' },
+    { value: 'latex', label: 'Latex' },
+    { value: 'marx', label: 'Marx' },
+    { value: 'mini', label: 'Mini' },
+    { value: 'modest', label: 'Modest' },
+    { value: 'new', label: 'New' },
+    { value: 'no-class', label: 'No Class' },
+    { value: 'pico', label: 'Pico' },
+    { value: 'retro', label: 'Retro' },
+    { value: 'sakura', label: 'Sakura' },
+    { value: 'sakura-vader', label: 'Sakura Vader' },
+    { value: 'semantic', label: 'Semantic' },
+    { value: 'simple', label: 'Simple' },
+    { value: 'style-sans', label: 'Style Sans' },
+    { value: 'style-serif', label: 'Style Serif' },
+    { value: 'stylize', label: 'Stylize' },
+    { value: 'superstylin', label: 'Superstylin' },
+    { value: 'tacit', label: 'Tacit' },
+    { value: 'vanilla', label: 'Vanilla' },
+    { value: 'water', label: 'Water' },
+    { value: 'water-dark', label: 'Water Dark' },
+    { value: 'writ', label: 'Writ' }
+  ];
+  const [screenSizeLabel, setScreenSizeLabel] = useState<string>(`0`)
+  // const getScreenSizeLabel = () => {
+  //   const screenWidth = window.innerWidth;
+  //   return `Your Screen (${screenWidth}px)`;
+  // };
+  // const [labels, setLabels] = useState<edit_page["options"]["labels"]>({} as edit_page["options"]["labels"]);
+  // const { margin, orientation, screen_sizes } = labels;
+
+  useEffect(() => {
+    const screenWidth = window.innerWidth;
+    setScreenSizeLabel(`(${screenWidth}px)`);
+    // setLabels(options.labels);
+  }, []);
+
+  // const { your_screen, mobile, tablet, desktop_144, desktop_hd } = screen_sizes;
+  // const { big, no_margin, small } = margin;
+  const screenSizeOptions = [
+    { value: 'screen', label: `${options.labels.screen_sizes.your_screen} ${screenSizeLabel}` },
+    { value: 'Desktop HD (1920px)', label: options.labels.screen_sizes.desktop_hd },
+    { value: 'Desktop (1440px)', label: options.labels.screen_sizes.desktop_144 },
+    { value: 'Tablet 768px', label: options.labels.screen_sizes.tablet },
+    { value: 'Mobile (320px)', label: options.labels.screen_sizes.mobile }
   ];
 
-  const screenSizes = [
-    'Desktop HD (1920px)', 'Desktop (1440px)', 'Tablet 768px', 'Mobile (320px)'
+
+  const orientationOptions = [
+    { value: 'Portrait', label: options.labels.orientation[0] },
+    { value: 'Landscape', label: options.labels.orientation[1] }
   ];
 
-  const orientations = ['Portrait', 'Landscape'];
+  const pageSizeOptions = [
+    { value: 'A4', label: 'A4 (210mm × 297mm)' },
+    { value: 'Letter', label: 'Letter (215.9mm × 279.4mm)' },
+    { value: 'Legal', label: 'Legal (215.9mm × 355.6mm)' },
+    { value: 'A3', label: 'A3 (297mm × 420mm)' },
+    { value: 'A5', label: 'A5 (148mm × 210mm)' },
+    { value: 'US Letter', label: 'US Letter (215.9mm × 279.4mm)' },
+  ];
 
-  const pageMargins = ['No margin', 'Small', 'Big'];
+
+  const pageMarginOptions = [
+    { value: 'No margin', label: options.labels.margin.no_margin },
+    { value: 'Small', label: options.labels.margin.small },
+    { value: 'Big', label: options.labels.margin.big }
+  ];
+
+  // State to manage the selected options
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+  // Function to handle saving options
+  const handleSave = () => {
+    // Implement saving logic here
+    console.log("Selected Options:", selectedOptions);
+  };
+  const [activeTab, setActiveTab] = useState('theme');
+
 
   return (
     <>
-      {/* Button trigger modal */}
-      <button type="button" className="trigger-button" data-toggle="modal" data-target="#optionsModal">
-        Open Options
-      </button>
-
       {/* Modal */}
-      <div className="modal-wrapper" id="optionsModal">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="optionsModalLabel">Options</h5>
-              <button type="button" className="close-button" data-dismiss="modal" aria-label="Close"></button>
+      <Modal show={show} onHide={onHide} centered id="optionsModal">
+        <Modal.Header>
+          <Modal.Title id="optionsModalLabel">{options.title}</Modal.Title>
+          <button onClick={onHide} className="btn btn-dark d-inline-flex">
+            <XIcon className="h-5 w-5 text-gray-500" />
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+
+          <Tabs id="myTab" role="tablist">
+            <TabList className="list-unstyled nav mb-3 d-flex justify-content-between align-items-center">
+              {[options.theme, options.screen_size, options.orientation, options.page_size, options.margin].map((tab, index) => (
+                <Tab key={index}>
+                  <button className={`nav-item btn btn-dark d-inline-flex mb-1 ${activeTab === tab ? 'active' : ''}`} role="tab" aria-controls={tab}
+                    aria-selected={activeTab === tab}
+                    onClick={() => setActiveTab(tab)}>
+                    {tab.split('-').join(' ').toUpperCase()}
+                  </button>
+                </Tab>
+              ))}
+            </TabList>
+            {/* Tab panels */}
+            <div>
+              {[
+                { tab: options.theme, options: themeOptions },
+                { tab: options.screen_size, options: screenSizeOptions },
+                { tab: options.orientation, options: orientationOptions },
+                { tab: options.page_size, options: pageSizeOptions },
+                { tab: options.margin, options: pageMarginOptions }
+              ].map(({ tab, options }, index) => (
+                <TabPanel key={index}>
+                  <Select
+                    options={options}
+                    onChange={(selectedOption: any) => {
+                      if (selectedOption && selectedOption.value) {
+                        setSelectedOptions([...selectedOptions, selectedOption.value]);
+                      }
+                    }}
+                    placeholder={tab}
+                    defaultValue={options[0].value}
+                  />
+                </TabPanel>
+              ))}
             </div>
-            <div className="modal-body">
-              {/* Nav tabs */}
-              <ul className="tab-navigation" id="myTab" role="tablist">
-                {['theme', 'screen-size', 'orientation', 'page-margin'].map((tab, index) => (
-                  <li className="tab-item" role="presentation" key={index}>
-                    <button className={`tab-link ${index === 0 ? 'active' : ''}`} id={`${tab}-tab`} data-toggle="tab" data-target={`#${tab}`} type="button" role="tab" aria-controls={tab} aria-selected={index === 0}>{tab.split('-').join(' ').toUpperCase()}</button>
-                  </li>
-                ))}
-              </ul>
-              {/* Tab panes */}
-              <div className="tab-content-wrapper">
-                {[
-                  { tab: 'theme', options: themes },
-                  { tab: 'screen-size', options: screenSizes },
-                  { tab: 'orientation', options: orientations },
-                  { tab: 'page-margin', options: pageMargins }
-                ].map(({ tab, options }, index) => (
-                  <div className={`tab-pane ${index === 0 ? 'active' : ''}`} id={tab} role="tabpanel" aria-labelledby={`${tab}-tab`} key={index}>
-                    {/* Options content goes here */}
-                    {/* Options options */}
-                    {options.map((option, idx) => (
-                      <div className="option" key={idx}>
-                        <input className="option-input" type="radio" name={tab} id={`${tab}-${idx}`} value={option} />
-                        <label className="option-label" htmlFor={`${tab}-${idx}`}>{option}</label>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="close-button" data-dismiss="modal">Close</button>
-              <button type="button" className="save-button">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
+          </Tabs>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <button type="button" className="close-button btn btn-light" onClick={() => { }}>Defaults</button>
+          {/* Trigger saving when clicking save */}
+          <button type="button" className="save-button btn btn-dark" onClick={handleSave}>Save changes</button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

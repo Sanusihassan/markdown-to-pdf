@@ -1,4 +1,6 @@
 @import "pdfequips-navbar/scss/navbar";
+@include nav;
+
 %debug {
   outline: 1px solid;
 }
@@ -87,6 +89,7 @@ a.dropdown-item {
 }
 
 .dropdown-item {
+
   &.active,
   &:active {
     background-color: initial !important;
@@ -101,6 +104,7 @@ a.dropdown-item {
 // error element styles
 .error-element {
   .hide-on-rtl {
+
     [dir="rtl"] &,
     [lang="ar"] & {
       display: none;
@@ -108,6 +112,7 @@ a.dropdown-item {
   }
 
   .hide-on-rtl {
+
     [dir="ltr"] &,
     :not([lang="ar"]) & {
       display: none;
@@ -118,3 +123,4 @@ a.dropdown-item {
 @import "./scss/toolspage";
 @import "./scss/editpage";
 @import "./scss/display-file";
+@import "./scss/_react-tabs.scss";

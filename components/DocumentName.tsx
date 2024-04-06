@@ -28,9 +28,10 @@ const DocumentName = ({
           dispatch(setField({ document_name: e.currentTarget.textContent ?? '' }));
         }}
         ref={fileNameInputRef}
-      >
-        {document_name.untitled}
-      </div>
+        dangerouslySetInnerHTML={{
+          __html: document_name.untitled
+        }}
+      />
     </div>
   );
 };

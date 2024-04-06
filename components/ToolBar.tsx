@@ -2,6 +2,7 @@ import type { edit_page, errors } from "@/content";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import { Tooltip } from "react-tooltip";
 import { MarkGithubIcon } from "@primer/octicons-react";
+import { GoGear } from "react-icons/go";
 import { useFileStore } from "@/src/file-store";
 import UploadFileIcon from "./icons/UploadFile";
 import { handleChange } from "@/src/handlers/handleChange";
@@ -9,16 +10,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToolState } from "@/src/store";
 import GitHubPopUp from "./GitHubPopUP";
 import { useEffect, useRef, useState } from "react";
+import Options from "./Options";
 const ToolBar = ({
   toolbar,
   errors,
   github_popup,
   lang,
+  options
 }: {
   toolbar: edit_page["toolbar"];
   github_popup: edit_page["github_popup"];
   errors: errors;
   lang: string;
+  options: edit_page["options"]
 }) => {
   const { fileNameInputRef } = useFileStore();
   const dispatch = useDispatch();
@@ -37,6 +41,7 @@ const ToolBar = ({
     setFileInput(fileInputRef);
   }, []);
   const [showGitHubModal, setShoGitHubModal] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const { files, setFiles } = useFileStore();
   const focusOnLastCharacter = () => {
     if (fileNameInputRef)
@@ -106,6 +111,16 @@ const ToolBar = ({
         <MarkGithubIcon className="tool-bar-icon icon" />
         <Tooltip id={toolbar.upload_from_github} />
       </button>
+      <button
+        className="tool-bar-button"
+        data-tooltip-id={toolbar.options}
+        data-tooltip-content={toolbar.options}
+        data-tooltip-place="top"
+        onClick={() => setShowOptions(true)}
+      >
+        <GoGear className="tool-bar-icon icon" />
+        <Tooltip id={toolbar.options} />
+      </button>
       <GitHubPopUp
         show={showGitHubModal}
         title={toolbar.upload_from_github}
@@ -114,6 +129,7 @@ const ToolBar = ({
         lang={lang}
         errors={errors}
       />
+      <Options show={showOptions} onHide={() => setShowOptions(false)} options={options} />
     </div>
   );
 };

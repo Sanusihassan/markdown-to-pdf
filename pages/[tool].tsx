@@ -62,7 +62,7 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
         />
         <link
           rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.1/css/bootstrap.min.css"
         />
       </Head>
       <NavBar path="markdown-to-pdf" lang="" />

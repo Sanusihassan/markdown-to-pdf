@@ -24,6 +24,7 @@ export const edit_page = {
     rename_file: "Rename File",
     upload_file: "Upload File",
     upload_from_github: "Upload from GitHub",
+    options: "Options"
   },
   document_name: {
     doc_name: "DOCUMENT NAME",
@@ -35,6 +36,29 @@ export const edit_page = {
     submit: "OK",
   },
   download_pdf_text: "Download PDF",
+  options: {
+    title: "Options",
+    theme: "Theme",
+    screen_size: "Screen Size",
+    orientation: "Orientation",
+    margin: "Page Pargin",
+    page_size: "Page Size",
+    labels: {
+      orientation: ["Portrait", "Landscape"],
+      screen_sizes: {
+        your_screen: "Your Screen",
+        desktop_hd: "Desktop HD (1920px)",
+        desktop_144: "Desktop (1440px)",
+        tablet: "Tablet 768px",
+        mobile: "Mobile (320px)"
+      },
+      margin: {
+        no_margin: "No margin",
+        small: "Small",
+        big: "Big"
+      }
+    }
+  }
 };
 
 export const tools = {

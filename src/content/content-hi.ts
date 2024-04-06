@@ -54,6 +54,7 @@ export const edit_page: _edit_page = {
     rename_file: "फ़ाइल का नाम बदलें",
     upload_file: "फ़ाइल अपलोड करें",
     upload_from_github: "GitHub से अपलोड करें",
+    options: "विकल्प"
   },
   document_name: {
     doc_name: "दस्तावेज़ नाम",
@@ -65,6 +66,30 @@ export const edit_page: _edit_page = {
     submit: "ठीक है",
   },
   download_pdf_text: "PDF डाउनलोड करें",
+  options: {
+    title: "विकल्प",
+    theme: "थीम",
+    screen_size: "स्क्रीन का आकार",
+    orientation: "अभिविन्यास",
+    margin: "पृष्ठ का किनारा",
+    page_size: "पृष्ठ का आकार",
+    labels: {
+      orientation: ["पोर्ट्रेट", "लैंडस्केप"],
+      screen_sizes: {
+        your_screen: "आपका स्क्रीन",
+        desktop_hd: "डेस्कटॉप HD (1920px)",
+        desktop_144: "डेस्कटॉप (1440px)",
+        tablet: "टैबलेट 768px",
+        mobile: "मोबाइल (320px)"
+      },
+      margin: {
+        no_margin: "कोई मार्जिन नहीं",
+        small: "छोटा",
+        big: "बड़ा"
+      }
+    }
+  }
+
 };
 
 export const tools: _tools = {
