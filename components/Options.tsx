@@ -7,7 +7,7 @@ import { Modal } from "react-bootstrap";
 export interface OptionsProps {
   show: boolean,
   onHide: () => void,
-  options: edit_page["options"]
+  options?: edit_page["options"]
 }
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -62,23 +62,23 @@ const Options: React.FC<OptionsProps> = ({ show,
   useEffect(() => {
     const screenWidth = window.innerWidth;
     setScreenSizeLabel(`(${screenWidth}px)`);
-    // setLabels(options.labels);
+    console.log(options);
   }, []);
 
   // const { your_screen, mobile, tablet, desktop_144, desktop_hd } = screen_sizes;
   // const { big, no_margin, small } = margin;
   const screenSizeOptions = [
-    { value: 'screen', label: `${options.labels.screen_sizes.your_screen} ${screenSizeLabel}` },
-    { value: 'Desktop HD (1920px)', label: options.labels.screen_sizes.desktop_hd },
-    { value: 'Desktop (1440px)', label: options.labels.screen_sizes.desktop_144 },
-    { value: 'Tablet 768px', label: options.labels.screen_sizes.tablet },
-    { value: 'Mobile (320px)', label: options.labels.screen_sizes.mobile }
+    { value: 'screen', label: `${options?.label_content.screen_sizes.your_screen} ${screenSizeLabel}` },
+    { value: 'Desktop HD (1920px)', label: options?.label_content.screen_sizes.desktop_hd },
+    { value: 'Desktop (1440px)', label: options?.label_content.screen_sizes.desktop_144 },
+    { value: 'Tablet 768px', label: options?.label_content.screen_sizes.tablet },
+    { value: 'Mobile (320px)', label: options?.label_content.screen_sizes.mobile }
   ];
 
 
   const orientationOptions = [
-    { value: 'Portrait', label: options.labels.orientation[0] },
-    { value: 'Landscape', label: options.labels.orientation[1] }
+    { value: 'Portrait', label: options?.label_content.orientation[0] },
+    { value: 'Landscape', label: options?.label_content.orientation[1] }
   ];
 
   const pageSizeOptions = [
@@ -92,9 +92,9 @@ const Options: React.FC<OptionsProps> = ({ show,
 
 
   const pageMarginOptions = [
-    { value: 'No margin', label: options.labels.margin.no_margin },
-    { value: 'Small', label: options.labels.margin.small },
-    { value: 'Big', label: options.labels.margin.big }
+    { value: 'No margin', label: options?.label_content.margin.no_margin },
+    { value: 'Small', label: options?.label_content.margin.small },
+    { value: 'Big', label: options?.label_content.margin.big }
   ];
 
   // State to manage the selected options
@@ -107,63 +107,63 @@ const Options: React.FC<OptionsProps> = ({ show,
   };
   const [activeTab, setActiveTab] = useState('theme');
 
-
   return (
     <>
-      {/* Modal */}
-      <Modal show={show} onHide={onHide} centered id="optionsModal">
-        <Modal.Header>
-          <Modal.Title id="optionsModalLabel">{options.title}</Modal.Title>
-          <button onClick={onHide} className="btn btn-dark d-inline-flex">
-            <XIcon className="h-5 w-5 text-gray-500" />
-          </button>
-        </Modal.Header>
-        <Modal.Body>
+      {!options ? <></> :
+        <Modal show={show} onHide={onHide} centered id="optionsModal">
+          <Modal.Header>
+            <Modal.Title id="optionsModalLabel">{options.title}</Modal.Title>
+            <button onClick={onHide} className="btn btn-dark d-inline-flex">
+              <XIcon className="h-5 w-5 text-gray-500" />
+            </button>
+          </Modal.Header>
+          <Modal.Body>
 
-          <Tabs id="myTab" role="tablist">
-            <TabList className="list-unstyled nav mb-3 d-flex justify-content-between align-items-center">
-              {[options.theme, options.screen_size, options.orientation, options.page_size, options.margin].map((tab, index) => (
-                <Tab key={index}>
-                  <button className={`nav-item btn btn-dark d-inline-flex mb-1 ${activeTab === tab ? 'active' : ''}`} role="tab" aria-controls={tab}
-                    aria-selected={activeTab === tab}
-                    onClick={() => setActiveTab(tab)}>
-                    {tab.split('-').join(' ').toUpperCase()}
-                  </button>
-                </Tab>
-              ))}
-            </TabList>
-            {/* Tab panels */}
-            <div>
-              {[
-                { tab: options.theme, options: themeOptions },
-                { tab: options.screen_size, options: screenSizeOptions },
-                { tab: options.orientation, options: orientationOptions },
-                { tab: options.page_size, options: pageSizeOptions },
-                { tab: options.margin, options: pageMarginOptions }
-              ].map(({ tab, options }, index) => (
-                <TabPanel key={index}>
-                  <Select
-                    options={options}
-                    onChange={(selectedOption: any) => {
-                      if (selectedOption && selectedOption.value) {
-                        setSelectedOptions([...selectedOptions, selectedOption.value]);
-                      }
-                    }}
-                    placeholder={tab}
-                    defaultValue={options[0].value}
-                  />
-                </TabPanel>
-              ))}
-            </div>
-          </Tabs>
+            <Tabs id="myTab" role="tablist">
+              <TabList className="list-unstyled nav mb-3 d-flex justify-content-between align-items-center">
+                {[options.theme, options.screen_size, options.orientation, options.page_size, options.margin].map((tab, index) => (
+                  <Tab key={index}>
+                    <button className={`nav-item btn btn-dark d-inline-flex mb-1 ${activeTab === tab ? 'active' : ''}`} role="tab" aria-controls={tab}
+                      aria-selected={activeTab === tab}
+                      onClick={() => setActiveTab(tab)}>
+                      {tab.split('-').join(' ').toUpperCase()}
+                    </button>
+                  </Tab>
+                ))}
+              </TabList>
+              {/* Tab panels */}
+              <div>
+                {[
+                  { tab: options.theme, options: themeOptions },
+                  { tab: options.screen_size, options: screenSizeOptions },
+                  { tab: options.orientation, options: orientationOptions },
+                  { tab: options.page_size, options: pageSizeOptions },
+                  { tab: options.margin, options: pageMarginOptions }
+                ].map(({ tab, options }, index) => (
+                  <TabPanel key={index}>
+                    <Select
+                      options={options}
+                      onChange={(selectedOption: any) => {
+                        if (selectedOption && selectedOption.value) {
+                          setSelectedOptions([...selectedOptions, selectedOption.value]);
+                        }
+                      }}
+                      placeholder={tab}
+                      defaultValue={options[0].value}
+                    />
+                  </TabPanel>
+                ))}
+              </div>
+            </Tabs>
 
-        </Modal.Body>
-        <Modal.Footer>
-          <button type="button" className="close-button btn btn-light" onClick={() => { }}>Defaults</button>
-          {/* Trigger saving when clicking save */}
-          <button type="button" className="save-button btn btn-dark" onClick={handleSave}>Save changes</button>
-        </Modal.Footer>
-      </Modal>
+          </Modal.Body>
+          <Modal.Footer>
+            <button type="button" className="close-button btn btn-light" onClick={() => { }}>Defaults</button>
+            {/* Trigger saving when clicking save */}
+            <button type="button" className="save-button btn btn-dark" onClick={handleSave}>Save changes</button>
+          </Modal.Footer>
+        </Modal>
+      }
     </>
   );
 };

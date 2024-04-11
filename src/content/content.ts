@@ -43,7 +43,7 @@ export const edit_page = {
     orientation: "Orientation",
     margin: "Page Pargin",
     page_size: "Page Size",
-    labels: {
+    label_content: {
       orientation: ["Portrait", "Landscape"],
       screen_sizes: {
         your_screen: "Your Screen",

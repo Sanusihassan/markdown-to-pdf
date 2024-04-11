@@ -46,9 +46,7 @@ const Markdown2PDF = ({
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown
   );
-  const THEME = useSelector(
-    (state: { tool: ToolState }) => state.tool.theme
-  );
+
   const [themeInitialized, setThemeInitialized] = useState(false)
   const themes = ['github', 'github-dark', 'almond', 'awsm', 'axist', 'bamboo', 'bullframe', 'holiday', 'kacit', 'latex', 'marx', 'mini', 'modest', 'new', 'no-class', 'pico', 'retro', 'sakura', 'sakura-vader', 'semantic', 'simple', 'style-sans', 'style-serif', 'stylize', 'superstylin', 'tacit', 'vanilla', 'water', 'water-dark', 'writ'];
   const [showLoader, setShowLoader] = useState(true);
@@ -98,7 +96,6 @@ const Markdown2PDF = ({
     if (iframe && iframeDoc) {
       iframeDoc.body.innerHTML = htmlString;
     }
-    console.log(themeInitialized)
   }, [iframeRef, markdown, themeInitialized]);
 
   return (
