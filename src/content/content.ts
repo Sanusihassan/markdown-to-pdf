@@ -24,7 +24,7 @@ export const edit_page = {
     rename_file: "Rename File",
     upload_file: "Upload File",
     upload_from_github: "Upload from GitHub",
-    options: "Options"
+    options: "Options",
   },
   document_name: {
     doc_name: "DOCUMENT NAME",
@@ -50,15 +50,17 @@ export const edit_page = {
         desktop_hd: "Desktop HD (1920px)",
         desktop_144: "Desktop (1440px)",
         tablet: "Tablet 768px",
-        mobile: "Mobile (320px)"
+        mobile: "Mobile (320px)",
       },
       margin: {
         no_margin: "No margin",
         small: "Small",
-        big: "Big"
-      }
-    }
-  }
+        big: "Big",
+      },
+    },
+    defaults: "Defaults",
+    save_changes: "Save changes",
+  },
 };
 
 export const tools = {

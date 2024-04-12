@@ -3,14 +3,12 @@ import { Dispatch, RefObject } from "react";
 import { downloadConvertedFile } from "../downloadFile";
 import type { errors as _ } from "../../content";
 import { AnyAction } from "@reduxjs/toolkit";
-import {
-  resetErrorMessage,
-  setField
-} from "../store";
+import { ToolState, resetErrorMessage, setField } from "../store";
 
 let prevState = {} as {
   stateFiles?: { name: string; size: number; url: string }[];
   markdown?: string;
+  options: ToolState["options"]
 };
 
 export const handleUpload = async (
@@ -28,6 +26,7 @@ export const handleUpload = async (
     stateFiles?: { name: string; size: number; url: string }[];
     document_name?: string;
     markdown?: string;
+    options: ToolState["options"];
   },
   e?: React.FormEvent<HTMLFormElement>
 ) => {
@@ -35,7 +34,7 @@ export const handleUpload = async (
     e?.preventDefault();
   }
   dispatch(setField({ isSubmitted: true }));
-  const { document_name, files, stateFiles, markdown } = data;
+  const { document_name, files, stateFiles, markdown, options } = data;
   let originalFileName = null;
   const formData = new FormData();
   if (files && files.length) {
@@ -59,10 +58,9 @@ export const handleUpload = async (
       files[0]?.name?.split(".").slice(0, -1).join(".") || document_name;
   }
 
-
-
   formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
   formData.append("markdown", JSON.stringify({ markdown }));
+  formData.append("options", JSON.stringify({ options }));
 
   let url;
   if (process.env.NODE_ENV === "development") {
@@ -71,11 +69,10 @@ export const handleUpload = async (
     url = `/api/${state.path}`;
   }
   if (state.errorMessage) {
-    console.log("returning errormessage:", state.errorMessage)
+    console.log("returning errormessage:", state.errorMessage);
     // return;
   }
   // formData.append("compress_amount", String(state.compressPdf));
-
 
   const mimeTypeLookupTable: {
     [key: string]: { outputFileMimeType: string; outputFileName: string };
@@ -120,7 +117,7 @@ export const handleUpload = async (
       setFilesOnSubmit(files.map((f) => f.name));
     }
     // set prevState to the current state
-    prevState = { stateFiles, markdown };
+    prevState = { stateFiles, markdown, options };
 
     if (response.status !== 200) {
       throw new Error(`HTTP error! status: ${response.status}`);

@@ -50,7 +50,7 @@ export const edit_page: _edit_page = {
     rename_file: "重命名文件",
     upload_file: "上传文件",
     upload_from_github: "从GitHub上传",
-    options: "选项"
+    options: "选项",
   },
   document_name: {
     doc_name: "文件名称",
@@ -69,24 +69,24 @@ export const edit_page: _edit_page = {
     orientation: "方向",
     margin: "页面边距",
     page_size: "页面大小",
-    labels: {
+    label_content: {
       orientation: ["竖直", "水平"],
       screen_sizes: {
         your_screen: "您的屏幕",
         desktop_hd: "桌面 HD (1920px)",
         desktop_144: "桌面 (1440px)",
         tablet: "平板电脑 768px",
-        mobile: "移动设备 (320px)"
+        mobile: "移动设备 (320px)",
       },
       margin: {
         no_margin: "无边距",
         small: "小",
-        big: "大"
-      }
-    }
-
-  }
-
+        big: "大",
+      },
+    },
+    defaults: "默认",
+    save_changes: "保存更改",
+  },
 };
 
 export const tools: _tools = {
