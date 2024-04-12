@@ -29,10 +29,16 @@ export function SubmitBtn({
   const stateFiles = useSelector(
     (state: { tool: ToolState }) => state.tool.files
   );
+  const options = useSelector(
+    (state: { tool: ToolState }) => state.tool.options
+  );
 
   return (
     <button
-      className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k.replace("/", "")} grid-footer`}
+      className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k.replace(
+        "/",
+        ""
+      )} grid-footer`}
       onClick={() => {
         dispatch(setField({ isSubmitted: true }));
         dispatch(setField({ showOptions: false }));
@@ -49,7 +55,7 @@ export function SubmitBtn({
           errors,
           filesOnSubmit,
           setFilesOnSubmit,
-          { files, stateFiles, document_name: documentName }
+          { files, stateFiles, document_name: documentName, options }
         );
       }}
       disabled={errorMessage.length > 0}
@@ -57,7 +63,7 @@ export function SubmitBtn({
       <bdi>
         {
           edit_page.action_buttons[
-          k.replace(/-/g, "_") as keyof typeof edit_page.action_buttons
+            k.replace(/-/g, "_") as keyof typeof edit_page.action_buttons
           ]
         }
       </bdi>{" "}

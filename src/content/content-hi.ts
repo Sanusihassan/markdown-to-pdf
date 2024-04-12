@@ -54,7 +54,7 @@ export const edit_page: _edit_page = {
     rename_file: "फ़ाइल का नाम बदलें",
     upload_file: "फ़ाइल अपलोड करें",
     upload_from_github: "GitHub से अपलोड करें",
-    options: "विकल्प"
+    options: "विकल्प",
   },
   document_name: {
     doc_name: "दस्तावेज़ नाम",
@@ -73,23 +73,24 @@ export const edit_page: _edit_page = {
     orientation: "अभिविन्यास",
     margin: "पृष्ठ का किनारा",
     page_size: "पृष्ठ का आकार",
-    labels: {
+    label_content: {
       orientation: ["पोर्ट्रेट", "लैंडस्केप"],
       screen_sizes: {
         your_screen: "आपका स्क्रीन",
         desktop_hd: "डेस्कटॉप HD (1920px)",
         desktop_144: "डेस्कटॉप (1440px)",
         tablet: "टैबलेट 768px",
-        mobile: "मोबाइल (320px)"
+        mobile: "मोबाइल (320px)",
       },
       margin: {
         no_margin: "कोई मार्जिन नहीं",
         small: "छोटा",
-        big: "बड़ा"
-      }
-    }
-  }
-
+        big: "बड़ा",
+      },
+    },
+    defaults: "डिफ़ॉल्ट",
+    save_changes: "परिवर्तन सहेजें",
+  },
 };
 
 export const tools: _tools = {

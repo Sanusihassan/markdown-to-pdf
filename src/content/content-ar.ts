@@ -56,7 +56,7 @@ export const edit_page: _edit_page = {
     rename_file: "إعادة تسمية الملف",
     upload_file: "رفع ملف",
     upload_from_github: "تحميل من GitHub",
-    options: "الخيارات"
+    options: "الخيارات",
   },
   document_name: {
     doc_name: "اسم المستند",
@@ -75,22 +75,25 @@ export const edit_page: _edit_page = {
     orientation: "الاتجاه",
     margin: "الهامش",
     page_size: "حجم الصفحة",
-    labels: {
+    label_content: {
       orientation: ["عمودي", "أفقي"],
       screen_sizes: {
         your_screen: "شاشتك",
         desktop_hd: "سطح المكتب HD (1920 بكسل)",
         desktop_144: "سطح المكتب (1440 بكسل)",
         tablet: "الجهاز اللوحي 768 بكسل",
-        mobile: "الهاتف المحمول (320 بكسل)"
+        mobile: "الهاتف المحمول (320 بكسل)",
       },
       margin: {
         no_margin: "بلا هوامش",
         small: "صغير",
-        big: "كبير"
-      }
-    }
-  }
+        big: "كبير",
+      },
+      
+    },
+    defaults: "الإعدادات الافتراضية",
+    save_changes: "حفظ التغييرات",
+  },
 };
 
 export const errors: _errors = {
