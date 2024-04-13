@@ -75,9 +75,6 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
           options: LocalstateOptions,
         });
       }
-    } else {
-      // Handle case when stateOptions is not found in local storage
-      console.log("stateOptions not found in local storage");
     }
   }, []);
   const dispatch = useDispatch();
@@ -212,7 +209,6 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                       options={options as []}
                       onChange={(selectedOption: any) => {
                         if (selectedOption && selectedOption.value) {
-                          console.log(option_name, selectedOption.value);
                           setSelectedOptions([
                             ...selectedOptions,
                             selectedOption.value,

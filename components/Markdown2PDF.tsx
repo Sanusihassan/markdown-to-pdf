@@ -1,4 +1,3 @@
-// how can i add initial value to my iframe?
 import ReactMarkdown from "react-markdown";
 import { LegacyRef, useEffect, useRef, useState } from "react";
 import CodeEditor from "./CodeEditor";
@@ -11,7 +10,7 @@ import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
 import { useSelector } from "react-redux";
 import { ToolState, setField } from "@/src/store";
 import { renderToString } from "react-dom/server";
-
+let prev_theme = "";
 const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
     <Spinner animation="grow" />
@@ -33,7 +32,6 @@ const INTIAL_MARKUP = `<head><link rel="stylesheet" href="/themes/github.css" />
 <p>Up next, we&#39;re working on Emoji support, which will make your PDF documents more fun and expressive! Stay tuned for more updates.</p>
 </div>
 `;
-
 const Markdown2PDF = ({
   loader_text,
   download_pdf_text,
@@ -46,9 +44,12 @@ const Markdown2PDF = ({
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown
   );
+  const options = useSelector(
+    (state: { tool: ToolState }) => state.tool.options
+  );
+  const { theme } = options;
 
-  const [themeInitialized, setThemeInitialized] = useState(false)
-  const themes = ['github', 'github-dark', 'almond', 'awsm', 'axist', 'bamboo', 'bullframe', 'holiday', 'kacit', 'latex', 'marx', 'mini', 'modest', 'new', 'no-class', 'pico', 'retro', 'sakura', 'sakura-vader', 'semantic', 'simple', 'style-sans', 'style-serif', 'stylize', 'superstylin', 'tacit', 'vanilla', 'water', 'water-dark', 'writ'];
+  const [themeInitialized, setThemeInitialized] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -83,20 +84,26 @@ const Markdown2PDF = ({
           }}
         />
       </>
-    )
+    );
     const iframe = iframeRef.current;
-    const iframeDoc = iframe?.contentDocument || iframe?.contentWindow?.document;
+    const iframeDoc =
+      iframe?.contentDocument || iframe?.contentWindow?.document;
     if (iframeDoc?.body?.innerHTML == "") {
       iframeDoc.body.innerHTML = htmlString;
     }
-    if (!themeInitialized && iframeDoc) {
-      iframeDoc.head.innerHTML = `<link rel="stylesheet" href="/themes/github.css" />`;
+    if ((!themeInitialized && iframeDoc) || prev_theme !== theme) {
+      if (iframeDoc) {
+        iframeDoc.head.innerHTML = `<link rel="stylesheet" href="/themes/${theme}.css" />`;
+      }
       setThemeInitialized(true);
+      prev_theme = theme;
     }
     if (iframe && iframeDoc) {
-      iframeDoc.body.innerHTML = htmlString;
+      if (iframeDoc.body) {
+        iframeDoc.body.innerHTML = htmlString;
+      }
     }
-  }, [iframeRef, markdown, themeInitialized]);
+  }, [iframeRef, markdown, themeInitialized, options]);
 
   return (
     <>
