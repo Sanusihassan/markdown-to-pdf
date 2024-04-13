@@ -56,6 +56,7 @@ export interface ToolState {
     theme: ThemeName;
     screenSize: string;
     orientation: "Portrait" | "Landscape";
+    // should be like this: 'letter' | 'legal' | 'tabloid' | 'ledger' | 'a0' | 'a1' | 'a2' | 'a3' | 'a4' | 'a5' | 'a6'
     pageSize: "A4" | "Letter" | "Legal" | "A3" | "A5" | "US Letter";
     pageMargin: "No margin" | "Small" | "Big";
   };

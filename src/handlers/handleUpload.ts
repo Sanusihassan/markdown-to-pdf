@@ -8,7 +8,7 @@ import { ToolState, resetErrorMessage, setField } from "../store";
 let prevState = {} as {
   stateFiles?: { name: string; size: number; url: string }[];
   markdown?: string;
-  options: ToolState["options"]
+  options: ToolState["options"];
 };
 
 export const handleUpload = async (
@@ -64,7 +64,7 @@ export const handleUpload = async (
 
   let url;
   if (process.env.NODE_ENV === "development") {
-    url = `http://207.180.196.128:4001/api/${state.path}`;
+    url = `https://animated-bassoon-5r796xgx5962x6v-4001.app.github.dev/api/${state.path}`;
   } else {
     url = `/api/${state.path}`;
   }
