@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  ToolState,
-  setField
-} from "../src/store";
+import { ToolState, setField } from "../src/store";
 
 import type { edit_page, tools, downloadFile } from "../content";
 import type { errors as _ } from "../content";
@@ -52,7 +49,7 @@ const Tool: React.FC<ToolProps> = ({
   pages,
   page,
   downloadFile,
-  data
+  data,
 }) => {
   // state variables
   const showFilesList = useSelector(
@@ -60,6 +57,9 @@ const Tool: React.FC<ToolProps> = ({
   );
   const alertVarient = useSelector(
     (state: { tool: ToolState }) => state.tool.alertVarient
+  );
+  const showDownloadBtn = useSelector(
+    (state: { tool: ToolState }) => state.tool.showDownloadBtn
   );
   const dispatch = useDispatch();
   const handleHideTool = () => {
@@ -80,8 +80,9 @@ const Tool: React.FC<ToolProps> = ({
         path={data.to}
       />
       <div
-        className={`tools-page position-relative${showFilesList ? " d-none" : ""
-          }`}
+        className={`tools-page position-relative${
+          showFilesList ? " d-none" : ""
+        }`}
       >
         <ToolBar
           toolbar={edit_page.toolbar}
@@ -99,9 +100,15 @@ const Tool: React.FC<ToolProps> = ({
           />
         </div>
       </div>
-      <div className="tools-page d-flex justify-content-center">
-        <DownloadFile downloadFile={downloadFile} lang={lang} />
-      </div>
+      {showDownloadBtn ? (
+        <div className="tools-page d-flex justify-content-center">
+          <DownloadFile
+            downloadFile={downloadFile}
+            lang={lang}
+            path={data.to.replace("/", "")}
+          />
+        </div>
+      ) : null}
       <ToastContainer />
       <PopUpAlert varient={alertVarient} />
     </>

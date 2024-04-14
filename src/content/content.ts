@@ -41,7 +41,7 @@ export const edit_page = {
     theme: "Theme",
     screen_size: "Screen Size",
     orientation: "Orientation",
-    margin: "Page Pargin",
+    margin: "Page Margin",
     page_size: "Page Size",
     label_content: {
       orientation: ["Portrait", "Landscape"],

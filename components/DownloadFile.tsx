@@ -9,16 +9,15 @@ import { useFileStore } from "../src/file-store";
 const DownloadFile = ({
   lang,
   downloadFile,
+  path
 }: {
   lang: string;
   downloadFile: downloadFile;
+  path: string;
 }) => {
   const { files, downloadBtn } = useFileStore();
 
   const dispatch = useDispatch();
-  const statePath = useSelector(
-    (state: { tool: ToolState }) => state.tool.path
-  );
   const stateFiles = useSelector(
     (state: { tool: ToolState }) => state.tool.files
   );
@@ -28,7 +27,6 @@ const DownloadFile = ({
   const documentName = useSelector(
     (state: { tool: ToolState }) => state.tool.document_name
   );
-  const path = statePath;
   useEffect(() => { }, [downloadFile, showDownloadBtn]);
   return (
     <div
@@ -61,7 +59,7 @@ const DownloadFile = ({
           <Tooltip id="download-btn-tooltip" />
         </button>
         <button
-          className={`download-btn btn btn-lg text-white position-relative overflow-hidden ${statePath}`}
+          className={`download-btn btn btn-lg text-white position-relative overflow-hidden ${path}`}
           onClick={() => {
             if (downloadBtn?.current) {
               downloadBtn.current.click();

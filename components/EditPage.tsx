@@ -17,11 +17,7 @@ import { Spinner } from "react-bootstrap";
 import { CogIcon } from "@heroicons/react/outline";
 // import { ToolStoreContext } from "../src/ToolStoreContext";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ToolState,
-  resetErrorMessage,
-  setField
-} from "../src/store";
+import { ToolState, resetErrorMessage, setField } from "../src/store";
 import { useFileStore } from "../src/file-store";
 import AddMoreButton from "./EditArea/AddMoreButton";
 import { SubmitBtn } from "./EditArea/SubmitBtn";
@@ -45,7 +41,7 @@ const EditPage = ({
   page,
   lang,
   errors,
-  path
+  path,
 }: editPageProps) => {
   // const [isOnline, setIsOnline] = useState(true);
   // const handleOnlineStatus = () => setIsOnline(true);
@@ -77,8 +73,9 @@ const EditPage = ({
   }, [files, errorCode]);
   return (
     <aside
-      className={`edit-page ${!show_files_list || showDownloadBtn ? "d-none" : ""
-        }`}
+      className={`edit-page ${
+        !show_files_list || showDownloadBtn ? "d-none" : ""
+      }`}
     >
       <section className="edit-area position-relative">
         <DisplayFile
@@ -118,20 +115,30 @@ const EditPage = ({
           <bdi>
             {
               edit_page.edit_page_titles[
-              path.replace(/-/g, "_") as keyof typeof edit_page.edit_page_titles
+                path
+                  .replace(/\//, "")
+                  .replace(/-/g, "_") as keyof typeof edit_page.edit_page_titles
               ]
             }
           </bdi>
         </h5>
-        {process.env.NODE_ENV == "development" ? (
-          <Options layout={path as OptionsProps["layout"]} edit_page={edit_page} />
-        ) : null}
+        {/* {process.env.NODE_ENV == "development" ? (
+          <Options  edit_page={edit_page} />
+        ) : null} */}
         <div className="hide-onsmall">
-          <SubmitBtn k={path} edit_page={edit_page} errors={errors} />
+          <SubmitBtn
+            k={path.replace(/\//, "")}
+            edit_page={edit_page}
+            errors={errors}
+          />
         </div>
       </section>
       <div className="show-onsmall">
-        <SubmitBtn k={path} edit_page={edit_page} errors={errors} />
+        <SubmitBtn
+          k={path.replace(/\//, "")}
+          edit_page={edit_page}
+          errors={errors}
+        />
       </div>
     </aside>
   );

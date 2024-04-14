@@ -47,7 +47,7 @@ export const handleUpload = async (
       (allFilesPresent && files.length === filesOnSubmit.length) ||
       (prevState?.stateFiles === stateFiles && prevState?.markdown === markdown)
     ) {
-      dispatch(setField({ showDownloadBtn: true }));
+      dispatch(setField({ showDownloadBtn: state.path !== "md-text-to-pdf" }));
       dispatch(resetErrorMessage());
       return;
     }
@@ -61,6 +61,7 @@ export const handleUpload = async (
   formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
   formData.append("markdown", JSON.stringify({ markdown }));
   formData.append("options", JSON.stringify({ options }));
+  console.log(options);
 
   let url;
   if (process.env.NODE_ENV === "development") {
@@ -91,7 +92,6 @@ export const handleUpload = async (
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
     });
-    console.log("RESPONSE ==>", response);
 
     // const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
     const mimeType = response.data.type || response.headers["content-type"];
@@ -101,7 +101,7 @@ export const handleUpload = async (
     };
     const { outputFileMimeType, outputFileName } = mimeTypeData;
 
-    dispatch(setField({ showDownloadBtn: true }));
+    dispatch(setField({ showDownloadBtn: state.path !== "md-text-to-pdf" }));
     if (downloadBtn)
       downloadConvertedFile(
         response,
@@ -111,7 +111,8 @@ export const handleUpload = async (
             ? outputFileName + ".pdf"
             : outputFileName
           : "output.pdf",
-        downloadBtn
+        downloadBtn,
+        state.path == "md-text-to-pdf"
       );
     if (files) {
       setFilesOnSubmit(files.map((f) => f.name));

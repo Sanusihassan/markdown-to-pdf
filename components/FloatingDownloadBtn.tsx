@@ -36,6 +36,9 @@ const FloatingDownloadBtn: React.FC<{
   const documentName = useSelector(
     (state: { tool: ToolState }) => state.tool.document_name
   );
+  const options = useSelector(
+    (state: { tool: ToolState }) => state.tool.options
+  );
   const dispatch = useDispatch();
   const handleDownload = () => {
     // Implement your download logic here
@@ -44,7 +47,6 @@ const FloatingDownloadBtn: React.FC<{
     // if (submitBtn) {
     //   submitBtn?.current?.click();
     // }
-    console.log("clicked")
     handleUpload(
       downloadBtn,
       dispatch,
@@ -55,7 +57,7 @@ const FloatingDownloadBtn: React.FC<{
       errors,
       filesOnSubmit,
       setFilesOnSubmit,
-      { files, stateFiles, markdown, document_name: documentName }
+      { files, stateFiles, markdown, document_name: documentName, options }
     );
   };
   useEffect(() => {
