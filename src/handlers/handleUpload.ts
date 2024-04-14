@@ -61,7 +61,6 @@ export const handleUpload = async (
   formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
   formData.append("markdown", JSON.stringify({ markdown }));
   formData.append("options", JSON.stringify({ options }));
-  console.log(options);
 
   let url;
   if (process.env.NODE_ENV === "development") {

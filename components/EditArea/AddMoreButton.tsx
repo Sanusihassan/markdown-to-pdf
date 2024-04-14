@@ -17,7 +17,7 @@ const AddMoreButton: React.FC<AddMoreButtonProps> = ({
 }: AddMoreButtonProps) => {
   return (
     <button
-      className={`btn text-white add-more-files ${path}`}
+      className={`btn text-white add-more-files ${path.replace("/", "")}`}
       data-tooltip-content={text}
       data-tooltip-id="add-more-tooltip"
       data-tooltip-place={lang == "ar" ? "right" : "left"}
