@@ -195,7 +195,7 @@ export const validateFiles = (
     dispatch(setField({ errorCode: "ERR_NO_FILES_SELECTED" }));
     return false;
   }
-  const fileSizeLimit = 50 * 1024 * 1024; // 50 MB
+  const fileSizeLimit = 100 * 1024 * 1024; // 100MB
   for (let i = 0; i < files.length; i++) {
     const file = files[i] || null;
     extension = extension.replace(".", "").toUpperCase();

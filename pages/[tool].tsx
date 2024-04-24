@@ -1,6 +1,7 @@
 import Head from "next/head";
 import NavBar from "pdfequips-navbar/NavBar";
 import Tool from "../components/Tool";
+import { OpenGraph } from "pdfequips-open-graph/OpenGraph";
 import {
   edit_page,
   errors,
@@ -47,7 +48,6 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
       <Head>
         <title>{`PDFEquips | ${item.seoTitle}`}</title>
         <meta name="description" content={item.description} />
-        <link rel="icon" href="/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -59,6 +59,16 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(MarkdownToPDFHOWTO),
           }}
+        />
+        <OpenGraph
+          ogUrl={`https://www.pdfequips.com${item.to}`}
+          ogDescription={item.description}
+          ogImageHeight="630"
+          ogImageWidth="1200"
+          ogLocale="en"
+          ogSiteName="PDFEquips"
+          ogTitle={item.seoTitle}
+          ogImage={`https://www.pdfequips.com/images${item.to}.png`}
         />
         <link
           rel="stylesheet"
