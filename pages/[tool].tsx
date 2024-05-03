@@ -60,6 +60,7 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
             __html: JSON.stringify(MarkdownToPDFHOWTO),
           }}
         />
+        <link rel="icon" type="image/svg+xml" href="/images/icons/logo.svg" />
         <OpenGraph
           ogUrl={`https://www.pdfequips.com${item.to}`}
           ogDescription={item.description}
