@@ -15,7 +15,6 @@ const MyDocument = ({ lang }: { lang: string }) => {
       dir={lang == "ar" ? "rtl" : "ltr"}
     >
       <Head>
-        <link rel="icon" href="/logo.png" />
         <meta name="theme-color" content="#FC271C" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link

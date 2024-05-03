@@ -12,6 +12,7 @@ import { useFileStore } from "@/src/file-store";
 import { useRouter } from "next/router";
 import type { tool as _tool } from "../../content";
 import { MarkdownToPDFHOWTO_HI } from "@/src/how-to";
+import { OpenGraph } from "pdfequips-open-graph/OpenGraph";
 
 export async function getStaticPaths() {
   const paths = Object.keys(routes).map((key) => ({
@@ -66,7 +67,16 @@ export default ({
           }}
         />
         <meta name="description" content={item.description} />
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" type="image/svg+xml" href="/images/icons/logo.svg" />
+        <OpenGraph
+          ogUrl={`https://www.pdfequips.com/hi${item.to}`}
+          ogDescription={item.description}
+          ogLocale="hi_IN"
+          ogImageWidth="1200"
+          ogImageHeight="630"
+          ogTitle={item.seoTitle}
+          ogImage={`https://www.pdfequips.com/images/hi${item.to}.png`}
+        />
       </Head>
       <NavBar path="markdown-to-pdf" shadow={false} lang={lang} />
       <Tool
