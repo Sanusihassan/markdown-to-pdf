@@ -46,12 +46,9 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
     }
 
     // Fetch the markdown files from your backend
-    const path =
-      process.env.NODE_ENV === "development"
-        ? "https://animated-bassoon-5r796xgx5962x6v-4001.app.github.dev/api/get-md-files?url="
-        : "/get-md-files?url=";
+    const path = "/api/get-md-files";
     try {
-      const response = await axios.get(`${path}${url}`);
+      const response = await axios.post(`${path}`, { url });
       dispatch(setField({ files: response.data }));
       dispatch(setField({ show_files_list: true }));
       // Close the modal after a successful response
