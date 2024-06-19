@@ -77,7 +77,37 @@ const initialState: ToolState = {
   show_files_list: false,
   files: [],
   markdown:
-    "# Convert your Markdown to PDF with PDFEquips\n\nTo convert your Markdown to PDF, simply start by typing in the editor or paste from your clipboard. You can also drop your Markdown file into the editor.\n\n**tip:** Click on the pencil icon on the left to clear the editor\n\n## Privacy First\nAt PDFEquips, we prioritize your privacy. Unlike version 1 of Markdown to PDF, your content is no longer stored in a file before being read/converted and subsequently removed from our servers. Instead, your content is now sent securely via our API before returning the converted file. This ensures that your data is never stored and remains secure.\n\n## GitHub-Flavored Styling by Default\nWe use GitHub-flavored styling by default, so your PDF files will have a clean and modern look.\n\n## Image Support\nImages are base64-encoded into the PDF document, so they do not depend on a remote source that could go offline, rendering your image broken. Moreover, they do not require an internet connection.\n\n## Next Steps\nUp next, we're working on Emoji support, which will make your PDF documents more fun and expressive! Stay tuned for more updates.",
+    `# Convert your Markdown to PDF with PDFEquips
+
+PDFEquips is a powerful online tool that allows you to effortlessly convert Markdown documents into PDF files. With a user-friendly interface and a range of customization options, PDFEquips makes it easy to create professional-looking PDFs from your Markdown content.
+
+## Features
+
+### 1. Markdown to PDF Conversion
+Easily convert your Markdown documents into high-quality PDF files.
+
+### 2. File Management
+- **Rename Files**: Rename your files before downloading to keep them organized.
+- **Upload Files**: Upload Markdown files from your local machine or directly from GitHub.
+
+### 3. Customization Options
+- **Themes**: Choose from a variety of themes to customize the appearance of your PDF.
+- **Screen Size**: Adjust the screen size to optimize the viewing experience.
+- **Orientation**: Select either portrait or landscape orientation for your PDF.
+- **Page Size**: Specify the size of the pages in your PDF.
+- **Page Margin**: Set the margins for your PDF pages to control white space.
+
+## How to Use
+
+1. **Upload Markdown File**: Click on the upload button to select a Markdown file from your local machine or GitHub repository.
+2. **Customize Settings**: Adjust the settings according to your preferences, including theme, screen size, orientation, page size, and page margin.
+3. **Convert to PDF**: Click the "Download PDF" button to initiate the conversion process.
+4. **Download PDF**: Once the conversion is complete, click on the download button to save your PDF file with the specified name.
+
+## Try PDFEquips Now!
+
+Visit [PDFEquips](https://www.pdfequips.com/markdown-to-pdf) to experience the convenience of converting Markdown to PDF with ease.
+`,
   alertVarient: "error",
   options: {
     theme: "github",

@@ -19,18 +19,35 @@ const Loader = ({ loader_text }: { loader_text: string }) => (
 );
 
 const INTIAL_MARKUP = `<head><link rel="stylesheet" href="/themes/github.css" /></head>
-<div class="markdown-body"><h1 id="convert-your-markdown-to-pdf-with-pdfequips">Convert your Markdown to PDF with PDFEquips</h1>
-<p>To convert your Markdown to PDF, simply start by typing in the editor or paste from your clipboard. You can also drop your Markdown file into the editor.</p>
-<p><strong>tip:</strong> Click on the pencil icon on the left to clear the editor</p>
-<h2 id="privacy-first">Privacy First</h2>
-<p>At PDFEquips, we prioritize your privacy. Unlike version 1 of Markdown to PDF, your content is no longer stored in a file before being read/converted and subsequently removed from our servers. Instead, your content is now sent securely via our API before returning the converted file. This ensures that your data is never stored and remains secure.</p>
-<h2 id="github-flavored-styling-by-default">GitHub-Flavored Styling by Default</h2>
-<p>We use GitHub-flavored styling by default, so your PDF files will have a clean and modern look.</p>
-<h2 id="image-support">Image Support</h2>
-<p>Images are base64-encoded into the PDF document, so they do not depend on a remote source that could go offline, rendering your image broken. Moreover, they do not require an internet connection.</p>
-<h2 id="next-steps">Next Steps</h2>
-<p>Up next, we&#39;re working on Emoji support, which will make your PDF documents more fun and expressive! Stay tuned for more updates.</p>
-</div>
+<body class="markdown-body">
+<h1 id="convert-your-markdown-to-pdf-with-pdfequips">Convert your Markdown to PDF with PDFEquips</h1>
+<p>PDFEquips is a powerful online tool that allows you to effortlessly convert Markdown documents into PDF files. With a user-friendly interface and a range of customization options, PDFEquips makes it easy to create professional-looking PDFs from your Markdown content.</p>
+<h2 id="features">Features</h2>
+<h3 id="1-markdown-to-pdf-conversion">1. Markdown to PDF Conversion</h3>
+<p>Easily convert your Markdown documents into high-quality PDF files.</p>
+<h3 id="2-file-management">2. File Management</h3>
+<ul>
+<li><strong>Rename Files</strong>: Rename your files before downloading to keep them organized.</li>
+<li><strong>Upload Files</strong>: Upload Markdown files from your local machine or directly from GitHub.</li>
+</ul>
+<h3 id="3-customization-options">3. Customization Options</h3>
+<ul>
+<li><strong>Themes</strong>: Choose from a variety of themes to customize the appearance of your PDF.</li>
+<li><strong>Screen Size</strong>: Adjust the screen size to optimize the viewing experience.</li>
+<li><strong>Orientation</strong>: Select either portrait or landscape orientation for your PDF.</li>
+<li><strong>Page Size</strong>: Specify the size of the pages in your PDF.</li>
+<li><strong>Page Margin</strong>: Set the margins for your PDF pages to control white space.</li>
+</ul>
+<h2 id="how-to-use">How to Use</h2>
+<ol>
+<li><strong>Upload Markdown File</strong>: Click on the upload button to select a Markdown file from your local machine or GitHub repository.</li>
+<li><strong>Customize Settings</strong>: Adjust the settings according to your preferences, including theme, screen size, orientation, page size, and page margin.</li>
+<li><strong>Convert to PDF</strong>: Click the &quot;Download PDF&quot; button to initiate the conversion process.</li>
+<li><strong>Download PDF</strong>: Once the conversion is complete, click on the download button to save your PDF file with the specified name.</li>
+</ol>
+<h2 id="try-pdfequips-now-">Try PDFEquips Now!</h2>
+<p>Visit <a href="https://www.pdfequips.com/markdown-to-pdf">PDFEquips</a> to experience the convenience of converting Markdown to PDF with ease.</p>
+</body>
 `;
 const Markdown2PDF = ({
   loader_text,
