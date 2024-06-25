@@ -46,7 +46,7 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
   return (
     <>
       <Head>
-        <title>{`PDFEquips | ${item.seoTitle}`}</title>
+        <title>{item.seoTitle}</title>
         <meta name="description" content={item.description} />
         <script
           type="application/ld+json"

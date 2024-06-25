@@ -52,7 +52,7 @@ export default ({
   return (
     <>
       <Head>
-        <title>{`PDFEquips | ${item.seoTitle}`}</title>
+        <title>{item.seoTitle}</title>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
