@@ -80,9 +80,8 @@ const Tool: React.FC<ToolProps> = ({
         path={data.to}
       />
       <div
-        className={`tools-page position-relative${
-          showFilesList ? " d-none" : ""
-        }`}
+        className={`tools-page position-relative${showFilesList ? " d-none" : ""
+          }`}
       >
         <ToolBar
           toolbar={edit_page.toolbar}

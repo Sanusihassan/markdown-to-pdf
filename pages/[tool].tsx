@@ -76,7 +76,7 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
           href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.1/css/bootstrap.min.css"
         />
       </Head>
-      <NavBar path="markdown-to-pdf" lang="" />
+      <NavBar path="markdown-to-pdf" shadow={false} lang="" />
       <Tool
         tools={tools}
         data={item}

@@ -1,9 +1,7 @@
 import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
-/**
- * in this code i want to return the toast content inside a <bdi> element because the error message may contain forign text
- */
+
 interface ToolState {
   showErrorMessage: boolean;
   errorMessage: string;

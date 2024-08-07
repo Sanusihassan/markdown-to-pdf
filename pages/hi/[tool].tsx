@@ -78,7 +78,7 @@ export default ({
           ogImage={`https://www.pdfequips.com/images/hi${item.to}.png`}
         />
       </Head>
-      <NavBar path="markdown-to-pdf" shadow={false} lang={lang} />
+      <NavBar path="markdown-to-pdf" shadow={false} shadow={false} lang={lang} />
       <Tool
         tools={tools}
         data={item}

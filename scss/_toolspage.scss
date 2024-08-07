@@ -56,6 +56,35 @@
   .rest {
     flex: 1;
 
+    .header {
+      @include xs {
+        padding: 14px;
+        display: flex;
+        align-items: center;
+
+        .document-name {
+          flex: 1;
+        }
+      }
+
+      .preview {
+
+
+        @include extend("btn btn-light d-none justify-content-between align-items-center");
+
+        @include xs {
+          display: flex !important;
+        }
+
+        flex: 0 1 2%;
+
+        svg {
+          margin-top: 5px;
+          margin-right: 5px;
+        }
+      }
+    }
+
     .document-name {
       .input {
         font-weight: 400;
@@ -139,7 +168,7 @@
   display: flex;
 
   @media (max-width: 600px) {
-    flex-wrap: wrap;
+    position: relative;
   }
 
   height: 100%;
@@ -159,6 +188,29 @@
     #_html {
       @include extend("w-100 h-100");
       overflow: auto;
+    }
+  }
+
+  @include xs {
+    .editor {
+      flex: 0 1 100%;
+    }
+
+    .react-markdown-container {
+      display: none;
+
+      &.preview {
+        display: block;
+      }
+
+      padding: 0;
+
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
   }
 

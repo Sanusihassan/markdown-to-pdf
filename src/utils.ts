@@ -3,11 +3,6 @@ import { Dispatch, useEffect, useMemo, useState } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
 import type { errors as _ } from "../content";
 import { setField } from "./store";
-import { getDocument } from "pdfjs-dist";
-import { PDFDocumentProxy, PageViewport, RenderTask } from "pdfjs-dist";
-const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
-import { GlobalWorkerOptions } from "pdfjs-dist";
-GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export function useLoadedImage(src: string): HTMLImageElement | null {
   const [loadedImage, setLoadedImage] = useState<HTMLImageElement | null>(null);
@@ -83,21 +78,6 @@ export const getFileDetailsTooltipContent = async (
             resolve();
           };
         });
-      } else if (file.type === "application/pdf") {
-        const url = URL.createObjectURL(file);
-        const pdf = await getDocument(url).promise;
-
-        const pageCount = pdf.numPages || 0;
-        if (pageCount === 2 && lang === "ar") {
-          tooltipContent += " - صفحتين</bdi>";
-        } else {
-          tooltipContent += ` - ${lang === "ar" && pageCount === 1 ? "" : pageCount + " "
-            }${pageCount > 1 ? pages : page}</bdi>`;
-        }
-        URL.revokeObjectURL(url);
-        if (!file.size) {
-          emptyPDFHandler(dispatch, errors);
-        }
       }
     } catch (e) {
       if (!file.size) {
@@ -108,51 +88,6 @@ export const getFileDetailsTooltipContent = async (
 
   return tooltipContent;
 };
-
-/**
- * this is the current function and it's working,
- * but i want to display the pdf.png file while fetching the first page from the pdf
- */
-
-export async function getFirstPageAsImage(
-  file: File,
-  dispatch: Dispatch<AnyAction>,
-  errors: _
-): Promise<string> {
-  const fileUrl = URL.createObjectURL(file);
-  if (!file.size) {
-    return emptyPDFHandler(dispatch, errors);
-  } else {
-    try {
-      const loadingTask = getDocument(fileUrl);
-      const pdf: PDFDocumentProxy = await loadingTask.promise;
-      const page = await pdf.getPage(1); // Get the first page
-
-      const scale = 1.5;
-      const viewport: PageViewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-      if (!context) {
-        throw new Error("Canvas context not available.");
-      }
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      const renderTask: RenderTask = page.render({
-        canvasContext: context,
-        viewport: viewport,
-      });
-
-      await renderTask.promise;
-
-      return canvas.toDataURL();
-    } catch (error) {
-      dispatch(setField({ errorMessage: errors.FILE_CORRUPT.message }));
-      return DEFAULT_PDF_IMAGE; // Return the placeholder image URL when an error occurs
-    }
-  }
-}
 
 export const getPlaceHoderImageUrl = (extension: string) => {
   switch (extension) {
@@ -226,20 +161,4 @@ export const validateFiles = (
 
 interface PDFFile extends Blob {
   name: string;
-}
-
-export async function calculatePages(file: PDFFile): Promise<number> {
-  const reader = new FileReader();
-  reader.readAsArrayBuffer(file);
-  return new Promise<number>((resolve, reject) => {
-    reader.onload = async (event) => {
-      try {
-        const typedArray = new Uint8Array(event.target?.result as ArrayBuffer);
-        const pdf = await getDocument(typedArray).promise;
-        resolve(pdf.numPages);
-      } catch (error) {
-        reject(error);
-      }
-    };
-  });
 }

@@ -64,7 +64,7 @@ export const handleUpload = async (
 
   let url;
   if (process.env.NODE_ENV === "development") {
-    url = `https://animated-bassoon-5r796xgx5962x6v-4001.app.github.dev/api/${state.path}`;
+    url = `https://www.pdfequips.com/api/${state.path}`;
   } else {
     url = `/api/${state.path}`;
   }
@@ -99,17 +99,20 @@ export const handleUpload = async (
       outputFileName: "",
     };
     const { outputFileMimeType, outputFileName } = mimeTypeData;
-
     dispatch(setField({ showDownloadBtn: state.path !== "md-text-to-pdf" }));
+
+    let github_name = (stateFiles?.length ? (stateFiles?.length === 1 ? stateFiles[0].name.split(".")[0] + ".pdf" : "PDFEquips-markdown-to-pdf.zip") : null);
+
     if (downloadBtn)
       downloadConvertedFile(
         response,
         outputFileMimeType,
-        outputFileName
-          ? outputFileName === document_name
-            ? outputFileName + ".pdf"
-            : outputFileName
-          : "output.pdf",
+        github_name ? github_name :
+          outputFileName
+            ? outputFileName === document_name
+              ? outputFileName + ".pdf"
+              : outputFileName
+            : "output.pdf",
         downloadBtn,
         state.path == "md-text-to-pdf"
       );

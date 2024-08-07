@@ -46,7 +46,7 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
     }
 
     // Fetch the markdown files from your backend
-    const path = "/api/get-md-files";
+    const path = "https://www.pdfequips.com/api/get-md-files";
     try {
       const response = await axios.post(`${path}`, { url });
       dispatch(setField({ files: response.data }));

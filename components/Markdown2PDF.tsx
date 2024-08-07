@@ -19,7 +19,7 @@ const Loader = ({ loader_text }: { loader_text: string }) => (
 );
 
 const INTIAL_MARKUP = `<head><link rel="stylesheet" href="/themes/github.css" /></head>
-<body class="markdown-body">
+<body class="markdown-body" style="padding: 15px">
 <h1 id="convert-your-markdown-to-pdf-with-pdfequips">Convert your Markdown to PDF with PDFEquips</h1>
 <p>PDFEquips is a powerful online tool that allows you to effortlessly convert Markdown documents into PDF files. With a user-friendly interface and a range of customization options, PDFEquips makes it easy to create professional-looking PDFs from your Markdown content.</p>
 <h2 id="features">Features</h2>
@@ -64,6 +64,9 @@ const Markdown2PDF = ({
   const options = useSelector(
     (state: { tool: ToolState }) => state.tool.options
   );
+
+  const preview = useSelector((state: { tool: ToolState }) => state.tool.preview);
+
   const { theme } = options;
 
   const [themeInitialized, setThemeInitialized] = useState(false);
@@ -131,7 +134,7 @@ const Markdown2PDF = ({
           <div className="editor">
             <CodeEditor />
           </div>
-          <div className="react-markdown-container">
+          <div className={`react-markdown-container${preview ? " preview" : ""}`}>
             <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} />
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />

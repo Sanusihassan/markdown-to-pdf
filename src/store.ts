@@ -60,6 +60,7 @@ export interface ToolState {
     pageSize: "A4" | "Letter" | "Legal" | "A3" | "A5" | "US Letter";
     pageMargin: "No margin" | "Small" | "Big";
   };
+  preview: boolean;
 }
 
 const initialState: ToolState = {
@@ -116,6 +117,7 @@ Visit [PDFEquips](https://www.pdfequips.com/markdown-to-pdf) to experience the c
     pageMargin: "No margin",
     pageSize: "A4",
   },
+  preview: false
 };
 
 const toolSlice = createSlice({
