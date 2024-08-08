@@ -59,6 +59,7 @@ export interface ToolState {
     // should be like this: 'letter' | 'legal' | 'tabloid' | 'ledger' | 'a0' | 'a1' | 'a2' | 'a3' | 'a4' | 'a5' | 'a6'
     pageSize: "A4" | "Letter" | "Legal" | "A3" | "A5" | "US Letter";
     pageMargin: "No margin" | "Small" | "Big";
+    fontSize: number;
   };
   preview: boolean;
 }
@@ -97,6 +98,7 @@ Easily convert your Markdown documents into high-quality PDF files.
 - **Orientation**: Select either portrait or landscape orientation for your PDF.
 - **Page Size**: Specify the size of the pages in your PDF.
 - **Page Margin**: Set the margins for your PDF pages to control white space.
+- **Font Size**: Customize the text size.
 
 ## How to Use
 
@@ -116,6 +118,7 @@ Visit [PDFEquips](https://www.pdfequips.com/markdown-to-pdf) to experience the c
     screenSize: "screen",
     pageMargin: "No margin",
     pageSize: "A4",
+    fontSize: 16
   },
   preview: false
 };

@@ -43,6 +43,7 @@ export const edit_page = {
     orientation: "Orientation",
     margin: "Page Margin",
     page_size: "Page Size",
+    font_size: "Font Size",
     label_content: {
       orientation: ["Portrait", "Landscape"],
       screen_sizes: {
@@ -60,7 +61,7 @@ export const edit_page = {
     },
     defaults: "Defaults",
     save_changes: "Save changes",
-  },
+  }
 };
 
 export const tools = {

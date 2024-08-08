@@ -70,6 +70,7 @@ export const edit_page: _edit_page = {
         big: "Grande",
       },
     },
+    font_size: "Tamaño de fuente",
     defaults: "Valores predeterminados",
     save_changes: "Guardar cambios",
   },

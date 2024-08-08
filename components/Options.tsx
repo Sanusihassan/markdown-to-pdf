@@ -1,22 +1,19 @@
-"use client";
-
-import type { tool as _tool, edit_page } from "../content";
-import type { edit_page as _ } from "../content";
 import { XIcon } from "@heroicons/react/solid";
+import { FaPlus, FaMinus } from "react-icons/fa"; // Importing the icons
 import { Modal } from "react-bootstrap";
 import isEqual from "lodash.isequal";
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { ToolState, setField } from "@/src/store";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import type { edit_page } from "@/content";
+
 export interface OptionsProps {
   show: boolean;
   onHide: () => void;
   options?: edit_page["options"];
 }
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-
-import React, { useEffect, useState } from "react";
-import Select from "react-select";
-import { useDispatch, useSelector } from "react-redux";
-import { ToolState, setField } from "@/src/store";
-// import 'react-tabs/style/react-tabs.css';
 
 const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
   // Define options for each tab
@@ -52,17 +49,16 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
     { value: "water-dark", label: "Water Dark" },
     { value: "writ", label: "Writ" },
   ];
+
+  const fontSizeOptions = [
+    6, 8, 10, 12, 14, 16, 21, 24, 28, 32, 36, 42, 48, 56, 64, 72, 80, 88, 96, 104, 120, 144
+  ].map(size => ({ value: size, label: `${size}px` }));
+
   const [screenSizeLabel, setScreenSizeLabel] = useState<string>(`0`);
   const stateOptions = useSelector(
     (state: { tool: ToolState }) => state.tool.options
   );
-  type _t = keyof ToolState["options"];
-  // const getScreenSizeLabel = () => {
-  //   const screenWidth = window.innerWidth;
-  //   return `Your Screen (${screenWidth}px)`;
-  // };
-  // const [labels, setLabels] = useState<edit_page["options"]["labels"]>({} as edit_page["options"]["labels"]);
-  // const { margin, orientation, screen_sizes } = labels;
+
   let LocalstateOptions: ToolState["options"];
   useEffect(() => {
     const screenWidth = window.innerWidth;
@@ -77,10 +73,9 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
       }
     }
   }, []);
+
   const dispatch = useDispatch();
 
-  // const { your_screen, mobile, tablet, desktop_144, desktop_hd } = screen_sizes;
-  // const { big, no_margin, small } = margin;
   const screenSizeOptions = [
     {
       value: "screen",
@@ -124,19 +119,16 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
     { value: "Big", label: options?.label_content.margin.big },
   ];
 
-  // State to manage the selected options
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  // Function to handle saving options
   const handleSave = () => {
-    // Convert the stateOptions object to a JSON string
     const stateOptionsJSON = JSON.stringify(stateOptions);
-
-    // Save the JSON string to local storage under a specific key
     localStorage.setItem("stateOptions", stateOptionsJSON);
+    onHide();
   };
 
   const [activeTab, setActiveTab] = useState("theme");
+
   const tabs = [
     {
       tab: options?.theme,
@@ -163,13 +155,34 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
       options: pageMarginOptions,
       option_name: "pageMargin",
     },
+    {
+      tab: options?.font_size,
+      options: fontSizeOptions,
+      option_name: "fontSize",
+    },
   ];
+  const adjustFontSize = (adjustment: number) => {
+    const currentFontSize = stateOptions.fontSize || 16;
+    const newFontSize = currentFontSize + adjustment;
+
+    dispatch(
+      setField({
+        options: {
+          ...stateOptions,
+          fontSize: newFontSize,
+        },
+      })
+    );
+  };
+
+
+
   return (
     <>
       {!options ? (
         <></>
       ) : (
-        <Modal show={show} onHide={onHide} centered id="optionsModal">
+        <Modal show={show} onHide={onHide} centered id="optionsModal" className="options-modal">
           <Modal.Header>
             <Modal.Title id="optionsModalLabel">{options.title}</Modal.Title>
             <button onClick={onHide} className="btn btn-dark d-inline-flex">
@@ -178,19 +191,19 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
           </Modal.Header>
           <Modal.Body>
             <Tabs id="myTab" role="tablist">
-              <TabList className="list-unstyled nav mb-3 d-flex justify-content-between align-items-center">
+              <TabList className="list-unstyled nav mb-3 d-flex align-items-center tablist">
                 {[
                   options.theme,
                   options.screen_size,
                   options.orientation,
                   options.page_size,
                   options.margin,
+                  options.font_size,
                 ].map((tab, index) => (
                   <Tab key={index}>
                     <button
-                      className={`nav-item btn btn-dark d-inline-flex mb-1 ${
-                        activeTab === tab ? "active" : ""
-                      }`}
+                      className={`nav-item btn btn-dark d-inline-flex mb-1 ${activeTab === tab ? "active" : ""
+                        }`}
                       role="tab"
                       aria-controls={tab}
                       aria-selected={activeTab === tab}
@@ -201,38 +214,80 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                   </Tab>
                 ))}
               </TabList>
-              {/* Tab panels */}
               <div>
                 {tabs.map(({ tab, options, option_name }, index) => (
                   <TabPanel key={index}>
-                    <Select
-                      options={options as []}
-                      onChange={(selectedOption: any) => {
-                        if (selectedOption && selectedOption.value) {
-                          setSelectedOptions([
-                            ...selectedOptions,
-                            selectedOption.value,
-                          ]);
-                          dispatch(
-                            setField({
-                              options: {
-                                ...stateOptions,
-                                [option_name as keyof ToolState["options"]]:
-                                  selectedOption.value,
-                              },
-                            })
-                          );
-                        }
-                      }}
-                      placeholder={tab}
-                      defaultValue={
-                        LocalstateOptions
-                          ? LocalstateOptions[
-                              option_name as keyof typeof LocalstateOptions
+                    {option_name === "fontSize" ? (
+                      <div className="font-wrapper">
+                        <button
+                          className="btn btn-outline-secondary"
+                          onClick={() => adjustFontSize(-1)}
+                        >
+                          <FaMinus />
+                        </button>
+                        <Select
+                          className="font-select"
+                          options={options as []}
+                          onChange={(selectedOption: any) => {
+                            if (selectedOption && selectedOption.value) {
+                              setSelectedOptions([
+                                ...selectedOptions,
+                                selectedOption.value,
+                              ]);
+                              dispatch(
+                                setField({
+                                  options: {
+                                    ...stateOptions,
+                                    [option_name as keyof ToolState["options"]]:
+                                      selectedOption.value,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                          placeholder={tab}
+                          value={{
+                            value: stateOptions.fontSize,
+                            label: `${stateOptions.fontSize}px`,
+                          }}
+                        />
+                        <button
+                          className="btn btn-outline-secondary"
+                          onClick={() => adjustFontSize(1)}
+                        >
+                          <FaPlus />
+                        </button>
+                      </div>
+                    ) : (
+                      <Select
+                        options={options as []}
+                        onChange={(selectedOption: any) => {
+                          if (selectedOption && selectedOption.value) {
+                            setSelectedOptions([
+                              ...selectedOptions,
+                              selectedOption.value,
+                            ]);
+                            dispatch(
+                              setField({
+                                options: {
+                                  ...stateOptions,
+                                  [option_name as keyof ToolState["options"]]:
+                                    selectedOption.value,
+                                },
+                              })
+                            );
+                          }
+                        }}
+                        placeholder={tab}
+                        defaultValue={
+                          LocalstateOptions
+                            ? LocalstateOptions[
+                            option_name as keyof typeof LocalstateOptions
                             ]
-                          : options[0].value
-                      }
-                    />
+                            : options[0].value
+                        }
+                      />
+                    )}
                   </TabPanel>
                 ))}
               </div>
@@ -251,14 +306,15 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                       screenSize: "screen",
                       pageMargin: "No margin",
                       pageSize: "A4",
+                      fontSize: 16, // Default font size
                     },
                   })
                 );
+                onHide();
               }}
             >
               {options.defaults}
             </button>
-            {/* Trigger saving when clicking save */}
             <button
               type="button"
               className="save-button btn btn-dark"

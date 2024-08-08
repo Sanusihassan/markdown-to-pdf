@@ -95,6 +95,7 @@ export const edit_page: _edit_page = {
         big: "Grand",
       },
     },
+    font_size: "Taille de la police",
     defaults: "Paramètres par défaut",
     save_changes: "Enregistrer les modifications",
   },

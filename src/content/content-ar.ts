@@ -89,8 +89,8 @@ export const edit_page: _edit_page = {
         small: "صغير",
         big: "كبير",
       },
-      
     },
+    font_size: "حجم الخط",
     defaults: "الإعدادات الافتراضية",
     save_changes: "حفظ التغييرات",
   },

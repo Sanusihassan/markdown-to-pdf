@@ -124,3 +124,19 @@ a.dropdown-item {
 @import "./scss/editpage";
 @import "./scss/display-file";
 @import "./scss/_react-tabs.scss";
+
+
+.options-modal {
+  .tablist {
+    column-gap: 10px;
+  }
+
+  .font-wrapper {
+    @include extend("d-flex");
+    column-gap: 10px;
+
+    .font-select {
+      flex: 1;
+    }
+  }
+}

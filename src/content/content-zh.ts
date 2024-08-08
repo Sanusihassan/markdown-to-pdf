@@ -84,6 +84,7 @@ export const edit_page: _edit_page = {
         big: "大",
       },
     },
+    font_size: "字体大小",
     defaults: "默认",
     save_changes: "保存更改",
   },

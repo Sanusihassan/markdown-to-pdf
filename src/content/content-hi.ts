@@ -88,6 +88,7 @@ export const edit_page: _edit_page = {
         big: "बड़ा",
       },
     },
+    font_size: "फ़ॉन्ट साइज़",
     defaults: "डिफ़ॉल्ट",
     save_changes: "परिवर्तन सहेजें",
   },
