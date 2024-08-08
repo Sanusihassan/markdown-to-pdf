@@ -65,6 +65,7 @@ const Markdown2PDF = ({
   <li><strong>Orientation</strong>: Select either portrait or landscape orientation for your PDF.</li>
   <li><strong>Page Size</strong>: Specify the size of the pages in your PDF.</li>
   <li><strong>Page Margin</strong>: Set the margins for your PDF pages to control white space.</li>
+  <li><strong>Font Size</strong>: Customize the text size.</li>
   </ul>
   <h2 id="how-to-use">How to Use</h2>
   <ol>
