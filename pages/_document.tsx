@@ -22,6 +22,10 @@ const MyDocument = ({ lang }: { lang: string }) => {
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         />
         <meta name="google-adsense-account" content="ca-pub-7391414384206267" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7391414384206267"
+          cross-origin="anonymous"></script>
       </Head>
       <body>
         <Main />
