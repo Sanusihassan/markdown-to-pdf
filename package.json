@@ -22,7 +22,7 @@
     "js-cookie": "^3.0.5",
     "lodash.isequal": "^4.5.0",
     "next": "^13.5.6",
-    "pdfequips-navbar": "^3.0.57",
+    "pdfequips-navbar": "^3.3.3",
     "pdfequips-open-graph": "^1.0.0",
     "prism-react-renderer": "^2.1.0",
     "prismjs": "^1.29.0",
