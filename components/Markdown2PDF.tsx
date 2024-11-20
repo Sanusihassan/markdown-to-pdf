@@ -86,6 +86,7 @@ const Markdown2PDF = ({
   const [themeInitialized, setThemeInitialized] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [initialized, setIntialized] = useState(false);
 
   useEffect(() => {
     setShowLoader(false);
@@ -156,10 +157,16 @@ const Markdown2PDF = ({
       ) : (
         <div className="md-2pdf">
           <div className="editor">
-            <CodeEditor />
+            <CodeEditor handleChange={() => {
+              setIntialized(true);
+            }} />
           </div>
           <div className={`react-markdown-container${preview ? " preview" : ""}`}>
-            <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} />
+            {!initialized ?
+              <div
+                dangerouslySetInnerHTML={{ __html: INTIAL_MARKUP }}
+              /> : <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} />
+            }
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
         </div>

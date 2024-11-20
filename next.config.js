@@ -4,6 +4,7 @@ const isProd = process.env.NODE_ENV === "production";
 const withTM = require("next-transpile-modules")([
   "pdfequips-navbar",
   "pdfequips-open-graph",
+  "fetch-subscription-status"
 ]);
 
 module.exports = withTM({

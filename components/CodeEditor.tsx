@@ -10,7 +10,7 @@ import {
   ToolState
 } from "../src/store";
 import { useSelector } from "react-redux";
-const CodeEditor = () => {
+const CodeEditor = ({ handleChange }: { handleChange: () => void }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
   const markdown = useSelector(
@@ -19,6 +19,7 @@ const CodeEditor = () => {
 
   const handleEditorChange = (v: string) => {
     dispatch(setField({ markdown: v }));
+    handleChange();
   };
   const handleFileDrop = (e: DragEvent) => {
     e.preventDefault();

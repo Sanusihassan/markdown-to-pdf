@@ -2,6 +2,8 @@ import Head from "next/head";
 import NavBar from "pdfequips-navbar/NavBar";
 import Tool from "../components/Tool";
 import { OpenGraph } from "pdfequips-open-graph/OpenGraph";
+import { fetchSubscriptionStatus } from "fetch-subscription-status";
+import { useState, useCallback, useEffect } from "react";
 import {
   edit_page,
   errors,
@@ -30,10 +32,11 @@ export async function getStaticProps({
   };
 }) {
   const item = routes[`/${params.tool}` as keyof typeof routes].item;
-  return { props: { item } };
+  const initialPremiumStatus = await fetchSubscriptionStatus();
+  return { props: { item, initialPremiumStatus } };
 }
 
-export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
+export default ({ item, initialPremiumStatus }: { item: _tool["Markdown_to_PDF"]; initialPremiumStatus: boolean }) => {
   const router = useRouter();
   const { asPath } = router;
   const websiteSchema = {
@@ -43,6 +46,23 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
     description: item.description,
     url: `https://www.pdfequips.com${asPath}`,
   };
+  const [isPremium, setIsPremium] = useState(initialPremiumStatus);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const checkStatus = useCallback(async () => {
+    try {
+      const status = await fetchSubscriptionStatus(); // Function to fetch subscription status
+      setIsPremium(status);
+      setIsLoaded(true);
+    } catch (err) {
+      console.error("Error checking subscription status:", err);
+      setIsLoaded(true);
+
+    }
+  }, []);
+
+  useEffect(() => {
+    checkStatus();
+  }, []);
   return (
     <>
       <Head>
@@ -61,6 +81,13 @@ export default ({ item }: { item: _tool["Markdown_to_PDF"] }) => {
           }}
         />
         <link rel="icon" type="image/svg+xml" href="/images/icons/logo.svg" />
+        {isLoaded && !isPremium ?
+          <>
+            <meta name="google-adsense-account" content="ca-pub-7391414384206267" />
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7391414384206267"
+              cross-origin="anonymous"></script>
+          </>
+          : null}
         <OpenGraph
           ogUrl={`https://www.pdfequips.com${item.to}`}
           ogDescription={item.description}
