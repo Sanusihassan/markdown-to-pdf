@@ -1,3 +1,5 @@
+// @ts-ignore
+import { Partytown } from '@builder.io/partytown/react';
 import Document, {
   Html,
   Head,
