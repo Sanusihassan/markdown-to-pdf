@@ -73,9 +73,8 @@ const EditPage = ({
   }, [files, errorCode]);
   return (
     <aside
-      className={`edit-page ${
-        !show_files_list || showDownloadBtn ? "d-none" : ""
-      }`}
+      className={`edit-page ${!show_files_list || showDownloadBtn ? "d-none" : ""
+        }`}
     >
       <section className="edit-area position-relative">
         <DisplayFile
@@ -115,9 +114,9 @@ const EditPage = ({
           <bdi>
             {
               edit_page.edit_page_titles[
-                path
-                  .replace(/\//, "")
-                  .replace(/-/g, "_") as keyof typeof edit_page.edit_page_titles
+              path
+                .replace(/\//, "")
+                .replace(/-/g, "_") as keyof typeof edit_page.edit_page_titles
               ]
             }
           </bdi>
@@ -130,6 +129,7 @@ const EditPage = ({
             k={path.replace(/\//, "")}
             edit_page={edit_page}
             errors={errors}
+            lang={lang}
           />
         </div>
       </section>
@@ -138,6 +138,7 @@ const EditPage = ({
           k={path.replace(/\//, "")}
           edit_page={edit_page}
           errors={errors}
+          lang={lang}
         />
       </div>
     </aside>

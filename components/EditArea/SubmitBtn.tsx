@@ -4,14 +4,17 @@ import { useFileStore } from "../../src/file-store";
 import { ToolState, setField } from "../../src/store";
 import type { edit_page, errors } from "../../content";
 import { handleUpload } from "@/src/handlers/handleUpload";
+import { fetchSubscriptionStatus, canUseSiteToday } from "fetch-subscription-status";
 export function SubmitBtn({
   k,
   edit_page,
   errors,
+  lang
 }: {
   k: string;
   edit_page: edit_page;
   errors: errors;
+  lang: string;
 }): JSX.Element {
   const dispatch = useDispatch();
   // state variables:
@@ -39,11 +42,20 @@ export function SubmitBtn({
         "/",
         ""
       )} grid-footer`}
-      onClick={() => {
+      onClick={async () => {
         dispatch(setField({ isSubmitted: true }));
         dispatch(setField({ showOptions: false }));
-        if (submitBtn) {
-          submitBtn?.current?.click();
+        const status = await fetchSubscriptionStatus();
+        if (!status && !canUseSiteToday(10)) {
+          if (!canUseSiteToday(1)) {
+            if (typeof window !== "undefined") {
+              window.open(`${(lang === "" ? "" : "/") + lang}/pricing`, "_blank");
+            }
+          } else {
+            if (submitBtn) {
+              submitBtn?.current?.click();
+            }
+          }
         }
         handleUpload(
           downloadBtn,
@@ -63,7 +75,7 @@ export function SubmitBtn({
       <bdi>
         {
           edit_page.action_buttons[
-            k.replace(/-/g, "_") as keyof typeof edit_page.action_buttons
+          k.replace(/-/g, "_") as keyof typeof edit_page.action_buttons
           ]
         }
       </bdi>{" "}
