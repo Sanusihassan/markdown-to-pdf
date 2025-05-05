@@ -42,20 +42,11 @@ export function SubmitBtn({
         "/",
         ""
       )} grid-footer`}
-      onClick={async () => {
+      onClick={() => {
         dispatch(setField({ isSubmitted: true }));
         dispatch(setField({ showOptions: false }));
-        const status = await fetchSubscriptionStatus();
-        if (!status && !canUseSiteToday(10)) {
-          if (!canUseSiteToday(1)) {
-            if (typeof window !== "undefined") {
-              window.open(`${(lang === "" ? "" : "/") + lang}/pricing`, "_blank");
-            }
-          } else {
-            if (submitBtn) {
-              submitBtn?.current?.click();
-            }
-          }
+        if (submitBtn) {
+          submitBtn?.current?.click();
         }
         handleUpload(
           downloadBtn,
