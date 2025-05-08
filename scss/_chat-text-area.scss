@@ -1,0 +1,68 @@
+.chat-text-area {
+    @include extend("position-absolute w-100 h-100");
+    z-index: 1000;
+
+    .chatbox-wrapper {
+        @include extend("position-sticky");
+        width: 58%;
+        bottom: 0;
+        left: 50%;
+        translate: -50% 0;
+        min-height: 150px;
+        top: 60%;
+
+        .styled-textarea {
+            @include extend("mt-3 w-100 position-absolute");
+            min-height: 150px;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            resize: none;
+            font-size: 0.875rem;
+            color: #333;
+
+            &::placeholder {
+                color: #9ca3af;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: transparent;
+                box-shadow: 0 0 0 2px #000000;
+            }
+        }
+
+        .up-arrow-button {
+            @include extend("btn d-flex align-items-center justify-content-center position-absolute");
+            bottom: 5.618%;
+            right: 1.618%;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 4px;
+            background-color: #000000;
+            border: none;
+            transition: all 0.2s ease;
+
+            svg {
+                color: white;
+            }
+
+            &:hover {
+                background-color: lighten(#000000, 5%);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            &:active {
+                transform: translateY(1px);
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(7, 21, 21, 0.434);
+            }
+        }
+    }
+}

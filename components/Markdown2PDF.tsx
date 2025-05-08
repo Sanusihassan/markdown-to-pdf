@@ -3,13 +3,16 @@ import { LegacyRef, useEffect, useRef, useState } from "react";
 import CodeEditor from "./CodeEditor";
 import { Spinner } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
-
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
 import { errors } from "@/content";
 import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
 import { useSelector } from "react-redux";
 import { ToolState } from "@/src/store";
 import { renderToString } from "react-dom/server";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+// import { ChatTextArea } from "./ChatTextArea";
+
 let prev_theme = "";
 const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
@@ -35,7 +38,10 @@ const Markdown2PDF = ({
   );
 
   const INTIAL_MARKUP = `
-  <head><link rel="stylesheet" href="/themes/github.css" /></head>
+  <head>
+    <link rel="stylesheet" href="/themes/github.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
   <style>
   html {
     padding: 15px;
@@ -95,6 +101,8 @@ const Markdown2PDF = ({
         <ReactMarkdown
           children={markdown}
           className="github markdown-body"
+          remarkPlugins={[remarkMath]}
+          rehypePlugins={[rehypeKatex]}
           components={{
             code(props) {
               const { children, className, node, ...rest } = props;
@@ -129,6 +137,7 @@ const Markdown2PDF = ({
     if ((!themeInitialized && iframeDoc) || prev_theme !== theme) {
       if (iframeDoc) {
         iframeDoc.head.innerHTML = `
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
           div.markdown-body {
             padding: 15px;
@@ -163,12 +172,11 @@ const Markdown2PDF = ({
           </div>
           <div className={`react-markdown-container${preview ? " preview" : ""}`}>
             {!initialized ?
-              <div
-                dangerouslySetInnerHTML={{ __html: INTIAL_MARKUP }}
-              /> : <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} />
+              <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} /> : <iframe ref={iframeRef} id="_html" srcDoc={INTIAL_MARKUP} />
             }
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
+          {/* <ChatTextArea /> */}
         </div>
       )}
     </>
