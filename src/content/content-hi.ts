@@ -48,6 +48,7 @@ export const edit_page: _edit_page = {
   action_buttons: {
     markdown_to_pdf: "Markdown से PDF",
   },
+  placeholder: "कुछ भी पूछें",
   pages: "पृष्ठों",
   page: "पृष्ठ",
   toolbar: {
@@ -55,6 +56,7 @@ export const edit_page: _edit_page = {
     upload_file: "फ़ाइल अपलोड करें",
     upload_from_github: "GitHub से अपलोड करें",
     options: "विकल्प",
+    assistant: "सहायक"
   },
   document_name: {
     doc_name: "दस्तावेज़ नाम",

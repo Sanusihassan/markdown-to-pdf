@@ -7,10 +7,11 @@ import { useFileStore } from "@/src/file-store";
 import UploadFileIcon from "./icons/UploadFile";
 import { handleChange } from "@/src/handlers/handleChange";
 import { useDispatch, useSelector } from "react-redux";
-import { ToolState } from "@/src/store";
+import { setField, ToolState } from "@/src/store";
 import GitHubPopUp from "./GitHubPopUP";
 import { useEffect, useRef, useState } from "react";
 import Options from "./Options";
+import { Bot } from "lucide-react";
 const ToolBar = ({
   toolbar,
   errors,
@@ -60,7 +61,6 @@ const ToolBar = ({
   };
   return (
     <div className="tool-bar">
-      {/* is it possible to focus on an element but on the last character on that element? */}
       <button
         className="tool-bar-button"
         data-tooltip-id={toolbar.rename_file}
@@ -119,6 +119,20 @@ const ToolBar = ({
         onClick={() => setShowOptions(true)}
       >
         <GoGear className="tool-bar-icon icon" />
+        <Tooltip id={toolbar.options} />
+      </button>
+      <button
+        className="tool-bar-button"
+        data-tooltip-id={toolbar.options}
+        data-tooltip-content={toolbar.assistant}
+        data-tooltip-place="top"
+        onClick={() => {
+          dispatch(setField({
+            showTextArea: true
+          }))
+        }}
+      >
+        <Bot className="tool-bar-icon icon" />
         <Tooltip id={toolbar.options} />
       </button>
       <GitHubPopUp

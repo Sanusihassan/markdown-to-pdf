@@ -25,6 +25,7 @@ export const edit_page: _edit_page = {
   edit_page_titles: {
     markdown_to_pdf: "Opciones de Markdown a PDF",
   },
+  placeholder: "Pregunta lo que sea",
   loader_text: "Por favor espera...",
   add_more_button: "Agrega más archivos",
   action_buttons: {
@@ -37,6 +38,7 @@ export const edit_page: _edit_page = {
     upload_file: "Subir archivo",
     upload_from_github: "Subir desde GitHub",
     options: "Opciones",
+    assistant: "Asistente"
   },
   document_name: {
     doc_name: "NOMBRE DEL DOCUMENTO",

@@ -39,6 +39,7 @@ export const edit_page: _edit_page = {
   edit_page_titles: {
     markdown_to_pdf: "Markdown 到 PDF 的选项",
   },
+  placeholder: "问我任何事",
   loader_text: "请稍等...",
   add_more_button: "添加更多文件",
   action_buttons: {
@@ -51,6 +52,7 @@ export const edit_page: _edit_page = {
     upload_file: "上传文件",
     upload_from_github: "从GitHub上传",
     options: "选项",
+    assistant: "助手"
   },
   document_name: {
     doc_name: "文件名称",

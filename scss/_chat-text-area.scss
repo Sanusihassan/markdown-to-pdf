@@ -1,4 +1,15 @@
 .chat-text-area {
+    transition: display 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition-behavior: allow-discrete;
+    opacity: 1;
+    left: 0;
+    @include extend("d-flex justify-content-center align-items-center");
+
+    &.hide {
+        @include extend("d-none");
+        opacity: 0;
+    }
+
     @include extend("position-absolute w-100 h-100");
     z-index: 1000;
 

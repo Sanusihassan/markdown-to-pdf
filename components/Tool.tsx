@@ -96,6 +96,7 @@ const Tool: React.FC<ToolProps> = ({
             loader_text={edit_page.loader_text}
             download_pdf_text={edit_page.download_pdf_text}
             errors={errors}
+            placeholder={edit_page.placeholder}
           />
         </div>
       </div>

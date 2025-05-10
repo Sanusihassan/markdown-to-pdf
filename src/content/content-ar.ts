@@ -57,6 +57,7 @@ export const edit_page: _edit_page = {
     upload_file: "رفع ملف",
     upload_from_github: "تحميل من GitHub",
     options: "الخيارات",
+    assistant: "مساعد"
   },
   document_name: {
     doc_name: "اسم المستند",
@@ -68,6 +69,7 @@ export const edit_page: _edit_page = {
     submit: "موافق",
   },
   download_pdf_text: "تحميل ملف PDF",
+  placeholder: "اسأل عن أي شيء",
   options: {
     title: "الخيارات",
     theme: "السمة",

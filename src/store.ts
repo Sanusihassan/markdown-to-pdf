@@ -62,6 +62,7 @@ export interface ToolState {
     fontSize: number;
   };
   preview: boolean;
+  showTextArea: boolean;
 }
 
 const initialState: ToolState = {
@@ -120,7 +121,8 @@ Visit [PDFEquips](https://www.pdfequips.com/markdown-to-pdf) to experience the c
     pageSize: "A4",
     fontSize: 16
   },
-  preview: false
+  preview: false,
+  showTextArea: false
 };
 
 const toolSlice = createSlice({

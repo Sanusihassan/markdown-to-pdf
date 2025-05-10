@@ -11,7 +11,7 @@ import { ToolState } from "@/src/store";
 import { renderToString } from "react-dom/server";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-// import { ChatTextArea } from "./ChatTextArea";
+import { ChatTextArea } from "./ChatTextArea";
 
 let prev_theme = "";
 const Loader = ({ loader_text }: { loader_text: string }) => (
@@ -25,10 +25,12 @@ const Markdown2PDF = ({
   loader_text,
   download_pdf_text,
   errors,
+  placeholder
 }: {
   loader_text: string;
   download_pdf_text: string;
   errors: errors;
+  placeholder: string;
 }) => {
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown
@@ -176,7 +178,7 @@ const Markdown2PDF = ({
             }
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
-          {/* <ChatTextArea /> */}
+          <ChatTextArea placeholder={placeholder} />
         </div>
       )}
     </>

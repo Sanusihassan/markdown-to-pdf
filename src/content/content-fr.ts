@@ -55,6 +55,7 @@ export const edit_page: _edit_page = {
   action_buttons: {
     markdown_to_pdf: "Markdown vers PDF",
   },
+  placeholder: "Demandez n'importe quoi",
   pages: "pages",
   page: "page",
   toolbar: {
@@ -62,6 +63,7 @@ export const edit_page: _edit_page = {
     upload_file: "Télécharger le fichier",
     upload_from_github: "Télécharger depuis GitHub",
     options: "Options",
+    assistant: "Assistant"
   },
   document_name: {
     doc_name: "NOM DU DOCUMENT",

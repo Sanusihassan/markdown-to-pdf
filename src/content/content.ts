@@ -25,6 +25,7 @@ export const edit_page = {
     upload_file: "Upload File",
     upload_from_github: "Upload from GitHub",
     options: "Options",
+    assistant: "Assistant"
   },
   document_name: {
     doc_name: "DOCUMENT NAME",
@@ -36,6 +37,7 @@ export const edit_page = {
     submit: "OK",
   },
   download_pdf_text: "Download PDF",
+  placeholder: "Ask anything",
   options: {
     title: "Options",
     theme: "Theme",
