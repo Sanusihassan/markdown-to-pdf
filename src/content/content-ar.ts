@@ -145,6 +145,10 @@ export const errors: _errors = {
       "حدث خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
     code: "ERR_NETWORK",
   },
+  ERR_MAX_USAGE: {
+    message: "تم تجاوز الحد الأقصى للاستخدام. يرجى الترقية أو الاشتراك لمواصلة استخدام هذه الخدمة.",
+    code: "ERR_MAX_USAGE",
+  },
   INVALID_GITHUB_URL: {
     message: "رابط GitHub غير صالح. يرجى إدخال رابط GitHub صالح.",
     code: "ERR_INVALID_GITHUB_URL",

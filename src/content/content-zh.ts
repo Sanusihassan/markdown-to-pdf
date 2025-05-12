@@ -143,6 +143,10 @@ export const errors: _errors = {
     message: "网络错误，请检查您的互联网连接并重试。",
     code: "ERR_NETWORK",
   },
+  ERR_MAX_USAGE: {
+    message: "已超出最大使用限制。请升级或订阅以继续使用此服务。",
+    code: "ERR_MAX_USAGE",
+  },
   INVALID_GITHUB_URL: {
     message: "GitHub URL 无效。请输入有效的 GitHub URL。",
     code: "ERR_INVALID_GITHUB_URL",

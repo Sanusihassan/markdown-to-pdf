@@ -178,7 +178,7 @@ const Markdown2PDF = ({
             }
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
-          <ChatTextArea placeholder={placeholder} />
+          <ChatTextArea placeholder={placeholder} errors={errors} />
         </div>
       )}
     </>

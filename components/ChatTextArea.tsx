@@ -1,3 +1,4 @@
+import { errors } from "@/content";
 import { setField, ToolState } from "@/src/store";
 import { trackSubscriptionUsage } from "@/src/trackSubscriptionUsage";
 import { getUserSubscription, SubscriptionPlan } from "fetch-subscription-status";
@@ -7,7 +8,7 @@ import { useSelector } from "react-redux";
 import io from 'socket.io-client';
 
 
-export const ChatTextArea = ({ placeholder, errors }: { placeholder: string, errors: any }) => {
+export const ChatTextArea = ({ placeholder, errors }: { placeholder: string, errors: errors }) => {
     const showTextArea = useSelector(
         (state: { tool: ToolState }) => state.tool.showTextArea
     );

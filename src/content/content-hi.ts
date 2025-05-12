@@ -151,6 +151,10 @@ export const errors: _errors = {
       "नेटवर्क में त्रुटि हो गई है। कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।",
     code: "ERR_NETWORK",
   },
+  ERR_MAX_USAGE: {
+    message: "अधिकतम उपयोग सीमा पार हो गई है। कृपया इस सेवा का उपयोग जारी रखने के लिए अपग्रेड करें या सब्सक्राइब करें।",
+    code: "ERR_MAX_USAGE",
+  },
   INVALID_GITHUB_URL: {
     message: "GitHub URL अमान्य है। कृपया एक वैध GitHub URL दर्ज करें।",
     code: "ERR_INVALID_GITHUB_URL",

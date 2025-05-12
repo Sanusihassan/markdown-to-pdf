@@ -145,4 +145,9 @@ export const errors = {
     message: "The GitHub URL is invalid. Please enter a valid GitHub URL.",
     code: "ERR_INVALID_GITHUB_URL",
   },
+  ERR_MAX_USAGE: {
+    message:
+      "Maximum usage exceeded. Please upgrade or subscribe to continue using this service.",
+    code: "ERR_MAX_USAGE",
+  },
 };

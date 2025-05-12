@@ -152,6 +152,10 @@ export const errors: _errors = {
       "Ha ocurrido un error en la red. Por favor, comprueba tu conexión a internet e inténtalo de nuevo.",
     code: "ERR_NETWORK",
   },
+  ERR_MAX_USAGE: {
+    message: "Se ha excedido el uso máximo. Por favor, actualice o suscríbase para continuar utilizando este servicio.",
+    code: "ERR_MAX_USAGE",
+  },
   INVALID_GITHUB_URL: {
     message:
       "La URL de GitHub no es válida. Por favor, ingrese una URL de GitHub válida.",
