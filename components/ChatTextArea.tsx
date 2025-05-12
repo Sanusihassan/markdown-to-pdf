@@ -1,11 +1,13 @@
 import { setField, ToolState } from "@/src/store";
-import { fetchSubscriptionStatus } from "fetch-subscription-status";
+import { trackSubscriptionUsage } from "@/src/trackSubscriptionUsage";
+import { getUserSubscription, SubscriptionPlan } from "fetch-subscription-status";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import io from 'socket.io-client';
 
-export const ChatTextArea = ({ placeholder }: { placeholder: string }) => {
+
+export const ChatTextArea = ({ placeholder, errors }: { placeholder: string, errors: any }) => {
     const showTextArea = useSelector(
         (state: { tool: ToolState }) => state.tool.showTextArea
     );
@@ -82,12 +84,35 @@ export const ChatTextArea = ({ placeholder }: { placeholder: string }) => {
         if (!prompt.trim() || !isConnected || isLoading) return;
 
         try {
-            const status = await fetchSubscriptionStatus();
+            // Get subscription status
+            const { isActive: status, subscription } = await getUserSubscription();
+
+            // Store subscription data in state
+
+
+            // Redirect to pricing if no active subscription
             if (!status) {
                 window.open("/pricing", "_blank");
                 return;
             }
 
+            // Check if trial plan and apply limits
+            if (subscription?.plan === SubscriptionPlan.TRIAL) {
+                // Track usage to see if trial limit is reached
+                const allowUsage = trackSubscriptionUsage(
+                    subscription?.plan
+                );
+
+                if (!allowUsage) {
+                    // Show error message if usage limit is reached
+                    dispatch(setField({
+                        errorMessage: errors.ERR_MAX_USAGE.message
+                    }));
+                    return;
+                }
+            }
+
+            // Proceed with sending the message if checks pass
             setMessages(prev => [...prev, { type: 'user', content: prompt }]);
             setIsLoading(true); // Set loading state immediately when submitting
 
