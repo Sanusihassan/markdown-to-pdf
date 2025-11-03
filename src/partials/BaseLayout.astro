@@ -77,7 +77,11 @@ import AstroSeo from "./AstroSeo.astro";
   </head>
   <body>
     <main>
-      <Navbar client:load lang={lang} path={seoConfig.to.replace("/", "")} />
+      <Navbar
+        client:load
+        lang={lang === "en" ? "" : lang}
+        path={seoConfig.to.replace("/", "")}
+      />
       <slot />
       <Footer client:load title={seoConfig.title} lang={lang} />
     </main>
