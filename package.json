@@ -17,7 +17,7 @@
     "fetch-subscription-status": "^2.0.74",
     "js-cookie": "^3.0.5",
     "pdfequips-footer": "^0.1.9",
-    "pdfequips-navbar": "^3.6.3",
+    "pdfequips-navbar": "^3.6.10",
     "pdfjs-dist": "^4.9.155",
     "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.10.6",
