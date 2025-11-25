@@ -23,3 +23,8 @@ Quality:
 JBIG2 lossy
 5
  (0..10)
+
+
+
+[TODO]:
+    add a loader to the file selector before app loads.
