@@ -107,17 +107,18 @@ a.dropdown-item {
 
 // error element styles
 .error-element {
+  @include extend("alert alert-danger text-center mt-3");
   .hide-on-rtl {
     [dir="rtl"] &,
     [lang="ar"] & {
-      display: none;
+      display: none !important;
     }
   }
 
   .hide-on-rtl {
     [dir="ltr"] &,
     :not([lang="ar"]) & {
-      display: none;
+      display: none !important;
     }
   }
 }
@@ -129,7 +130,9 @@ a.dropdown-item {
 @import "./scss/features";
 
 .how-to {
+  @include extend("row align-items-center py-3");
   .image {
+    @include extend("col-12 col-md-6 text-center");
     img {
       user-select: none;
       -webkit-user-drag: none;
@@ -137,6 +140,7 @@ a.dropdown-item {
   }
 
   .how-to-steps {
+    @include extend("col");
     @include xs {
       text-align: center;
     }
@@ -146,6 +150,9 @@ a.dropdown-item {
     }
   }
 }
+
+@import "./scss/loading";
+@import "./scss/misk";
 
 @import "pdfequips-footer/scss/footer";
 .green-slider .range-slider__thumb {

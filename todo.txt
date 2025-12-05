@@ -28,3 +28,6 @@ JBIG2 lossy
 
 [TODO]:
     add a loader to the file selector before app loads.
+
+
+remain the options.

@@ -1,4 +1,3 @@
-// Fixed version with only one handle
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RangeSlider from "react-range-slider-input";
@@ -21,7 +20,7 @@ export const CompressPDF = ({
     return null;
   }
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [sliderValue, setSliderValue] = useState(1); // Initial value 1.0
+  const [sliderValue, setSliderValue] = useState(1);
   const [filename, setFilename] = useState("");
 
   let _options = ["recommended", "less", "extreme"];
@@ -29,27 +28,26 @@ export const CompressPDF = ({
   const limitationMsg = useSelector(
     (state: { tool: ToolState }) => state.tool.limitationMsg
   );
-  // COMMENTED NOW FOR DEV ONLY!!!
-  // const subscriptionStatus = useSelector(
-  //   (state: { tool: ToolState }) => state.tool.subscriptionStatus
-  // );
-
-  const subscriptionStatus = false;
+  const subscriptionStatus = useSelector(
+    (state: { tool: ToolState }) => state.tool.subscriptionStatus
+  );
 
   const handleSliderChange = (values: number[]) => {
-    const newValue = values[1]; // Use the second value (upper thumb)
+    const newValue = values[1];
     setSliderValue(newValue);
     dispatch(setField({ compressPdf: newValue }));
   };
 
   return (
-    <div>
-      <div style={{ overflowX: "auto" }}>
-        <ul className="nav nav-tabs flex-nowrap" role="tablist">
+    <div className="compress-pdf">
+      <div className="tabs-container">
+        <ul className="tabs-list" role="tablist">
           {options.slice(0, 3).map((option, index) => (
-            <li className="nav-item" key={index}>
+            <li className="tab-item" key={index}>
               <button
-                className={`nav-link ${selectedIndex === index ? "active" : ""}`}
+                className={`tab-button ${
+                  selectedIndex === index ? "is-active" : ""
+                }`}
                 onClick={() => {
                   setSelectedIndex(index);
                   dispatch(setField({ compressPdf: _options[index] }));
@@ -61,41 +59,36 @@ export const CompressPDF = ({
           ))}
         </ul>
       </div>
-      <div
-        className={`p-3 border border-top-0${lang === "ar" ? " border-r-0" : " border-l-0"}`}
-      >
+      <div className={`tab-content${lang === "ar" ? " is-rtl" : " is-ltr"}`}>
         <p className="description">{options[selectedIndex].description}</p>
       </div>
 
       {/* Custom Slider Section */}
-      <div className="mt-4 p-3">
+      <div className="slider-section">
         <h6 className={`option-title${" " + c}`}>{options[3].title}</h6>
         <p className="description">{options[3].description}</p>
-        <div className="mt-3">
-          {/* Single Handle Range Slider */}
-          <div className="py-5">
+        <div className="slider-wrapper">
+          <div className="slider-container">
             <RangeSlider
               className="green-slider"
               min={0.1}
               max={subscriptionStatus ? 10 : 1.9}
               step={0.1}
-              value={[0.1, sliderValue]} // Start from min value
+              value={[0.1, sliderValue]}
               onInput={handleSliderChange}
-              thumbsDisabled={[true, false]} // Disable left thumb, enable right thumb
-              rangeSlideDisabled={true} // Disable range dragging
+              thumbsDisabled={[true, false]}
+              rangeSlideDisabled={true}
             />
           </div>
-          <div className="text-center mt-3 text-gray-600 font-medium">
-            {sliderValue.toFixed(1)}
-          </div>
+          <div className="slider-value">{sliderValue.toFixed(1)}</div>
           {!subscriptionStatus && (
-            <p className="text-center mt-2 text-sm text-gray-500">
+            <p className="upgrade-notice">
               {filenameOptions.upgradeNotice.msg}{" "}
               <a
                 href={`${lang === "" ? "" : "/" + lang}/pricing`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-success btn-sm"
+                className="upgrade-button"
               >
                 {filenameOptions.upgradeNotice.cta}
               </a>
@@ -105,14 +98,14 @@ export const CompressPDF = ({
       </div>
 
       {/* Filename Input Section */}
-      <div className="mt-4 px-3">
-        <label htmlFor="output-filename" className="form-label">
+      <div className="filename-section">
+        <label htmlFor="output-filename" className="filename-label">
           {filenameOptions.label}
         </label>
         <input
           id="output-filename"
           type="text"
-          className="form-control form-control-lg"
+          className="filename-input"
           placeholder={filenameOptions.placeholder}
           value={filename}
           onChange={(e) => {
@@ -121,20 +114,18 @@ export const CompressPDF = ({
           }}
         />
         {filenameOptions.helperText && (
-          <small className="form-text text-muted">
-            {filenameOptions.helperText}
-          </small>
+          <small className="helper-text">{filenameOptions.helperText}</small>
         )}
       </div>
 
       {/* Show alert if limitationMsg is set */}
       {limitationMsg ? (
-        <div className="mt-3 mx-3 alert alert-info mb-3" role="alert">
+        <div className="limitation-alert" role="alert">
           {limitationMsg}
-          <div className="mt-2">
+          <div className="alert-action">
             <a
               href={`${lang === "" ? "" : "/" + lang}/pricing`}
-              className="btn btn-success btn-sm"
+              className="alert-button"
               target="_blank"
               style={{ fontWeight: "500" }}
             >

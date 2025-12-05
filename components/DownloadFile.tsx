@@ -27,11 +27,10 @@ const DownloadFile = ({
   );
   useEffect(() => {}, [downloadFile, showDownloadBtn]);
   return (
+    // download-page
     <>
       <div
-        className={`download-page flex-column align-items-center justify-content-center text-center my-1${
-          showDownloadBtn ? " d-flex" : " d-none"
-        }`}
+        className={`download-page${showDownloadBtn ? " d-flex" : " d-none"}`}
       >
         <h3 className="text-center mb-4">
           <bdi>
@@ -42,9 +41,9 @@ const DownloadFile = ({
               ]}
           </bdi>
         </h3>
-        <div className="d-flex align-items-center justify-content-between rounded-circle">
+        <div className="download-btn-container">
           <button
-            className={`btn btn-dark rounded-circle mr-2 back-btn align-items-center`}
+            className="back-btn"
             style={lang == "ar" ? { order: 1 } : {}}
             data-tooltip-content={
               downloadFile.backto[path as keyof typeof downloadFile.backto]
@@ -59,7 +58,7 @@ const DownloadFile = ({
             <Tooltip id="download-btn-tooltip" />
           </button>
           <button
-            className={`download-btn btn btn-lg text-white position-relative overflow-hidden ${path}`}
+            className={`download-btn ${path}`}
             onClick={() => {
               if (downloadBtn?.current) {
                 downloadBtn.current.click();

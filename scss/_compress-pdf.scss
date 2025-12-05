@@ -1,0 +1,97 @@
+// Tabs container
+.tabs-container {
+  @include extend("overflow-auto");
+}
+
+.tabs-list {
+  @include extend("nav nav-tabs flex-nowrap");
+}
+
+.tab-item {
+  @include extend("nav-item");
+}
+
+.tab-button {
+  @include extend("nav-link");
+
+  &.is-active {
+    @include extend("active");
+  }
+}
+
+// Tab content
+.tab-content {
+  @include extend("p-3 border border-top-0");
+
+  &.is-ltr {
+    @include extend("border-start-0");
+  }
+
+  &.is-rtl {
+    @include extend("border-end-0");
+  }
+}
+
+.description {
+  // No specific Bootstrap class needed
+  margin-bottom: 0;
+}
+
+// Slider section
+.slider-section {
+  @include extend("mt-4 p-3");
+}
+
+.slider-wrapper {
+  @include extend("mt-3");
+}
+
+.slider-container {
+  @include extend("py-5");
+}
+
+.slider-value {
+  @include extend("text-center mt-3");
+  color: #6c757d; // text-gray-600 equivalent
+  font-weight: 500; // font-medium equivalent
+}
+
+.upgrade-notice {
+  @include extend("text-center mt-2");
+  font-size: 0.875rem; // text-sm equivalent
+  color: #6c757d; // text-gray-500 equivalent
+}
+
+.upgrade-button {
+  @include extend("btn btn-success btn-sm");
+}
+
+// Filename section
+.filename-section {
+  @include extend("mt-4 px-3");
+}
+
+.filename-label {
+  @include extend("form-label");
+}
+
+.filename-input {
+  @include extend("form-control form-control-lg");
+}
+
+.helper-text {
+  @include extend("form-text text-muted");
+}
+
+// Limitation alert
+.limitation-alert {
+  @include extend("mt-3 mx-3 alert alert-info mb-3");
+}
+
+.alert-action {
+  @include extend("mt-2");
+}
+
+.alert-button {
+  @include extend("btn btn-success btn-sm");
+}

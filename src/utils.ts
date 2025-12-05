@@ -8,7 +8,7 @@ import {
   type PageViewport,
   type RenderTask,
 } from "pdfjs-dist";
-import { toast } from "react-toastify";
+import { toast, type Id } from "react-toastify";
 
 import Cookies from "js-cookie";
 
@@ -99,9 +99,8 @@ export const getFileDetailsTooltipContent = async (
         if (pageCount === 2 && lang === "ar") {
           tooltipContent += " - صفحتين</bdi>";
         } else {
-          tooltipContent += ` - ${
-            lang === "ar" && pageCount === 1 ? "" : pageCount + " "
-          }${pageCount > 1 ? pages : page}</bdi>`;
+          tooltipContent += ` - ${lang === "ar" && pageCount === 1 ? "" : pageCount + " "
+            }${pageCount > 1 ? pages : page}</bdi>`;
         }
         URL.revokeObjectURL(url);
         if (!file.size) {
@@ -134,18 +133,25 @@ export async function getFirstPageAsImage(
         password: password || undefined,
       });
 
+      let tid: Id;
+
       // Handle password requests
       loadingTask.onPassword = (updatePassword, reason) => {
         if (reason === pdfjs.PasswordResponses.NEED_PASSWORD) {
           // First time asking for password
           if (password) {
             updatePassword(password);
+            if (tid) {
+              toast.dismiss(tid);
+            }
           } else {
             dispatch(setField({ errorCode: "PASSWORD_REQUIRED" }));
+            tid = toast.error(errors.PASSWORD_REQUIRED.message);
             throw new Error("PASSWORD_REQUIRED");
           }
         } else if (reason === pdfjs.PasswordResponses.INCORRECT_PASSWORD) {
           dispatch(setField({ errorCode: "INCORRECT_PASSWORD" }));
+          tid = toast.error(errors.INCORRECT_PASSWORD.message);
           throw new Error("INCORRECT_PASSWORD");
         }
       };

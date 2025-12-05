@@ -169,7 +169,7 @@ const FileCard = ({
         setPassword={setPassword}
         needsPassword={imageUrl === "/images/locked.png"}
       />
-      <div className="card-body d-flex flex-column">
+      <div className="card-body">
         {!showLoader ? (
           <img
             className="img-fluid-custom object-fit-contain rounded item-img"
