@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
@@ -19,8 +19,16 @@ export const CompressPDF = ({
   if (typeof window === "undefined") {
     return null;
   }
+
+  // Map tab indices to slider values
+  const tabToSliderMap = {
+    0: 0.5, // recommended
+    1: 1.0, // less
+    2: 1.5, // extreme
+  };
+
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [sliderValue, setSliderValue] = useState(1);
+  const [sliderValue, setSliderValue] = useState(tabToSliderMap[0]);
   const [filename, setFilename] = useState("");
 
   let _options = ["recommended", "less", "extreme"];
@@ -32,10 +40,30 @@ export const CompressPDF = ({
     (state: { tool: ToolState }) => state.tool.subscriptionStatus
   );
 
+  // Sync slider value when tab changes
+  useEffect(() => {
+    const mappedValue = tabToSliderMap[selectedIndex];
+    setSliderValue(mappedValue);
+    dispatch(setField({ compressPdf: mappedValue }));
+  }, [selectedIndex]);
+
+  const handleTabClick = (index: number) => {
+    setSelectedIndex(index);
+    // The useEffect will handle updating the slider value
+  };
+
   const handleSliderChange = (values: number[]) => {
     const newValue = values[1];
     setSliderValue(newValue);
     dispatch(setField({ compressPdf: newValue }));
+
+    // Optionally: Find closest tab and update selection
+    const closest = Object.entries(tabToSliderMap).reduce((prev, curr) => {
+      return Math.abs(curr[1] - newValue) < Math.abs(prev[1] - newValue)
+        ? curr
+        : prev;
+    });
+    setSelectedIndex(Number(closest[0]));
   };
 
   return (
@@ -45,13 +73,10 @@ export const CompressPDF = ({
           {options.slice(0, 3).map((option, index) => (
             <li className="tab-item" key={index}>
               <button
-                className={`tab-button ${
-                  selectedIndex === index ? "is-active" : ""
-                }`}
-                onClick={() => {
-                  setSelectedIndex(index);
-                  dispatch(setField({ compressPdf: _options[index] }));
-                }}
+                className={`tab-button${
+                  selectedIndex === index ? " is-active" : ""
+                }${index === 0 ? " first" : ""}`}
+                onClick={() => handleTabClick(index)}
               >
                 {option.title}
               </button>

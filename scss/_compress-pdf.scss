@@ -16,6 +16,13 @@
 
   &.is-active {
     @include extend("active");
+    &.first {
+      border-left: 0 !important;
+      @include ar-wrapper {
+        border-left: 1px;
+        border-right: 0 !important;
+      }
+    }
   }
 }
 
