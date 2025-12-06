@@ -79,9 +79,7 @@ const EditPage = ({
           text={edit_page.add_more_button}
         />
         <button
-          className={`gear-button btn btn-light${
-            showOptions ? " active opacity-5 top-0 left-1" : ""
-          }`}
+          className={`gear-button btn btn-light${showOptions ? " active" : ""}`}
           onClick={() => {
             dispatch(setField({ showOptions: !showOptions }));
           }}

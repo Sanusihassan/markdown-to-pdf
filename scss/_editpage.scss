@@ -55,8 +55,22 @@
     .gear-button {
       @include extend("position-absolute");
       &:not(.active) {
+        right: unset;
         top: 80px;
         left: 2.535px;
+        @include ar-wrapper {
+          left: unset;
+          right: 2.535px;
+        }
+      }
+      &.active {
+        right: unset;
+        left: 0;
+        @include ar-wrapper {
+          left: unset;
+          right: 0;
+        }
+        top: 0.25em;
       }
       z-index: 15;
       display: none;
