@@ -8,13 +8,8 @@ export const CTABtn = ({
   centerItem?: boolean;
 }) => {
   return (
-    <div className={`mt-2${centerItem ? " row justify-content-center" : ""}`}>
-      <a
-        href="/pricing"
-        className="btn btn-primary btn-sm cta-btn"
-        target="_blank"
-        style={{ fontWeight: "500" }}
-      >
+    <div className={centerItem ? "center-item" : undefined}>
+      <a href="/pricing" className="cta-btn" target="_blank">
         {cta}
       </a>
     </div>

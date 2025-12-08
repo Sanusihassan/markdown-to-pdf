@@ -182,3 +182,11 @@ a.dropdown-item {
   pointer-events: none;
   opacity: 1;
 }
+.cta-btn {
+  @include extend("btn btn-primary btn-sm");
+  font-weight: 500;
+}
+
+.center-item {
+  @include extend("row justify-content-center");
+}

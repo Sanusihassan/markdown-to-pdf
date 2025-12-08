@@ -194,7 +194,7 @@ export const errors = {
   alerts: {
     maxFiles: "Max 15 files allowed. Subscribe for more!",
     singleFileSize:
-      "Single file size must be under 100 MB. Upgrade to upload bigger files!",
+      "file size must be under 100 MB. Upgrade to upload bigger files!",
     fileSize:
       "Each file must be under 50 MB. Unlock higher limits with subscription!",
   },
