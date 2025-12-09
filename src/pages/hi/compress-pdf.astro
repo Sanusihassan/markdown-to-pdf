@@ -1,13 +1,13 @@
 ---
 import BaseLayout from "../../partials/BaseLayout.astro";
 import {
+  adBlockerContent,
   downloadFile,
   edit_page,
   errors,
   tool,
   tools,
 } from "../../content/content-hi";
-const { title, description, seoTitle, to } = tool.Compress_PDF;
 import { Provider as ReduxProvider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import toolReducer from "../../store";
@@ -36,6 +36,7 @@ export const store = configureStore({
       howTo={howToSchema}
       to={tool.Compress_PDF.to}
       seoTitle={tool.Compress_PDF.seoTitle}
+      adBlockerContent={adBlockerContent}
     />
   </ReduxProvider>
 </BaseLayout>

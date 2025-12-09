@@ -28,6 +28,9 @@ export function SubmitBtn({
   const subscriptionStatus = useSelector(
     (state: { tool: ToolState }) => state.tool.subscriptionStatus
   );
+  const isAdBlocked = useSelector(
+    (state: { tool: ToolState }) => state.tool.isAdBlocked
+  );
   return (
     <button
       className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k} grid-footer`}
@@ -53,7 +56,9 @@ export function SubmitBtn({
           );
         }
       }}
-      disabled={errorMessage.length > 0 || limitationMsg.length > 0}
+      disabled={
+        errorMessage.length > 0 || limitationMsg.length > 0 || isAdBlocked
+      }
     >
       <bdi>
         {

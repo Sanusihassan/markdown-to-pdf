@@ -199,3 +199,12 @@ export const errors = {
       "Each file must be under 50 MB. Unlock higher limits with subscription!",
   },
 };
+
+export const adBlockerContent = {
+  title: "Ad Blocker Detected",
+  description: "We noticed you're using an ad blocker. Please consider disabling it or upgrade to premium for an ad-free experience!",
+  reloadPage: "Reload Page",
+  upgradeToPremium: "Upgrade to Premium"
+}
+
+export type adBlockerContentType = typeof adBlockerContent;

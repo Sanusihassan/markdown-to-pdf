@@ -7,6 +7,7 @@ import type {
   downloadFile as _downloadFile,
   landing_page as _landing_page,
 } from "../content";
+import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
   Compress_PDF: {
@@ -207,3 +208,10 @@ export const errors: _errors = {
       "يجب أن يكون حجم كل ملف أقل من 50 ميغابايت. افتح حدود أكبر بالاشتراك!",
   },
 };
+
+export const adBlockerContent: adBlockerContentType = {
+  title: "تم اكتشاف مانع الإعلانات",
+  description: "لاحظنا أنك تستخدم مانع الإعلانات. يرجى التفكير في تعطيله أو الترقية إلى النسخة المميزة للحصول على تجربة خالية من الإعلانات!",
+  reloadPage: "إعادة تحميل الصفحة",
+  upgradeToPremium: "الترقية إلى النسخة المميزة"
+}

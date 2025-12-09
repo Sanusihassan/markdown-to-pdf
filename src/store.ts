@@ -21,6 +21,7 @@ export interface ToolState {
   subscriptionStatus: boolean;
   originalFileSize: number;
   compressedFileSize: number;
+  isAdBlocked: boolean;
 }
 
 const initialState: ToolState = {
@@ -39,6 +40,7 @@ const initialState: ToolState = {
   subscriptionStatus: false,
   compressedFileSize: 0,
   originalFileSize: 0,
+  isAdBlocked: false
 };
 
 const toolSlice = createSlice({

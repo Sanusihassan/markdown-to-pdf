@@ -8,6 +8,7 @@ import type {
   downloadFile as _downloadFile,
   landing_page as _landing_page,
 } from "../content";
+import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
   Compress_PDF: {
@@ -214,4 +215,11 @@ export const errors: _errors = {
     fileSize:
       "प्रत्येक फ़ाइल का आकार 50 एमबी से कम होना चाहिए। सब्सक्रिप्शन के साथ उच्चतर सीमाएँ अनलॉक करें!",
   },
+};
+
+export const adBlockerContent: adBlockerContentType = {
+  title: "विज्ञापन अवरोधक का पता चला",
+  description: "हमने देखा है कि आप विज्ञापन अवरोधक का उपयोग कर रहे हैं। कृपया इसे अक्षम करने या विज्ञापन-मुक्त अनुभव के लिए प्रीमियम में अपग्रेड करने पर विचार करें!",
+  reloadPage: "पेज फिर से लोड करें",
+  upgradeToPremium: "प्रीमियम में अपग्रेड करें"
 };

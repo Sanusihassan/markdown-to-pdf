@@ -8,6 +8,7 @@ import type {
   downloadFile as _downloadFile,
   landing_page as _landing_page,
 } from "../content";
+import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
   Compress_PDF: {
@@ -197,4 +198,11 @@ export const errors: _errors = {
     singleFileSize: "单个文件大小必须低于 100 MB。升级以上传更大的文件！",
     fileSize: "每个文件必须低于 50 MB。通过订阅解锁更高的限制！",
   },
+};
+
+export const adBlockerContent: adBlockerContentType = {
+  title: "检测到广告拦截器",
+  description: "我们注意到您正在使用广告拦截器。请考虑禁用它或升级到高级版以获得无广告体验！",
+  reloadPage: "重新加载页面",
+  upgradeToPremium: "升级到高级版"
 };

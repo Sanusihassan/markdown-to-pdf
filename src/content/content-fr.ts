@@ -8,6 +8,7 @@ import type {
   downloadFile as _downloadFile,
   landing_page as _landing_page,
 } from "../content";
+import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
   Compress_PDF: {
@@ -221,3 +222,10 @@ export const errors: _errors = {
       "Chaque fichier doit être inférieur à 50 Mo. Débloquez des limites plus élevées avec un abonnement !",
   },
 };
+
+export const adBlockerContent: adBlockerContentType = {
+  title: "Bloqueur de publicités détecté",
+  description: "Nous avons remarqué que vous utilisez un bloqueur de publicités. Veuillez envisager de le désactiver ou de passer à la version premium pour une expérience sans publicité!",
+  reloadPage: "Recharger la page",
+  upgradeToPremium: "Passer à Premium"
+}
