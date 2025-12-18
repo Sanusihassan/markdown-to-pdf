@@ -1,7 +1,8 @@
 // src/components/AdBlockDetector.tsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setField, type ToolState } from "../src/store";
+import type { UnknownAction } from "@reduxjs/toolkit";
 
 // Extend Window interface for TypeScript
 declare global {
@@ -18,6 +19,62 @@ export type adBlockerContentType = {
   upgradeToPremium: string; // New field for CTA button
 };
 
+const checkAdBlocker = async (
+  subscriptionStatus: boolean,
+  setIsAdBlocked: Dispatch<SetStateAction<boolean>>,
+  dispatch: Dispatch<UnknownAction>
+) => {
+  if (subscriptionStatus) {
+    return;
+  }
+  // Wait a bit for AdSense to load
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  // Method 1: Check if AdSense loaded
+  const adSenseBlocked = typeof window.adsbygoogle === "undefined";
+
+  // Method 2: Try to fetch the AdSense script
+  let fetchBlocked = false;
+  try {
+    await fetch(
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
+      { method: "HEAD", mode: "no-cors", cache: "no-store" }
+    );
+  } catch (error) {
+    fetchBlocked = true;
+  }
+
+  // Method 3: Bait element
+  let baitBlocked = false;
+  try {
+    const bait = document.createElement("div");
+    bait.className = "ad ads adsbox doubleclick ad-placement carbon-ads";
+    bait.style.cssText =
+      "position: absolute !important; left: -999px !important; width: 1px !important; height: 1px !important;";
+    document.body.appendChild(bait);
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    baitBlocked =
+      bait.offsetHeight === 0 ||
+      bait.offsetWidth === 0 ||
+      !bait.offsetParent ||
+      window.getComputedStyle(bait).display === "none";
+
+    document.body.removeChild(bait);
+  } catch (e) {
+    baitBlocked = true;
+  }
+
+  const detected = adSenseBlocked || fetchBlocked || baitBlocked;
+
+  setIsAdBlocked(detected);
+
+  // Dispatch to Redux store
+  if (detected) {
+    dispatch(setField({ isAdBlocked: detected }));
+  }
+};
 export default function AdBlockDetector({
   content,
   lang,
@@ -30,62 +87,12 @@ export default function AdBlockDetector({
   const subscriptionStatus = useSelector(
     (state: { tool: ToolState }) => state.tool.subscriptionStatus
   );
-
   useEffect(() => {
-    const checkAdBlocker = async () => {
-      if (subscriptionStatus) {
-        return;
-      }
-      // Wait a bit for AdSense to load
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Method 1: Check if AdSense loaded
-      const adSenseBlocked = typeof window.adsbygoogle === "undefined";
-
-      // Method 2: Try to fetch the AdSense script
-      let fetchBlocked = false;
-      try {
-        await fetch(
-          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
-          { method: "HEAD", mode: "no-cors", cache: "no-store" }
-        );
-      } catch (error) {
-        fetchBlocked = true;
-      }
-
-      // Method 3: Bait element
-      let baitBlocked = false;
-      try {
-        const bait = document.createElement("div");
-        bait.className = "ad ads adsbox doubleclick ad-placement carbon-ads";
-        bait.style.cssText =
-          "position: absolute !important; left: -999px !important; width: 1px !important; height: 1px !important;";
-        document.body.appendChild(bait);
-
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        baitBlocked =
-          bait.offsetHeight === 0 ||
-          bait.offsetWidth === 0 ||
-          !bait.offsetParent ||
-          window.getComputedStyle(bait).display === "none";
-
-        document.body.removeChild(bait);
-      } catch (e) {
-        baitBlocked = true;
-      }
-
-      const detected = adSenseBlocked || fetchBlocked || baitBlocked;
-
-      setIsAdBlocked(detected);
-
-      // Dispatch to Redux store
-      if (detected) {
-        dispatch(setField({ isAdBlocked: detected }));
-      }
-    };
-
-    checkAdBlocker();
+    // Don't run until subscription status is actually loaded
+    if (subscriptionStatus === null) {
+      return;
+    }
+    checkAdBlocker(subscriptionStatus, setIsAdBlocked, dispatch);
   }, [dispatch, subscriptionStatus]);
 
   const handleReload = () => {

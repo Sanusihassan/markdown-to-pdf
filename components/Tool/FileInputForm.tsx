@@ -8,7 +8,6 @@ import { handleChange } from "../../src/handlers/handleChange";
 import { useFileStore } from "../../src/file-store";
 // types
 import type { tools } from "../../src/content";
-import { getUserInfo } from "fetch-subscription-status";
 import Loading from "../Loading";
 type AcceptedFileTypes = {
   [key in ".pdf" | ".pptx" | ".docx" | ".xlsx" | ".jpg" | ".html"]: string;
@@ -54,12 +53,9 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
   const fileInput = useRef<HTMLInputElement>(null);
   const submitBtn = useRef<HTMLButtonElement>(null);
   const downloadBtn = useRef<HTMLAnchorElement>(null);
-  const [userId, setUserId] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     (async () => {
-      const user = await getUserInfo();
-      setUserId(user?.id);
       setLoaded(true);
     })();
     setFileInput(fileInput);
@@ -81,7 +77,6 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
             errorMessage,
             fileName,
             rotations,
-            userId,
             compressPdf,
             passwords,
           },

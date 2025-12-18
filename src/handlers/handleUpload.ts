@@ -22,7 +22,6 @@ export const handleUpload = async (
       k: string;
       p: string;
     }[];
-    userId: string | null;
     compressPdf: compressionType;
   },
   files: File[],
@@ -57,7 +56,6 @@ export const handleUpload = async (
   }
   formData.append("rotations", JSON.stringify(state.rotations));
   formData.append("passwords", JSON.stringify(state.passwords));
-  formData.append("userId", state.userId);
   let url: string = "";
   // @ts-ignore
   if (process.env.NODE_ENV === "development") {
@@ -106,11 +104,11 @@ export const handleUpload = async (
       outputFileName: `${originalFileName}.pptx`,
     },
     "application/vnd.openxmlformats-officedocument.presentationml.presentation":
-      {
-        outputFileMimeType:
-          "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        outputFileName: `${originalFileName}.pptx`,
-      },
+    {
+      outputFileMimeType:
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      outputFileName: `${originalFileName}.pptx`,
+    },
     "text/plain": {
       outputFileMimeType: "text/plain",
       outputFileName: `${originalFileName}.txt`,
@@ -120,6 +118,7 @@ export const handleUpload = async (
   try {
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
+      withCredentials: true
     });
     // const originalFileName = files[0]?.name?.split(".").slice(0, -1).join(".");
     const mimeType = response.data.type || response.headers["content-type"];

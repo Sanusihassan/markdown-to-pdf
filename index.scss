@@ -194,3 +194,7 @@ a.dropdown-item {
 a.no-underline {
   @include extend("text-decoration-none");
 }
+
+.spinner-grow {
+  @include extend("spinner-grow");
+}

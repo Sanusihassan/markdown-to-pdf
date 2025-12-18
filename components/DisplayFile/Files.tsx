@@ -67,14 +67,12 @@ const Files = ({
       setFiles([...files, ...newFiles]);
     }
   };
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: extension ? { [extension]: [] } : undefined,
-    noClick: files.length > 0, // Disable click when files are present
+    accept: { "application/pdf": [".pdf"] },
+    noClick: files.length > 0,
     noKeyboard: files.length > 0,
   });
-
   return (
     <div
       {...getRootProps()}
