@@ -33,3 +33,5 @@ JBIG2 lossy
 remain the options.
 
 fix cta style.
+
+synced errors & fix back-btn style

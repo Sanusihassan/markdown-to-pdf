@@ -4,6 +4,7 @@ import type { errors as _ } from "../content";
 import { type RefObject } from "react";
 import { resetErrorMessage, setField, type compressionType } from "../store";
 import type { Action, Dispatch } from "@reduxjs/toolkit/react";
+import { parseApiError } from "../parseApiError";
 let filesOnSubmit = [];
 let prevState = null;
 export const handleUpload = async (
@@ -81,38 +82,6 @@ export const handleUpload = async (
       outputFileMimeType: "application/pdf",
       outputFileName: `${originalFileName}.pdf`,
     },
-    "application/msword": {
-      outputFileMimeType: "application/msword",
-      outputFileName: `${originalFileName}.docx`,
-    },
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
-      outputFileMimeType:
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      outputFileName: `${originalFileName}.docx`,
-    },
-    "application/vnd.ms-excel": {
-      outputFileMimeType: "application/vnd.ms-excel",
-      outputFileName: `${originalFileName}.xlsx`,
-    },
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
-      outputFileMimeType:
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      outputFileName: `${originalFileName}.xlsx`,
-    },
-    "application/vnd.ms-powerpoint": {
-      outputFileMimeType: "application/vnd.ms-powerpoint",
-      outputFileName: `${originalFileName}.pptx`,
-    },
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation":
-    {
-      outputFileMimeType:
-        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-      outputFileName: `${originalFileName}.pptx`,
-    },
-    "text/plain": {
-      outputFileMimeType: "text/plain",
-      outputFileName: `${originalFileName}.txt`,
-    },
   };
 
   try {
@@ -155,6 +124,10 @@ export const handleUpload = async (
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setField({ errorMessage: errors.ERR_NETWORK.message }));
       return;
+    }
+    const errorMessage = parseApiError(error, errors);
+    if (errorMessage) {
+      dispatch(setField({ errorMessage }));
     }
     dispatch(setField({ isSubmitted: false }));
   } finally {
