@@ -18,7 +18,7 @@ export interface ToolState {
   rotations: { k: string; r: number }[];
   passwords: { k: string; p: string }[];
   compressPdf: compressionType;
-  subscriptionStatus: boolean;
+  subscriptionStatus: boolean | null;
   originalFileSize: number;
   compressedFileSize: number;
   isAdBlocked: boolean;
@@ -37,7 +37,7 @@ const initialState: ToolState = {
   rotations: [],
   passwords: [],
   compressPdf: "recommended",
-  subscriptionStatus: false,
+  subscriptionStatus: null,
   compressedFileSize: 0,
   originalFileSize: 0,
   isAdBlocked: false

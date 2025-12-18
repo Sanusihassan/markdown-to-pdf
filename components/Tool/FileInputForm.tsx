@@ -55,9 +55,10 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
   const downloadBtn = useRef<HTMLAnchorElement>(null);
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
-    (async () => {
-      setLoaded(true);
-    })();
+    if (typeof window === "undefined") {
+      return;
+    }
+    setLoaded(true);
     setFileInput(fileInput);
     setSubmitBtn(submitBtn);
     setDownloadBtn(downloadBtn);
