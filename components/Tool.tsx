@@ -9,8 +9,9 @@ import { useFileStore } from "../src/file-store";
 import { setField } from "../src/store";
 import { ACCEPTED, filterNewFiles, validateFiles } from "../src/utils";
 import type { edit_page } from "../src/content";
-import { fetchSubscriptionStatus } from "fetch-subscription-status";
+import { getUserSubscription } from "fetch-subscription-status";
 import { Bounce, ToastContainer } from "react-toastify";
+import Cookies from "js-cookie";
 
 export type errorType = {
   response: {
@@ -114,8 +115,12 @@ const Tool: React.FC<ToolProps> = ({
 
   useEffect(() => {
     (async () => {
-      const status = await fetchSubscriptionStatus();
+      const subscription = await getUserSubscription();
+      const status = subscription.isActive;
       dispatch(setField({ subscriptionStatus: status }));
+      if (typeof window !== "undefined") {
+        Cookies.set("subscription", JSON.stringify(subscription.subscription));
+      }
       if (!status) {
         const head = document.head;
 
