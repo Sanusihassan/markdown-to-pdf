@@ -41,7 +41,7 @@ const DownloadFile = ({
               ]}
           </bdi>
         </h3>
-        <div className="download-btn-container gap-0.5">
+        <div className="download-btn-container gap-1">
           <button
             className="back-btn"
             style={lang == "ar" ? { order: 1 } : {}}

@@ -68,10 +68,6 @@ const checkAdBlocker = async (
 
   const detected = adSenseBlocked || fetchBlocked || baitBlocked;
 
-  console.log("adSenseBlocked || fetchBlocked || baitBlocked", adSenseBlocked , fetchBlocked , baitBlocked);
-
-  console.log("subscriptionStatus", subscriptionStatus);
-
   setIsAdBlocked(detected);
 
   // Dispatch to Redux store

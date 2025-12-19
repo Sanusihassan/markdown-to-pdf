@@ -117,7 +117,6 @@ const Tool: React.FC<ToolProps> = ({
     (async () => {
       const subscription = await getUserSubscription();
       const status = subscription.isActive;
-      console.log("status", status);
       dispatch(setField({ subscriptionStatus: status }));
       if (typeof window !== "undefined") {
         Cookies.set("subscription", JSON.stringify(subscription.subscription));
