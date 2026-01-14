@@ -1,12 +1,10 @@
-import { type Dispatch, type SetStateAction, useEffect } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 import type { errors as _ } from "../../src/content";
 import FileCard from "./FileCard";
-import { useDropzone } from "react-dropzone";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { isDraggableExtension } from "../../src/utils";
+import type { tool as _tool } from "../../src/content";
 import { useFileStore } from "../../src/file-store";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSubscriptionStatus } from "fetch-subscription-status";
-import { setField, type ToolState } from "../../src/store";
-import { ACCEPTED, filterNewFiles, validateFiles } from "../../src/utils";
 
 type FileProps = {
   errors: _;
@@ -14,91 +12,86 @@ type FileProps = {
   toolTipSizes: string[];
   setToolTipSizes: Dispatch<SetStateAction<string[]>>;
   loader_text: string;
+  showSpinner: boolean;
   fileDetailProps: [string, string, string];
-  drop_files: string;
 };
-
 const Files = ({
   errors,
   extension,
+  toolTipSizes,
   loader_text,
+  showSpinner,
   fileDetailProps,
-  drop_files,
 }: FileProps) => {
-  const { files, setFiles } = useFileStore();
-  const dispatch = useDispatch();
-  const subscriptionStatus = useSelector(
-    (state: { tool: ToolState }) => state.tool.subscriptionStatus
-  );
+  // const store = useSelector((state: { tool: ToolState }) => state.tool);
+  const { files } = useFileStore();
 
-  useEffect(() => {
-    let limitationMsg = "";
-    (async () => {
-      const isSubscribed =
-        subscriptionStatus === null
-          ? await fetchSubscriptionStatus()
-          : subscriptionStatus;
-      if (isSubscribed) {
-        return;
-      }
-      // Check limitations
-      if (files.length === 1 && files[0].size >= 100 * 1024 * 1024) {
-        limitationMsg = errors.alerts.singleFileSize;
-      }
-      if (files.length >= 15) {
-        limitationMsg = errors.alerts.maxFiles;
-      } else if (files.some((file) => file.size > 50 * 1024 * 1024)) {
-        limitationMsg = errors.alerts.fileSize;
-      }
-      // Dispatch the message
-      dispatch(setField({ limitationMsg }));
-    })();
-  }, [files]);
+  useEffect(() => {}, [files]);
 
-  const onDrop = (acceptedFiles: File[]) => {
-    const { isValid } = validateFiles(
-      acceptedFiles,
-      dispatch,
-      errors,
-      "application/pdf"
-    );
-    const newFiles = filterNewFiles(acceptedFiles, files, ACCEPTED);
-    if (isValid) {
-      setFiles([...files, ...newFiles]);
+  const handleDragEnd = (result: any) => {
+    if (!result.destination) {
+      return;
     }
+    // Argument of type 'Blob[]' is not assignable to parameter of type 'File[]'.
+    // Type 'Blob' is missing the following properties from type 'File': lastModified, webkitRelativePathts(2345)
+    // if (isDraggableExtension(extension, router)) {
+    // dispatch(setFiles(store.files));
+    // }
   };
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { "application/pdf": [".pdf"] },
-    noClick: files.length > 0,
-    noKeyboard: files.length > 0,
-  });
+
   return (
-    <div
-      {...getRootProps()}
-      className={`display-file ${isDragActive ? "dragging-over" : ""}`}
-      style={{ position: "relative" }}
-    >
-      <input {...getInputProps()} />
-
-      {isDragActive && <div className="overlay display-4">{drop_files}</div>}
-
-      {files.map((file, index) => (
-        <div key={file.name} className="drag-element">
-          <FileCard
-            extension={extension}
-            file={file}
-            index={index}
-            isDraggable={false}
-            provided={null}
-            snapshot={null}
-            errors={errors}
-            loader_text={loader_text}
-            fileDetailProps={fileDetailProps}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="imageUrls" direction="horizontal">
+          {(provided, snapshot) => (
+            <div
+              className={`display-file ${
+                snapshot.isDraggingOver ? "dragging-over" : ""
+              }`}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {/* this is what cause the error instead of imageUrls i want to use the files array it's a File[] */}
+              {files.map((file, index) => (
+                <Draggable
+                  key={file.name}
+                  draggableId={file.name}
+                  index={index}
+                  isDragDisabled={false}
+                >
+                  {(provided, snapshot) => (
+                    <div
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                      className={`drag-element ${
+                        snapshot.isDragging ? "dragging" : ""
+                      }`}
+                      style={{
+                        ...provided.draggableProps.style,
+                      }}
+                    >
+                      {/* isDraggableExtension(extension) ? ( */}
+                      <FileCard
+                        extension={extension}
+                        file={file}
+                        index={index}
+                        isDraggable={false}
+                        provided={provided}
+                        snapshot={snapshot}
+                        errors={errors}
+                        loader_text={loader_text}
+                        fileDetailProps={fileDetailProps}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </>
   );
 };
 

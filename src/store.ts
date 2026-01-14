@@ -4,7 +4,37 @@ type WritableDraft<T> = {
 };
 
 type k = keyof WritableDraft<ToolState>;
-export type compressionType = "recommended" | "less" | "extreme";
+type ThemeName =
+  | "github"
+  | "github-dark"
+  | "almond"
+  | "awsm"
+  | "axist"
+  | "bamboo"
+  | "bullframe"
+  | "holiday"
+  | "kacit"
+  | "latex"
+  | "marx"
+  | "mini"
+  | "modest"
+  | "new"
+  | "no-class"
+  | "pico"
+  | "retro"
+  | "sakura"
+  | "sakura-vader"
+  | "semantic"
+  | "simple"
+  | "style-sans"
+  | "style-serif"
+  | "stylize"
+  | "superstylin"
+  | "tacit"
+  | "vanilla"
+  | "water"
+  | "water-dark"
+  | "writ";
 export interface ToolState {
   showTool: boolean;
   isSubmitted: boolean;
@@ -17,11 +47,25 @@ export interface ToolState {
   limitationMsg: string;
   rotations: { k: string; r: number }[];
   passwords: { k: string; p: string }[];
-  compressPdf: compressionType;
+  files: { name: string; size: number; url: string }[];
   subscriptionStatus: boolean | null;
   originalFileSize: number;
   compressedFileSize: number;
   isAdBlocked: boolean;
+  markdown: string;
+  document_name: string;
+  show_files_list: boolean;
+  alertVarient: "success" | "info" | "warning" | "error";
+  options: {
+    theme: ThemeName;
+    screenSize: string;
+    orientation: "Portrait" | "Landscape";
+    // should be like this: 'letter' | 'legal' | 'tabloid' | 'ledger' | 'a0' | 'a1' | 'a2' | 'a3' | 'a4' | 'a5' | 'a6'
+    pageSize: "A4" | "Letter" | "Legal" | "A3" | "A5" | "US Letter";
+    pageMargin: "No margin" | "Small" | "Big";
+    fontSize: number;
+  };
+  preview: boolean;
 }
 
 const initialState: ToolState = {
@@ -36,11 +80,24 @@ const initialState: ToolState = {
   limitationMsg: "",
   rotations: [],
   passwords: [],
-  compressPdf: "recommended",
   subscriptionStatus: null,
   compressedFileSize: 0,
   originalFileSize: 0,
-  isAdBlocked: false
+  isAdBlocked: false,
+  alertVarient: "error",
+  document_name: "",
+  markdown: "",
+  files: [],
+  show_files_list: false,
+  options: {
+    theme: "github",
+    orientation: "Portrait",
+    screenSize: "screen",
+    pageMargin: "No margin",
+    pageSize: "A4",
+    fontSize: 16
+  },
+  preview: false
 };
 
 const toolSlice = createSlice({

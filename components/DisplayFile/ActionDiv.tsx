@@ -14,6 +14,8 @@ export type ActionProps = {
   fileName: string;
   setPassword?: Dispatch<SetStateAction<string>>;
   needsPassword?: boolean;
+  index: number;
+  errors: _;
 };
 
 export const ActionDiv = ({

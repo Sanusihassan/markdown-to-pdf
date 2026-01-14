@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect } from "react";
-import * as dropzone from "react-dropzone";
-import EditPage from "./EditPage";
-import ErrorElement from "./ErrorElement";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FileInputForm } from "./Tool/FileInputForm";
 import DownloadFile from "./DownloadFile";
 import { useFileStore } from "../src/file-store";
-import { setField } from "../src/store";
-import { ACCEPTED, filterNewFiles, validateFiles } from "../src/utils";
+import { setField, type ToolState } from "../src/store";
 import type { edit_page } from "../src/content";
 import { getUserSubscription } from "fetch-subscription-status";
 import { Bounce, ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";
+import Markdown2PDF from "./Markdown2PDF";
+import DocumentName from "./DocumentName";
+import { FilesList } from "./FilesList";
+import ToolBar from "./ToolBar";
+import PopUpAlert from "./PopUpAlert";
 
 export type errorType = {
   response: {
@@ -58,6 +58,15 @@ const Tool: React.FC<ToolProps> = ({
   const errorMessage = useSelector(
     (state: { tool: any }) => state.tool.errorMessage
   );
+  const showFilesList = useSelector(
+    (state: { tool: ToolState }) => state.tool.show_files_list
+  );
+  const alertVarient = useSelector(
+    (state: { tool: ToolState }) => state.tool.alertVarient
+  );
+  const showDownloadBtn = useSelector(
+    (state: { tool: ToolState }) => state.tool.showDownloadBtn
+  );
   const { setFiles, files } = useFileStore();
   const dispatch = useDispatch();
 
@@ -68,50 +77,50 @@ const Tool: React.FC<ToolProps> = ({
   useEffect(() => {
     dispatch(setField({ showDownloadBtn: false }));
   }, [stateShowTool]);
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const { isValid } = validateFiles(
-      acceptedFiles,
-      dispatch,
-      errors,
-      "application/pdf"
-    );
-    const newFiles = filterNewFiles(acceptedFiles, files, ACCEPTED);
-    if (isValid) {
-      setFiles(newFiles);
-      handleHideTool();
-    }
-  }, []);
+  // const onDrop = useCallback((acceptedFiles: File[]) => {
+  //   const { isValid } = validateFiles(
+  //     acceptedFiles,
+  //     dispatch,
+  //     errors,
+  //     "application/pdf"
+  //   );
+  //   const newFiles = filterNewFiles(acceptedFiles, files, ACCEPTED);
+  //   if (isValid) {
+  //     setFiles(newFiles);
+  //     handleHideTool();
+  //   }
+  // }, []);
 
-  const handlePaste = useCallback(
-    (event: React.ClipboardEvent<HTMLDivElement>) => {
-      const items = event.clipboardData?.items;
-      if (items) {
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          if (item.kind === "file") {
-            const blob = item.getAsFile();
-            if (blob) {
-              setFiles([blob]);
-              handleHideTool();
-              return;
-            }
-          }
-        }
-      }
-    },
-    []
-  );
+  // const handlePaste = useCallback(
+  //   (event: React.ClipboardEvent<HTMLDivElement>) => {
+  //     const items = event.clipboardData?.items;
+  //     if (items) {
+  //       for (let i = 0; i < items.length; i++) {
+  //         const item = items[i];
+  //         if (item.kind === "file") {
+  //           const blob = item.getAsFile();
+  //           if (blob) {
+  //             setFiles([blob]);
+  //             handleHideTool();
+  //             return;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   },
+  //   []
+  // );
 
-  const { getRootProps, isDragActive } = dropzone.useDropzone({ onDrop });
+  // const { getRootProps, isDragActive } = dropzone.useDropzone({ onDrop });
 
-  const acceptedFileTypes = {
-    ".pdf": ".pdf, .PDF",
-    ".pptx": ".pptx, .ppt",
-    ".docx": ".docx, .doc",
-    ".xlsx": ".xlsx, .xls",
-    ".jpg": ".jpg, .jpeg",
-    ".html": ".html, .htm",
-  };
+  // const acceptedFileTypes = {
+  //   ".pdf": ".pdf, .PDF",
+  //   ".pptx": ".pptx, .ppt",
+  //   ".docx": ".docx, .doc",
+  //   ".xlsx": ".xlsx, .xls",
+  //   ".jpg": ".jpg, .jpeg",
+  //   ".html": ".html, .htm",
+  // };
 
   useEffect(() => {
     (async () => {
@@ -151,44 +160,47 @@ const Tool: React.FC<ToolProps> = ({
 
   return (
     <>
+      <FilesList
+        edit_page={edit_page}
+        errors={errors}
+        lang={lang}
+        page={page}
+        pages={pages}
+        path={data.to}
+      />
       <div
-        // tools-page
-        className="tools-page"
-        {...(stateShowTool && { ...getRootProps(), onPaste: handlePaste })}
-        onClick={(e) => {
-          e.preventDefault();
-        }}
+        className={`tools-page position-relative${
+          showFilesList ? " d-none" : ""
+        }`}
       >
-        {isDragActive && <div className="overlay">{tools.drop_files}</div>}
-        <div
-          className={`text-center${
-            !(stateShowTool && errorMessage?.length > 0) ? "" : " d-flex"
-          } flex-column tools ${stateShowTool ? "" : "d-none"}`}
-        >
-          <h1 className="title">{data.title}</h1>
-          <p className="description">{data.description}</p>
-          <FileInputForm
-            lang={lang}
-            data={data}
-            errors={errors}
-            tools={tools}
-            acceptedFileTypes={acceptedFileTypes}
-          />
-          <p>{tools.or_drop}</p>
-          <ErrorElement cta={edit_page.filenameOptions.cta} />
-        </div>
-        <EditPage
-          extension={data.type}
-          edit_page={edit_page}
-          pages={pages}
-          page={page}
-          lang={lang}
+        <ToolBar
+          toolbar={edit_page.toolbar}
           errors={errors}
-          path={path}
-          drop_files={tools.drop_files}
+          github_popup={edit_page.github_popup}
+          lang={lang}
+          options={edit_page.options}
         />
-        <DownloadFile lang={lang} downloadFile={downloadFile} path={path} />
+        <div className="rest">
+          <DocumentName document_name={edit_page.document_name} />
+          <Markdown2PDF
+            loader_text={edit_page.loader_text}
+            download_pdf_text={edit_page.download_pdf_text}
+            errors={errors}
+            placeholder={edit_page.placeholder}
+          />
+        </div>
       </div>
+      {showDownloadBtn ? (
+        <div className="tools-page d-flex justify-content-center">
+          <DownloadFile
+            downloadFile={downloadFile}
+            lang={lang}
+            path={data.to.replace("/", "")}
+          />
+        </div>
+      ) : null}
+      <ToastContainer />
+      <PopUpAlert varient={alertVarient} />
       <ToastContainer
         position="top-center"
         autoClose={5000}

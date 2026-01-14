@@ -11,109 +11,89 @@ import type {
 import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
-  Compress_PDF: {
-    title: "PDF संपीड़ित करें",
-    seoTitle: "ऑनलाइन PDF संपीड़न – निःशुल्क फ़ाइल आकार कम करने वाला टूल",
-    description: "गुणवत्ता बनाए रखते हुए PDF फ़ाइल का आकार कम करें",
-    color: "var(--green)",
+  Markdown_to_PDF: {
+    title: "Markdown से पीडीएफ में रूपांतरण",
+    seoTitle:
+      "Markdown से पीडीएफ में रूपांतरण - मार्कडाउन से पीडीएफ कनवर्टर टूल",
+    description: "Markdown से पीडीएफ में रूपांतरण",
+    color: "#6c5ce7",
     type: ".pdf",
-    to: "/compress-pdf",
-    features: [
-      {
-        title: "बहुउद्देश्यीय PDF संपीड़न",
-        description:
-          "हर बार तेज़ और भरोसेमंद परिणाम प्राप्त करें। अपने फ़ाइल आकार को समायोजित करने के लिए विभिन्न संपीड़न स्तरों में से चुनें, बिना दस्तावेज़ की गुणवत्ता से समझौता किए।",
-      },
-      {
-        title: "ईमेल पंजीकरण की आवश्यकता नहीं",
-        description:
-          "तुरंत अपने PDF संपीड़ित करना शुरू करें – कोई ईमेल साइन-अप नहीं, कोई क्रेडिट कार्ड विवरण नहीं। बस अपना दस्तावेज़ अपलोड करें और आवश्यकतानुसार संपीड़ित करें।",
-      },
-      {
-        title: "हमेशा गुणवत्ता बनाए रखें",
-        description:
-          "PDFEquips उन्नत तकनीक का उपयोग करता है जो आपके PDF की छवियों के आकार और गुणवत्ता दोनों को अनुकूलित करता है। इससे आपको बहुत छोटे फ़ाइल आकार मिलते हैं बिना दस्तावेज़ की स्पष्टता कम किए।",
-      },
+    to: "/markdown-to-pdf",
+  },
+};
+
+export const downloadFile: _downloadFile = {
+  titles: {
+    "markdown-to-pdf": [
+      "मार्कडाउन फ़ाइलें PDF में रूपांतरित की गईं!",
+      "मार्कडाउन फ़ाइल को PDF में रूपांतरित किया गया है!",
     ],
-    keywords:
-      "PDF संपीड़न, ऑनलाइन PDF संपीड़न, PDF आकार कम करें, निःशुल्क PDF संपीड़न, PDF फ़ाइल संपीड़न, ऑनलाइन PDF कम्प्रेसर, PDF कम्प्रेस टूल, PDF आकार घटाएं, PDF दस्तावेज़ संपीड़ित करें, सुरक्षित PDF संपीड़न, PDF ऑप्टिमाइज़र, मुफ्त PDF संपीड़न, बिना पंजीकरण PDF कम्प्रेस, तेज़ PDF संपीड़न",
+  },
+  btnText: {
+    "markdown-to-pdf": [
+      "PDF में रूपांतरित की गई मार्कडाउन फ़ाइलें डाउनलोड करें",
+      "PDF में रूपांतरित की गई मार्कडाउन फ़ाइल डाउनलोड करें",
+    ],
+  },
+  backto: {
+    "markdown-to-pdf": "मार्कडाउन से PDF को वापस जाएं",
   },
 };
 
 export const edit_page: _edit_page = {
   edit_page_titles: {
-    compress_pdf: "PDF संपीड़न विकल्प",
+    markdown_to_pdf: "Markdown से PDF विकल्प",
   },
   loader_text: "कृपया प्रतीक्षा करें...",
-  add_more_button: "अधिक पृष्ठ जोड़ें",
+  add_more_button: "अधिक फ़ाइलें जोड़ें",
   action_buttons: {
-    compress_pdf: "PDF संपीड़ित करें",
+    markdown_to_pdf: "Markdown से PDF",
   },
-  pages: "पृष्ठ",
+  placeholder: "कुछ भी पूछें",
+  pages: "पृष्ठों",
   page: "पृष्ठ",
-  filenameOptions: {
-    label: "आउटपुट फ़ाइल का नाम (वैकल्पिक)",
-    placeholder: "फ़ाइल का नाम दर्ज करें",
-    helperText: "डाउनलोड करते समय यह संकुचित PDF का नाम होगा।",
-    cta: "योजनाएँ देखें",
-    upgradeNotice: {
-      msg: "2.0 से 10.0 तक के स्तर प्रीमियम में उपलब्ध हैं।",
-      cta: "अभी अपग्रेड करें",
-    },
+  toolbar: {
+    rename_file: "फ़ाइल का नाम बदलें",
+    upload_file: "फ़ाइल अपलोड करें",
+    upload_from_github: "GitHub से अपलोड करें",
+    options: "विकल्प",
+    assistant: "सहायक"
   },
-
-  compress_pdf: [
-    {
-      title: "अनुशंसित संपीड़न",
-      description: "आकार और गुणवत्ता के बीच सबसे अच्छा संतुलन",
-    },
-    {
-      title: "कम संपीड़न",
-      description: "थोड़ा बड़ा फ़ाइल आकार लेकिन उच्च गुणवत्ता",
-    },
-    {
-      title: "अत्यधिक संपीड़न",
-      description: "बहुत छोटा फ़ाइल आकार लेकिन गुणवत्ता में कमी",
-    },
-    {
-      title: "कस्टम संपीड़न",
-      description: "अपना स्वयं का संपीड़न स्तर चुनें",
-    },
-  ],
-};
-
-export const downloadFile: _downloadFile = {
-  titles: {
-    "compress-pdf": [
-      "PDF फ़ाइलें संपीड़ित कर दी गई हैं!",
-      "PDF फ़ाइल संपीड़ित कर दी गई है!",
-    ],
+  document_name: {
+    doc_name: "दस्तावेज़ नाम",
+    untitled: "शीर्षक रहित दस्तावेज़",
   },
-
-  btnText: {
-    "compress-pdf": [
-      "संपीड़ित PDF फ़ाइलें डाउनलोड करें",
-      "संपीड़ित PDF फ़ाइल डाउनलोड करें",
-    ],
+  github_popup: {
+    label: "GitHub फ़ोल्डर URL:",
+    placeholder: "GitHub URL दर्ज करें",
+    submit: "ठीक है",
   },
-
-  backto: {
-    "compress-pdf": "PDF संपीड़न पर वापस जाएँ",
-  },
-  compressionAnalyticsContent: {
-    title: "संपीड़न विश्लेषण",
-    description: "आपकी PDF संपीड़न के परिणामों का विस्तृत विवरण",
-    sizeComparisonTitle: "आकार तुलना",
-    reductionBreakdownTitle: "कमी का विश्लेषण",
-    sizeSavedLabel: "बचाई गई जगह",
-    compressionRatioLabel: "संपीड़न अनुपात",
-    sizeReducedLabel: "कम किया गया आकार",
-    chart: {
-      original: "मूल",
-      compressed: "संपीड़ित",
-      reduced: "कम किया गया",
-      remaining: "शेष",
+  download_pdf_text: "PDF डाउनलोड करें",
+  options: {
+    title: "विकल्प",
+    theme: "थीम",
+    screen_size: "स्क्रीन का आकार",
+    orientation: "अभिविन्यास",
+    margin: "पृष्ठ का किनारा",
+    page_size: "पृष्ठ का आकार",
+    label_content: {
+      orientation: ["पोर्ट्रेट", "लैंडस्केप"],
+      screen_sizes: {
+        your_screen: "आपका स्क्रीन",
+        desktop_hd: "डेस्कटॉप HD (1920px)",
+        desktop_144: "डेस्कटॉप (1440px)",
+        tablet: "टैबलेट 768px",
+        mobile: "मोबाइल (320px)",
+      },
+      margin: {
+        no_margin: "कोई मार्जिन नहीं",
+        small: "छोटा",
+        big: "बड़ा",
+      },
     },
+    font_size: "फ़ॉन्ट साइज़",
+    defaults: "डिफ़ॉल्ट",
+    save_changes: "परिवर्तन सहेजें",
   },
 };
 
@@ -122,13 +102,6 @@ export const tools: _tools = {
   or_drop: "या फ़ाइलें यहां छोड़ें",
   files: "फाइलें",
   drop_files: "फ़ाइलें यहाँ खींचें",
-};
-
-export const footer: _footer = {
-  brand: "PDFEquips",
-  terms: "शर्तें",
-  conditions: "उपयोग की शर्तें",
-  privacy_policy: "गोपनीयता नीति",
 };
 
 export const errors: _errors = {
@@ -160,21 +133,6 @@ export const errors: _errors = {
       "फ़ाइल का डाटा भ्रष्ट है और इसे प्रसंस्करण नहीं किया जा सकता है। कृपया एक मान्य फ़ाइल चुनें।",
     code: "ERR_FILE_CORRUPT",
   },
-  MISSING_FONTS: {
-    message:
-      "फ़ाइल में फ़ॉन्ट गुम हैं। कृपया सुनिश्चित करें कि पीडीएफफ़ाइल में सभी फ़ॉन्ट एम्बेड हैं।",
-    code: "ERR_MISSING_FONTS",
-  },
-  INVALID_IMAGE_DATA: {
-    message:
-      "फ़ाइल में अवैध छवि डेटा है। कृपया सुनिश्चित करें कि सभी छवियाँ सही ढंग से फ़ॉर्मेटेड हैं।",
-    code: "ERR_INVALID_IMAGE_DATA",
-  },
-  SECURITY_RISK: {
-    message:
-      "फ़ाइल में सुरक्षा जोखिम हो सकता है और इसे प्रसंस्करण नहीं किया जा सकता है। कृपया एक मान्य फ़ाइल चुनें।",
-    code: "ERR_SECURITY_RISK",
-  },
   MAX_FILES_EXCEEDED: {
     message:
       "आपने अनुमति दी हुई अधिकतम फ़ाइलों की संख्या पार कर दी है। कृपया कुछ फ़ाइलें हटाएं और पुनः प्रयास करें।",
@@ -194,26 +152,13 @@ export const errors: _errors = {
       "नेटवर्क में त्रुटि हो गई है। कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।",
     code: "ERR_NETWORK",
   },
-  PASSWORD_REQUIRED: {
-    message: "PDF को पासवर्ड की आवश्यकता है।",
-    code: "PASSWORD_REQUIRED",
+  ERR_MAX_USAGE: {
+    message: "अधिकतम उपयोग सीमा पार हो गई है। कृपया इस सेवा का उपयोग जारी रखने के लिए अपग्रेड करें या सब्सक्राइब करें।",
+    code: "ERR_MAX_USAGE",
   },
-
-  INCORRECT_PASSWORD: {
-    message: "आपने जो पासवर्ड दर्ज किया है वह गलत है।",
-    code: "INCORRECT_PASSWORD",
-  },
-  MAX_DAILY_USAGE: {
-    message:
-      "आपने अपनी दैनिक उपयोग सीमा पूरी कर ली है। कृपया इस सुविधा का निर्बाध उपयोग जारी रखने के लिए अपनी योजना अपग्रेड करें।",
-    code: "MAX_DAILY_USAGE",
-  },
-  alerts: {
-    maxFiles: "अधिकतम 15 फ़ाइलें अनुमति हैं। अधिक के लिए सब्सक्राइब करें!",
-    singleFileSize:
-      "एकल फ़ाइल का आकार 100 एमबी से कम होना चाहिए। बड़ी फ़ाइलें अपलोड करने के लिए अपग्रेड करें!",
-    fileSize:
-      "प्रत्येक फ़ाइल का आकार 50 एमबी से कम होना चाहिए। सब्सक्रिप्शन के साथ उच्चतर सीमाएँ अनलॉक करें!",
+  INVALID_GITHUB_URL: {
+    message: "GitHub URL अमान्य है। कृपया एक वैध GitHub URL दर्ज करें।",
+    code: "ERR_INVALID_GITHUB_URL",
   },
 };
 

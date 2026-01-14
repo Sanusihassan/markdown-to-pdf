@@ -10,32 +10,13 @@ import type {
 import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
-  Compress_PDF: {
-    title: "ضغط PDF",
-    seoTitle: "ضغط ملفات PDF عبر الإنترنت - أداة تقليل حجم الملفات مجاناً",
-    description: "قلل من حجم ملف PDF مع الحفاظ على الجودة",
-    color: "var(--green)",
+  Markdown_to_PDF: {
+    title: "تحويل النص بتنسيق ماركداون إلى ملف PDF",
+    seoTitle: "تحويل النص بتنسيق ماركداون إلى PDF - تحويل ماركداون إلى ملف PDF",
+    description: "تحويل النص بتنسيق ماركداون إلى ملف PDF",
+    color: "#6c5ce7",
     type: ".pdf",
-    to: "/compress-pdf",
-    features: [
-      {
-        title: "ضغط PDF متعدد الاستخدامات",
-        description:
-          "احصل على نتائج سريعة وموثوقة يمكنك الاعتماد عليها في كل مرة. اختر من بين مستويات ضغط مختلفة لتعديل حجم الملف دون المساس بجودة المستند.",
-      },
-      {
-        title: "لا حاجة لتسجيل البريد الإلكتروني",
-        description:
-          "ابدأ في ضغط ملفات PDF الخاصة بك فوراً - بدون تسجيل بريد إلكتروني أو تفاصيل بطاقة ائتمان. فقط قم بتحميل المستند واضغطه حسب حاجتك.",
-      },
-      {
-        title: "الحفاظ على الجودة دائماً",
-        description:
-          "يستخدم PDFEquips تقنية متقدمة لتحسين حجم وجودة الصور في ملفات PDF الخاصة بك، مما يضمن لك الحصول على ملفات أصغر بكثير دون فقدان دقة المستندات.",
-      },
-    ],
-    keywords:
-      "ضغط PDF، ضغط PDF عبر الإنترنت، تقليل حجم ملف PDF، ضغط PDF مجاناً، أداة ضغط PDF، تقليل حجم ملفات PDF، ضغط مستندات PDF، تصغير ملفات PDF، ضغط PDF آمن، تحسين PDF، ضغط ملفات PDF مجاناً، أداة ضغط PDF بدون تسجيل، تقليل حجم PDF عبر الإنترنت، ضغط PDF سريع",
+    to: "/markdown-to-pdf",
   },
 };
 
@@ -46,82 +27,76 @@ export const tools: _tools = {
   drop_files: "قم بوضع الملفات هنا",
 };
 
-export const edit_page: _edit_page = {
-  edit_page_titles: {
-    compress_pdf: "خيارات ضغط PDF",
-  },
-  loader_text: "يرجى الانتظار...",
-  add_more_button: "إضافة المزيد من الصفحات",
-  action_buttons: {
-    compress_pdf: "ضغط PDF",
-  },
-  pages: "صفحات",
-  page: "صفحة",
-  filenameOptions: {
-    label: "اسم الملف الناتج (اختياري)",
-    placeholder: "أدخل اسم الملف",
-    helperText: "سيكون هذا هو اسم ملف PDF المضغوط عند تنزيله.",
-    cta: "عرض الخطط",
-    upgradeNotice: {
-      msg: "المستويات من 2.0 إلى 10.0 متاحة مع الخطة المميزة.",
-      cta: "الترقية الآن",
-    },
-  },
-
-  compress_pdf: [
-    {
-      title: "الضغط الموصى به",
-      description: "أفضل توازن بين الحجم والجودة",
-    },
-    {
-      title: "ضغط أقل",
-      description: "جودة أعلى لكن بحجم ملف أكبر",
-    },
-    {
-      title: "ضغط عالي جداً",
-      description: "حجم ملف أصغر بكثير ولكن بجودة أقل بكثير",
-    },
-    {
-      title: "ضغط مخصص",
-      description: "اختر مستوى الضغط الذي تريده بنفسك",
-    },
-  ],
-};
-
 export const downloadFile: _downloadFile = {
   titles: {
-    "compress-pdf": ["تم ضغط ملفات PDF!", "تم ضغط ملف PDF!"],
+    "markdown-to-pdf": [
+      "تم تحويل ملفات Markdown إلى PDF!",
+      "تم تحويل ملف Markdown إلى PDF!",
+    ],
   },
-
   btnText: {
-    "compress-pdf": ["تحميل ملفات PDF المضغوطة", "تحميل ملف PDF المضغوط"],
+    "markdown-to-pdf": ["تحميل ملفات PDF المحولة", "تحميل ملف PDF المحول"],
   },
-
   backto: {
-    "compress-pdf": "العودة إلى ضغط PDF",
-  },
-  compressionAnalyticsContent: {
-    title: "تحليلات الضغط",
-    description: "تفاصيل دقيقة لنتائج ضغط ملف PDF الخاص بك",
-    sizeComparisonTitle: "مقارنة الحجم",
-    reductionBreakdownTitle: "تفاصيل نسبة التخفيض",
-    sizeSavedLabel: "المساحة المحفوظة",
-    compressionRatioLabel: "نسبة الضغط",
-    sizeReducedLabel: "الحجم المُخفض",
-    chart: {
-      original: "الأصلي",
-      compressed: "المضغوط",
-      reduced: "المُخفض",
-      remaining: "المتبقي",
-    },
+    "markdown-to-pdf": "العودة إلى Markdown إلى PDF",
   },
 };
 
-export const footer: _footer = {
-  brand: "PDFEquips",
-  terms: "الشروط",
-  conditions: "والأحكام",
-  privacy_policy: "سياسة الخصوصية",
+export const edit_page: _edit_page = {
+  edit_page_titles: {
+    markdown_to_pdf: "خيارات تحويل ماركداون إلى PDF",
+  },
+  loader_text: "يرجى الانتظار...",
+  add_more_button: "إضافة المزيد من الملفات",
+  action_buttons: {
+    markdown_to_pdf: "تحويل ماركداون إلى PDF",
+  },
+  pages: "صفحة",
+  page: "صفحة واحدة",
+  toolbar: {
+    rename_file: "إعادة تسمية الملف",
+    upload_file: "رفع ملف",
+    upload_from_github: "تحميل من GitHub",
+    options: "الخيارات",
+    assistant: "مساعد"
+  },
+  document_name: {
+    doc_name: "اسم المستند",
+    untitled: "مستند بلا عنوان",
+  },
+  github_popup: {
+    label: "عنوان المجلد في GitHub:",
+    placeholder: "أدخل عنوان GitHub",
+    submit: "موافق",
+  },
+  download_pdf_text: "تحميل ملف PDF",
+  placeholder: "اسأل عن أي شيء",
+  options: {
+    title: "الخيارات",
+    theme: "السمة",
+    screen_size: "حجم الشاشة",
+    orientation: "الاتجاه",
+    margin: "الهامش",
+    page_size: "حجم الصفحة",
+    label_content: {
+      orientation: ["عمودي", "أفقي"],
+      screen_sizes: {
+        your_screen: "شاشتك",
+        desktop_hd: "سطح المكتب HD (1920 بكسل)",
+        desktop_144: "سطح المكتب (1440 بكسل)",
+        tablet: "الجهاز اللوحي 768 بكسل",
+        mobile: "الهاتف المحمول (320 بكسل)",
+      },
+      margin: {
+        no_margin: "بلا هوامش",
+        small: "صغير",
+        big: "كبير",
+      },
+    },
+    font_size: "حجم الخط",
+    defaults: "الإعدادات الافتراضية",
+    save_changes: "حفظ التغييرات",
+  },
 };
 
 export const errors: _errors = {
@@ -152,21 +127,6 @@ export const errors: _errors = {
     message: "الملف تالف ولا يمكن معالجته. يرجى اختيار ملف صالح.",
     code: "ERR_FILE_CORRUPT",
   },
-  MISSING_FONTS: {
-    message:
-      "الملف يحتوي على خطوط أحرف مفقودة. يرجى التأكد من تضمين جميع الخطوط في ملف PDF.",
-    code: "ERR_MISSING_FONTS",
-  },
-  INVALID_IMAGE_DATA: {
-    message:
-      "الملف يحتوي على بيانات صورة غير صالحة. يرجى التأكد من تنسيق جميع الصور بشكل صحيح.",
-    code: "ERR_INVALID_IMAGE_DATA",
-  },
-  SECURITY_RISK: {
-    message:
-      "الملف يحتوي على مخاطر أمان ولا يمكن معالجته. يرجى اختيار ملف صالح.",
-    code: "ERR_SECURITY_RISK",
-  },
   MAX_FILES_EXCEEDED: {
     message:
       "لقد تجاوزت الحد الأقصى لعدد الملفات المسموح به. يرجى حذف بعض الملفات والمحاولة مرة أخرى.",
@@ -186,26 +146,13 @@ export const errors: _errors = {
       "حدث خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
     code: "ERR_NETWORK",
   },
-  PASSWORD_REQUIRED: {
-    message: "ملف PDF يتطلب كلمة مرور.",
-    code: "PASSWORD_REQUIRED",
+  ERR_MAX_USAGE: {
+    message: "تم تجاوز الحد الأقصى للاستخدام. يرجى الترقية أو الاشتراك لمواصلة استخدام هذه الخدمة.",
+    code: "ERR_MAX_USAGE",
   },
-  INCORRECT_PASSWORD: {
-    message: "كلمة المرور التي أدخلتها غير صحيحة.",
-    code: "INCORRECT_PASSWORD",
-  },
-
-  MAX_DAILY_USAGE: {
-    message:
-      "لقد وصلت إلى الحد الأقصى للاستخدام اليومي. يُرجى ترقية خطتك لمواصلة استخدام هذه الميزة دون انقطاع.",
-    code: "MAX_DAILY_USAGE",
-  },
-  alerts: {
-    maxFiles: "الحد الأقصى 15 ملفاً فقط مسموح. اشترك للحصول على المزيد!",
-    singleFileSize:
-      "يجب أن يكون حجم الملف الفردي أقل من 100 ميغابايت. قم بالترقية لتحميل ملفات أكبر!",
-    fileSize:
-      "يجب أن يكون حجم كل ملف أقل من 50 ميغابايت. افتح حدود أكبر بالاشتراك!",
+  INVALID_GITHUB_URL: {
+    message: "رابط GitHub غير صالح. يرجى إدخال رابط GitHub صالح.",
+    code: "ERR_INVALID_GITHUB_URL",
   },
 };
 

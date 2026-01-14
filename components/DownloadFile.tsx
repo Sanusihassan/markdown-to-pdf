@@ -7,7 +7,6 @@ import type { downloadFile } from "../src/content";
 import { useEffect } from "react";
 import { useFileStore } from "../src/file-store";
 import { increaseDailySiteUsage } from "../src/utils";
-import { CompressionAnalytics } from "./CompressionAnalytics";
 const DownloadFile = ({
   lang,
   downloadFile,
@@ -81,11 +80,6 @@ const DownloadFile = ({
           </button>
         </div>
       </div>
-      {showDownloadBtn ? (
-        <CompressionAnalytics
-          content={downloadFile.compressionAnalyticsContent}
-        />
-      ) : null}
     </>
   );
 };
