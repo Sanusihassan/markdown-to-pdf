@@ -2,7 +2,6 @@
 import ReactMarkdown from "react-markdown";
 import { type LegacyRef, useEffect, useRef, useState } from "react";
 import CodeEditor from "./CodeEditor";
-import { Spinner } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import type { errors } from "../src/content";
 import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
@@ -17,7 +16,7 @@ import FloatingDownloadBtn from "./FloatingDownloadBtn";
 let prev_theme = "";
 const Loader = ({ loader_text }: { loader_text: string }) => (
   <div className="editor-loader">
-    <Spinner animation="grow" />
+    <span className="spinner-grow lg" role="status" aria-hidden="true"></span>
     <p className="lead">{loader_text}</p>
   </div>
 );

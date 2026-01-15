@@ -41,3 +41,9 @@
 .mb-4 {
   @include extend("mb-4");
 }
+.text-muted {
+  @include extend("text-muted");
+}
+.lead {
+  @include extend("lead");
+}

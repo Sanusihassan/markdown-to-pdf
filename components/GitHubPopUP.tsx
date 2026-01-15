@@ -1,5 +1,4 @@
 import { type FC, useState } from "react";
-import { Modal, Form } from "react-bootstrap";
 import { XIcon } from "@heroicons/react/solid";
 import type { edit_page, errors } from "../src/content";
 import { useDispatch } from "react-redux";
@@ -58,44 +57,67 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
       console.error("Failed to fetch repository contents", error);
     }
   };
-
   return (
-    <Modal show={show} onHide={onHide} centered>
-      <Modal.Header>
-        <Modal.Title>{title}</Modal.Title>
-        <button onClick={onHide} className="btn btn-dark d-inline-flex">
-          <XIcon className="h-5 w-5 text-gray-500" />
-        </button>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit} method="GET">
-          <Form.Group controlId="urlInput">
-            <bdi className="d-block">
-              <Form.Label
-                className={`d-block${"ar" === lang ? " text-right" : ""}`}
-              >
-                {github_popup.label}
-              </Form.Label>
-            </bdi>
-            <Form.Control
-              type="text"
-              placeholder={github_popup.placeholder}
-              value={url}
-              onChange={handleUrlChange}
-              className="mb-2"
-            />
-          </Form.Group>
-          <div className="row m-0">
+    <div
+      className={`github-popup ${show ? "is-open" : ""}`}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="github-popup-dialog">
+        <div className="github-popup-content">
+          {/* Header */}
+          <div className="github-popup-header">
+            <h5 className="github-popup-title">{title}</h5>
             <button
-              className="btn btn-dark ml-auto d-inline-flex"
-              type="submit"
+              type="button"
+              onClick={onHide}
+              className="github-popup-close"
             >
-              {github_popup.submit}
+              <XIcon className="h-5 w-5 text-white" />
             </button>
           </div>
-        </Form>
-      </Modal.Body>
-    </Modal>
+
+          {/* Body */}
+          <div className="github-popup-body">
+            <form
+              className="github-popup-form"
+              onSubmit={handleSubmit}
+              method="GET"
+            >
+              <div className="github-popup-group">
+                <bdi className="github-popup-bdi">
+                  <label
+                    htmlFor="urlInput"
+                    className={`github-popup-label${
+                      lang === "ar" ? " is-rtl" : ""
+                    }`}
+                  >
+                    {github_popup.label}
+                  </label>
+                </bdi>
+
+                <input
+                  id="urlInput"
+                  type="text"
+                  value={url}
+                  onChange={handleUrlChange}
+                  placeholder={github_popup.placeholder}
+                  className="github-popup-input"
+                />
+              </div>
+
+              <div className="github-popup-actions">
+                <button type="submit" className="github-popup-submit">
+                  {github_popup.submit}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {show && <div className="github-popup-backdrop" />}
+    </div>
   );
 };
 

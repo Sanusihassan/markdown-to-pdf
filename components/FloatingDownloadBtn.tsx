@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { DownloadIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setField, type ToolState } from "../src/store";
-import { Spinner } from "react-bootstrap";
 import { handleUpload } from "../src/handlers/handleUpload";
 import { useFileStore } from "../src/file-store";
 import type { errors } from "../src/content";
@@ -66,18 +65,14 @@ const FloatingDownloadBtn: React.FC<{
 
   return (
     <div className="floating-button-container">
-      <button
-        className="download-button btn btn-dark btn-lg"
-        onClick={handleDownload}
-      >
+      <button className="download-button" onClick={handleDownload}>
         {text} <DownloadIcon className="download-icon h-5 w-5 text-white" />
         {isSubmitted ? (
-          <Spinner
-            as="span"
-            animation="grow"
+          <span
+            className="spinner-grow spinner-grow-sm"
             role="status"
             aria-hidden="true"
-          />
+          ></span>
         ) : null}
       </button>
       <a

@@ -1,13 +1,13 @@
 @mixin generateColorClasses($map) {
   @each $key, $color in $map {
     &.#{$key} {
-      background-color: $color !important;
+      background-color: $color;
 
       &:hover {
         @if $key == "PDF-to-PDF-A" or $key == "pdf-to-markdown" {
-          background-color: lighten($color, 14%) !important;
+          background-color: lighten($color, 14%);
         } @else {
-          background-color: darken($color, 13%) !important;
+          background-color: darken($color, 13%);
         }
       }
     }
@@ -15,15 +15,91 @@
 }
 
 .tools-page {
-  @include extend("container-fluid position-relative");
-  .title {
-    @include extend("display-3");
+  @include extend("d-flex justify-content-center");
+  ::-webkit-scrollbar {
+    display: none;
   }
-  .description {
-    @include extend("lead");
+
+  display: flex;
+
+  .tool-bar {
+    flex: 0 1 7.333%;
+    @include extend("d-flex flex-column");
+
+    .icon {
+      width: 3em;
+      height: 3em;
+    }
+
+    .tool-bar-button {
+      @include extend("btn");
+
+      &.input {
+        @include extend("position-relative");
+
+        input {
+          @include extend("position-absolute");
+          outline: 1px solid;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          z-index: 0;
+          cursor: pointer;
+        }
+      }
+    }
   }
+
+  .rest {
+    flex: 1;
+
+    .header {
+      @include xs {
+        padding: 14px;
+        display: flex;
+        align-items: center;
+
+        .document-name {
+          flex: 1;
+        }
+      }
+      .document-name {
+        @include extend("text-center bg-light p-1");
+      }
+      .preview {
+        @include extend(
+          "btn btn-light d-none justify-content-between align-items-center"
+        );
+
+        @include xs {
+          display: flex !important;
+        }
+
+        flex: 0 1 2%;
+
+        svg {
+          margin-top: 5px;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .document-name {
+      .input {
+        font-weight: 400;
+
+        &:focus {
+          outline: none;
+          caret-color: $pdf-color;
+        }
+      }
+    }
+  }
+
+  // overlay
   .overlay {
-    @include extend("display-4");
     position: absolute;
     inset: 0px;
     background-color: rgb(0 0 0 / 80%);
@@ -35,10 +111,7 @@
     color: white;
     border: 3px dashed;
     width: 100%;
-    min-height: 100vh;
-    &.display-4 {
-      @include extend("display-4");
-    }
+    height: 100vh;
   }
 
   // .btn {
@@ -63,37 +136,42 @@
       cursor: pointer;
     }
   }
+
   .download-page {
-    @include extend(
-      "flex-column align-items-center justify-content-center text-center my-1"
-    );
-    .download-btn-container {
-      @include extend(
-        "d-flex align-items-center justify-content-between rounded-circle"
-      );
-    }
     min-height: 50vh;
+
     .back-btn {
-      @include extend("btn btn-dark rounded-circle mr-2 align-items-center");
       display: flex;
       width: 40px;
       height: 40px;
+
       .icon {
         flex: 1;
       }
     }
-    .download-btn {
-      @include extend(
-        "btn btn-lg text-white position-relative overflow-hidden"
-      );
-    }
   }
 }
+
+.editor-loader {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  top: 0;
+  left: 0;
+}
+
 .md-2pdf {
   display: flex;
+
   @media (max-width: 600px) {
-    flex-wrap: wrap;
+    position: relative;
   }
+
   height: 100%;
 
   .editor {
@@ -102,19 +180,58 @@
     resize: none;
   }
 
-  .editor-loader {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-  }
   .react-markdown-container {
     flex: 0 1 50%;
     padding: 15px;
+    max-height: 100vh;
+    overflow: auto;
+
+    #_html {
+      @include extend("w-100 h-100");
+      overflow: auto;
+    }
+  }
+
+  @include xs {
+    .editor {
+      flex: 0 1 100%;
+    }
+
+    .react-markdown-container {
+      display: none;
+
+      &.preview {
+        display: block;
+      }
+
+      padding: 0;
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .floating-button-container {
+    z-index: 200;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .download-button {
+    @include extend("btn btn-dark btn-lg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .download-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: white;
   }
 }
 
@@ -123,19 +240,10 @@
   font-size: 2em;
   cursor: pointer;
 }
+
 .upload-btn,
 .submit-btn,
 .download-btn,
 .btn {
   @include generateColorClasses($color-map);
-}
-
-.upload-btn {
-  @include extend("btn btn-lg text-white position-relative overflow-hidden");
-}
-
-.submit-btn {
-  @include extend(
-    "btn btn-lg text-white position-relative overflow-hidden grid-footer"
-  );
 }

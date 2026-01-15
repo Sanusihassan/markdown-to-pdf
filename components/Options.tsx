@@ -1,6 +1,5 @@
 import { XIcon } from "@heroicons/react/solid";
 import { FaPlus, FaMinus } from "react-icons/fa"; // Importing the icons
-import { Modal } from "react-bootstrap";
 import isEqual from "lodash.isequal";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
@@ -176,27 +175,33 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
     );
   };
 
-  return (
-    <>
-      {!options ? (
-        <></>
-      ) : (
-        <Modal
-          show={show}
-          onHide={onHide}
-          centered
-          id="optionsModal"
-          className="options-modal"
-        >
-          <Modal.Header>
-            <Modal.Title id="optionsModalLabel">{options.title}</Modal.Title>
-            <button onClick={onHide} className="btn btn-dark d-inline-flex">
+  return !options ? null : (
+    <div
+      id="optionsModal"
+      className={`options-modal ${show ? "is-open" : ""}`}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="options-modal-dialog">
+        <div className="options-modal-content">
+          {/* Header */}
+          <div className="options-modal-header">
+            <h5 className="options-modal-title" id="optionsModalLabel">
+              {options.title}
+            </h5>
+            <button
+              type="button"
+              onClick={onHide}
+              className="options-modal-close"
+            >
               <XIcon className="h-5 w-5 text-gray-500" />
             </button>
-          </Modal.Header>
-          <Modal.Body>
-            <Tabs id="myTab" role="tablist">
-              <TabList className="list-unstyled nav mb-3 d-flex align-items-center tablist">
+          </div>
+
+          {/* Body */}
+          <div className="options-modal-body">
+            <Tabs className="options-tabs" role="tablist">
+              <TabList className="options-tabs-list">
                 {[
                   options.theme,
                   options.screen_size,
@@ -205,13 +210,13 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                   options.margin,
                   options.font_size,
                 ].map((tab, index) => (
-                  <Tab key={index}>
+                  <Tab key={index} className="options-tab">
                     <button
-                      className={`nav-item btn btn-dark d-inline-flex mb-1 ${
-                        activeTab === tab ? "active" : ""
+                      type="button"
+                      className={`options-tab-button ${
+                        activeTab === tab ? "is-active" : ""
                       }`}
                       role="tab"
-                      aria-controls={tab}
                       aria-selected={activeTab === tab}
                       onClick={() => setActiveTab(tab)}
                     >
@@ -220,45 +225,44 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                   </Tab>
                 ))}
               </TabList>
-              <div>
+
+              <div className="options-tabs-content">
                 {tabs.map(({ tab, options, option_name }, index) => (
-                  <TabPanel key={index}>
+                  <TabPanel key={index} className="options-tab-panel">
                     {option_name === "fontSize" ? (
-                      <div className="font-wrapper">
+                      <div className="font-size-control">
                         <button
-                          className="btn btn-outline-secondary"
+                          type="button"
+                          className="font-size-btn is-minus"
                           onClick={() => adjustFontSize(-1)}
                         >
                           <FaMinus />
                         </button>
+
                         <Select
-                          className="font-select"
+                          className="font-size-select"
                           options={options as []}
-                          onChange={(selectedOption: any) => {
-                            if (selectedOption && selectedOption.value) {
-                              setSelectedOptions([
-                                ...selectedOptions,
-                                selectedOption.value,
-                              ]);
-                              dispatch(
-                                setField({
-                                  options: {
-                                    ...stateOptions,
-                                    [option_name as keyof ToolState["options"]]:
-                                      selectedOption.value,
-                                  },
-                                })
-                              );
-                            }
-                          }}
                           placeholder={tab}
                           value={{
                             value: stateOptions.fontSize,
                             label: `${stateOptions.fontSize}px`,
                           }}
+                          onChange={(selectedOption: any) => {
+                            if (!selectedOption?.value) return;
+                            dispatch(
+                              setField({
+                                options: {
+                                  ...stateOptions,
+                                  fontSize: selectedOption.value,
+                                },
+                              })
+                            );
+                          }}
                         />
+
                         <button
-                          className="btn btn-outline-secondary"
+                          type="button"
+                          className="font-size-btn is-plus"
                           onClick={() => adjustFontSize(1)}
                         >
                           <FaPlus />
@@ -266,43 +270,34 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                       </div>
                     ) : (
                       <Select
+                        className="options-select"
                         options={options as []}
-                        onChange={(selectedOption: any) => {
-                          if (selectedOption && selectedOption.value) {
-                            setSelectedOptions([
-                              ...selectedOptions,
-                              selectedOption.value,
-                            ]);
-                            dispatch(
-                              setField({
-                                options: {
-                                  ...stateOptions,
-                                  [option_name as keyof ToolState["options"]]:
-                                    selectedOption.value,
-                                },
-                              })
-                            );
-                          }
-                        }}
                         placeholder={tab}
-                        defaultValue={
-                          LocalstateOptions
-                            ? LocalstateOptions[
-                                option_name as keyof typeof LocalstateOptions
-                              ]
-                            : options[0].value
-                        }
+                        onChange={(selectedOption: any) => {
+                          if (!selectedOption?.value) return;
+                          dispatch(
+                            setField({
+                              options: {
+                                ...stateOptions,
+                                [option_name as keyof ToolState["options"]]:
+                                  selectedOption.value,
+                              },
+                            })
+                          );
+                        }}
                       />
                     )}
                   </TabPanel>
                 ))}
               </div>
             </Tabs>
-          </Modal.Body>
-          <Modal.Footer>
+          </div>
+
+          {/* Footer */}
+          <div className="options-modal-footer">
             <button
               type="button"
-              className="close-button btn btn-light"
+              className="options-reset"
               onClick={() => {
                 dispatch(
                   setField({
@@ -312,7 +307,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                       screenSize: "screen",
                       pageMargin: "No margin",
                       pageSize: "A4",
-                      fontSize: 16, // Default font size
+                      fontSize: 16,
                     },
                   })
                 );
@@ -321,17 +316,16 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
             >
               {options.defaults}
             </button>
-            <button
-              type="button"
-              className="save-button btn btn-dark"
-              onClick={handleSave}
-            >
+
+            <button type="button" className="options-save" onClick={handleSave}>
               {options.save_changes}
             </button>
-          </Modal.Footer>
-        </Modal>
-      )}
-    </>
+          </div>
+        </div>
+      </div>
+
+      {show && <div className="options-modal-backdrop" />}
+    </div>
   );
 };
 

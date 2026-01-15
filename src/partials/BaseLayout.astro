@@ -43,7 +43,6 @@ import { Schema } from "astro-seo-schema";
 import "../styles/global.css";
 import "../../index.scss";
 import Navbar from "pdfequips-navbar/NavBar";
-import { Footer } from "pdfequips-footer/components/Footer";
 import { MarkdownToPDFHOWTO } from "../how-to";
 import AstroSeo from "./AstroSeo.astro";
 ---
@@ -73,9 +72,9 @@ import AstroSeo from "./AstroSeo.astro";
         client:load
         lang={lang === "en" ? "" : lang}
         path={seoConfig.to.replace("/", "")}
+        shadow={false}
       />
       <slot />
-      <Footer client:load title={seoConfig.title} lang={lang} />
     </main>
   </body>
 </html>

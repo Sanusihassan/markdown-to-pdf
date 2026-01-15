@@ -32,7 +32,7 @@ const DocumentName = ({
 
   return (
     <header className="header">
-      <div className="document-name text-center bg-light p-1">
+      <div className="document-name">
         <small className="text-muted">{document_name.doc_name}</small>
         <div
           className="input"

@@ -1,4 +1,3 @@
-import { Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useFileStore } from "../../src/file-store";
 import { type ToolState, setField } from "../../src/store";
@@ -48,7 +47,7 @@ export function SubmitBtn({
               errorCode: "MAX_DAILY_USAGE",
             })
           );
-          dispatch(setField({ errorMessage: errors.MAX_DAILY_USAGE.message }));
+          // dispatch(setField({ errorMessage: errors.MAX_DAILY_USAGE.message }));
           dispatch(
             setField({
               isSubmitted: false,
@@ -68,7 +67,7 @@ export function SubmitBtn({
         }
       </bdi>{" "}
       {isSubmitted ? (
-        <Spinner as="span" animation="grow" role="status" aria-hidden="true" />
+        <span className="spinner-grow" role="status" aria-hidden="true"></span>
       ) : null}
     </button>
   );

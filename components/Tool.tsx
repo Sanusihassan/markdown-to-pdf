@@ -191,7 +191,7 @@ const Tool: React.FC<ToolProps> = ({
         </div>
       </div>
       {showDownloadBtn ? (
-        <div className="tools-page d-flex justify-content-center">
+        <div className="tools-page">
           <DownloadFile
             downloadFile={downloadFile}
             lang={lang}

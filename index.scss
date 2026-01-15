@@ -129,58 +129,54 @@ a.dropdown-item {
 
 @import "./scss/features";
 
-.how-to {
-  @include extend("row align-items-center py-3");
-  .image {
-    @include extend("col-12 col-md-6 text-center");
-    img {
-      user-select: none;
-      -webkit-user-drag: none;
-      height: auto;
-      max-width: 100%;
-    }
-  }
-
-  .how-to-steps {
-    @include extend("col");
-    @include xs {
-      text-align: center;
-    }
-
-    ol {
-      list-style: none;
-    }
-  }
-}
-
 @import "./scss/loading";
 @import "./scss/misk";
 
-@import "pdfequips-footer/scss/footer";
-.green-slider .range-slider__thumb {
-  background: #28a745 !important;
-}
-.green-slider .range-slider__range {
-  background: #28a745 !important;
-}
-.nav-tabs .nav-link.active {
-  color: #28a745;
-  border-color: #dee2e6 #dee2e6 #fff;
-  border-bottom-color: #fff;
-}
-.nav-tabs .nav-link:hover {
-  border-color: #e9ecef #e9ecef #dee2e6;
-}
-.nav-tabs .nav-link.active:hover {
-  border-color: #dee2e6 #dee2e6 #fff;
-}
+#myTab {
+  // Bootstrap classes for the outer container
+  @include extend("tabs");
 
-.green-slider .range-slider__thumb[data-lower][data-disabled] {
-  display: none;
-}
-.green-slider .range-slider__thumb[data-lower] {
-  pointer-events: none;
-  opacity: 1;
+  .react-tabs__tab-list {
+    // Bootstrap classes for the tab list
+    @include extend("nav nav-tabs");
+
+    .react-tabs__tab {
+      // Bootstrap classes for each tab item
+      @include extend("nav-item");
+
+      &--selected {
+        // Bootstrap classes for the selected tab item
+        @include extend("active");
+      }
+
+      .nav-link {
+        // Bootstrap classes for the tab link button
+        @include extend("btn");
+
+        &.active {
+          @include extend("active");
+        }
+      }
+    }
+  }
+
+  .react-tabs__tab-panel {
+    // Bootstrap classes for the tab panel container
+    @include extend("tab-content");
+
+    .tab-pane {
+      // Bootstrap classes for each tab panel
+      @include extend("tab-pane fade");
+
+      &--selected {
+        // Bootstrap classes for the selected tab panel
+        @include extend("show active");
+      }
+    }
+  }
+
+  // Additional styles for the Select component and its children
+  // You can add more specific styles as per your requirement
 }
 .cta-btn {
   @include extend("btn btn-primary btn-sm");
@@ -197,4 +193,194 @@ a.no-underline {
 
 .spinner-grow {
   @include extend("spinner-grow");
+  &:not(.lg) {
+    @include extend("spinner-grow-sm");
+  }
+  &.lg {
+    @include extend("spinner-grow-lg");
+  }
+}
+
+.github-popup {
+  // modal root
+  @include extend("modal fade");
+
+  &.is-open {
+    @include extend("show d-block");
+  }
+
+  &-dialog {
+    @include extend("modal-dialog modal-dialog-centered");
+  }
+
+  &-content {
+    @include extend("modal-content");
+  }
+
+  /* ================= Header ================= */
+  &-header {
+    @include extend("modal-header");
+  }
+
+  &-title {
+    @include extend("modal-title");
+  }
+
+  &-close {
+    @include extend("btn btn-dark d-inline-flex");
+  }
+
+  /* ================= Body ================= */
+  &-body {
+    @include extend("modal-body");
+  }
+
+  &-form {
+    width: 100%;
+  }
+
+  &-group {
+    @include extend("form-group");
+  }
+
+  &-bdi {
+    @include extend("d-block");
+  }
+
+  &-label {
+    @include extend("d-block");
+
+    &.is-rtl {
+      @include extend("text-right");
+    }
+  }
+
+  &-input {
+    @include extend("form-control mb-2");
+  }
+
+  /* ================= Actions ================= */
+  &-actions {
+    @include extend("row m-0");
+  }
+
+  &-submit {
+    @include extend("btn w-auto btn-dark d-inline-flex");
+    margin-right: unset;
+    margin-left: auto;
+    @include ar-wrapper {
+      margin-left: unset;
+      margin-right: auto;
+    }
+  }
+
+  /* ================= Backdrop ================= */
+  &-backdrop {
+    @include extend("modal-backdrop fade show");
+    z-index: -1;
+  }
+}
+
+.options-modal {
+  @include extend("modal fade");
+
+  &.is-open {
+    @include extend("show d-block");
+  }
+
+  &-dialog {
+    @include extend("modal-dialog modal-dialog-centered");
+  }
+
+  &-content {
+    @include extend("modal-content");
+  }
+
+  /* ================= Header ================= */
+  &-header {
+    @include extend("modal-header");
+  }
+
+  &-title {
+    @include extend("modal-title");
+  }
+
+  &-close {
+    @include extend("btn btn-dark d-inline-flex");
+  }
+
+  /* ================= Body ================= */
+  &-body {
+    @include extend("modal-body");
+  }
+
+  /* ================= Tabs ================= */
+  &-tabs {
+    width: 100%;
+  }
+
+  &-tabs-list {
+    @include extend("nav mb-3 d-flex align-items-center list-unstyled");
+  }
+
+  &-tab {
+    @include extend("nav-item");
+  }
+
+  &-tab-button {
+    @include extend("btn btn-dark d-inline-flex mb-1");
+
+    &.is-active {
+      @include extend("active");
+    }
+  }
+
+  &-tabs-content {
+    @include extend("tab-content");
+  }
+
+  &-tab-panel {
+    @include extend("tab-pane fade show active");
+  }
+
+  /* ================= Select ================= */
+  &-select {
+    width: 100%;
+  }
+
+  /* ================= Font Size ================= */
+  .font-size-control {
+    @include extend("d-flex align-items-center gap-2");
+  }
+
+  .font-size-btn {
+    @include extend("btn btn-outline-secondary");
+
+    // &.is-minus {
+    // }
+    // &.is-plus {
+    // }
+  }
+
+  .font-size-select {
+    flex: 1;
+  }
+
+  /* ================= Footer ================= */
+  &-footer {
+    @include extend("modal-footer");
+  }
+
+  &-reset {
+    @include extend("btn btn-light");
+  }
+
+  &-save {
+    @include extend("btn btn-dark");
+  }
+
+  /* ================= Backdrop ================= */
+  &-backdrop {
+    @include extend("modal-backdrop fade show");
+  }
 }
