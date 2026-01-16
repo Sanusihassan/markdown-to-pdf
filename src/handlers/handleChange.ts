@@ -12,12 +12,12 @@ export const handleChange = (
 ) => {
   const _files = (e.target?.files as FileList) || null;
   const finalFiles = [...files, ...Array.from(!_files ? [] : _files)];
-
   const { isValid } = validateFiles(
     finalFiles,
     dispatch,
     errors,
-    "application/pdf"
+    // this should be md mimetye
+    "text/markdown"
   );
 
   if (isValid) {
@@ -32,5 +32,6 @@ export const handleChange = (
         originalFileSize,
       })
     );
+    dispatch(setField({ show_files_list: true }));
   }
 };

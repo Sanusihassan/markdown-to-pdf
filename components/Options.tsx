@@ -1,12 +1,14 @@
+// can i use this here as well?:
 import { XIcon } from "@heroicons/react/solid";
 import { FaPlus, FaMinus } from "react-icons/fa"; // Importing the icons
 import isEqual from "lodash.isequal";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { type ToolState, setField } from "../src/store";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import type { edit_page } from "../src/content";
+import { useDismissible } from "../src/hooks/useDismissible";
 
 export interface OptionsProps {
   show: boolean;
@@ -175,6 +177,14 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
     );
   };
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useDismissible({
+    enabled: show,
+    onClose: onHide,
+    ref: modalRef,
+  });
+
   return !options ? null : (
     <div
       id="optionsModal"
@@ -182,7 +192,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
       role="dialog"
       aria-modal="true"
     >
-      <div className="options-modal-dialog">
+      <div className="options-modal-dialog" ref={modalRef}>
         <div className="options-modal-content">
           {/* Header */}
           <div className="options-modal-header">
@@ -194,14 +204,14 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
               onClick={onHide}
               className="options-modal-close"
             >
-              <XIcon className="h-5 w-5 text-gray-500" />
+              <XIcon className="h-5 w-5 text-white" />
             </button>
           </div>
 
           {/* Body */}
           <div className="options-modal-body">
-            <Tabs className="options-tabs" role="tablist">
-              <TabList className="options-tabs-list">
+            <Tabs className="options-modal-tabs" role="tablist">
+              <TabList className="options-modal-tabs-list">
                 {[
                   options.theme,
                   options.screen_size,
@@ -210,10 +220,10 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                   options.margin,
                   options.font_size,
                 ].map((tab, index) => (
-                  <Tab key={index} className="options-tab">
+                  <Tab key={index} className="options-modal-tab">
                     <button
                       type="button"
-                      className={`options-tab-button ${
+                      className={`options-modal-tab-button ${
                         activeTab === tab ? "is-active" : ""
                       }`}
                       role="tab"
@@ -226,9 +236,9 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                 ))}
               </TabList>
 
-              <div className="options-tabs-content">
+              <div className="options-modal-tabs-content">
                 {tabs.map(({ tab, options, option_name }, index) => (
-                  <TabPanel key={index} className="options-tab-panel">
+                  <TabPanel key={index} className="options-modal-tab-panel">
                     {option_name === "fontSize" ? (
                       <div className="font-size-control">
                         <button
@@ -270,7 +280,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                       </div>
                     ) : (
                       <Select
-                        className="options-select"
+                        className="options-modal-select"
                         options={options as []}
                         placeholder={tab}
                         onChange={(selectedOption: any) => {
@@ -297,7 +307,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
           <div className="options-modal-footer">
             <button
               type="button"
-              className="options-reset"
+              className="options-modal-reset"
               onClick={() => {
                 dispatch(
                   setField({
@@ -317,7 +327,11 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
               {options.defaults}
             </button>
 
-            <button type="button" className="options-save" onClick={handleSave}>
+            <button
+              type="button"
+              className="options-modal-save"
+              onClick={handleSave}
+            >
               {options.save_changes}
             </button>
           </div>

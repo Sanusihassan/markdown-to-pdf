@@ -117,103 +117,10 @@ export const getFileDetailsTooltipContent = async (
   return tooltipContent;
 };
 
-export async function getFirstPageAsImage(
-  file: File,
-  dispatch: Dispatch<Action>,
-  errors: _,
-  password?: string
-): Promise<string> {
-  const fileUrl = URL.createObjectURL(file);
-  if (!file.size) {
-    return emptyPDFHandler(dispatch, errors);
-  } else {
-    try {
-      const loadingTask = pdfjs.getDocument({
-        url: fileUrl,
-        password: password || undefined,
-      });
-
-      let tid: Id;
-
-      // Handle password requests
-      loadingTask.onPassword = (updatePassword, reason) => {
-        if (reason === pdfjs.PasswordResponses.NEED_PASSWORD) {
-          // First time asking for password
-          if (password) {
-            updatePassword(password);
-            if (tid) {
-              toast.dismiss(tid);
-            }
-          } else {
-            dispatch(setField({ errorCode: "PASSWORD_REQUIRED" }));
-            tid = toast.error(errors.PASSWORD_REQUIRED.message);
-            throw new Error("PASSWORD_REQUIRED");
-          }
-        } else if (reason === pdfjs.PasswordResponses.INCORRECT_PASSWORD) {
-          dispatch(setField({ errorCode: "INCORRECT_PASSWORD" }));
-          tid = toast.error(errors.INCORRECT_PASSWORD.message);
-          throw new Error("INCORRECT_PASSWORD");
-        }
-      };
-
-      const pdf: PDFDocumentProxy = await loadingTask.promise;
-      const page = await pdf.getPage(1); // Get the first page
-
-      const scale = 1.5;
-      const viewport: PageViewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-      if (!context) {
-        throw new Error("Canvas context not available.");
-      }
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      const renderTask: RenderTask = page.render({
-        canvasContext: context,
-        viewport: viewport,
-      });
-
-      await renderTask.promise;
-
-      // Clean up the object URL
-      URL.revokeObjectURL(fileUrl);
-
-      return canvas.toDataURL();
-    } catch (error) {
-      // Clean up the object URL on error
-      URL.revokeObjectURL(fileUrl);
-
-      // Check if it's not password-related error
-      if (!error.code) {
-        dispatch(setField({ errorMessage: errors.FILE_CORRUPT.message }));
-        return DEFAULT_PDF_IMAGE;
-      } else {
-        const { code } = error;
-        if (code === pdfjs.PasswordResponses.NEED_PASSWORD) {
-          dispatch(
-            setField({
-              errorMessage: errors.PASSWORD_REQUIRED.message,
-            })
-          );
-          return "/images/locked.png";
-        } else {
-          dispatch(
-            setField({
-              errorMessage: errors.INCORRECT_PASSWORD.message,
-            })
-          );
-          return "/images/locked.png";
-        }
-      }
-    }
-  }
-}
 export const getPlaceHoderImageUrl = (extension: string) => {
   switch (extension) {
-    case ".docx":
-      return "/images/word.png";
+    case ".md":
+      return "/images/file-markdown.png";
     case ".html":
       return "/images/html.png";
     case ".pptx":
@@ -341,7 +248,7 @@ export function sanitizeKey(input: string | number | null | undefined): string {
   return key;
 }
 
-export const ACCEPTED = ".pdf";
+export const ACCEPTED = ".md";
 
 // Generalized filter function for file validation
 export const filterNewFiles = (
@@ -455,7 +362,7 @@ export const validateFiles = (
   filesToValidate: File[],
   dispatch: Dispatch<Action>,
   errors: _,
-  mimetype: "application/pdf"
+  mimetype: string
 ): { isValid: boolean } => {
   const errorCode =
     filesToValidate

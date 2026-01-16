@@ -30,6 +30,7 @@ $color-map: (
   "pdf-to-pdf-a": #000000,
   "pdf-to-html": rgb(228, 77, 38),
   "pdf-to-markdown": #000000,
+  "markdown-to-pdf": #000000,
   "translate-pdf": #185abc,
   "merge-pages": #27ae60,
 );
@@ -321,6 +322,7 @@ a.no-underline {
 
   &-tabs-list {
     @include extend("nav mb-3 d-flex align-items-center list-unstyled");
+    gap: 5px;
   }
 
   &-tab {
@@ -382,5 +384,6 @@ a.no-underline {
   /* ================= Backdrop ================= */
   &-backdrop {
     @include extend("modal-backdrop fade show");
+    z-index: -1;
   }
 }

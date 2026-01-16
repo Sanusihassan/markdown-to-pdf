@@ -2,7 +2,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/solid";
 // import { ToolStoreContext } from "../ToolStoreContext";
 import { useSelector } from "react-redux";
 import type { ToolState } from "../src/store";
-import { CTABtn } from "./DisplayFile/Options";
+import { CTABtn } from "./DisplayFile/CTABtn";
 
 const ErrorElement = ({ cta }: { cta: string }) => {
   const errorMessage = useSelector(

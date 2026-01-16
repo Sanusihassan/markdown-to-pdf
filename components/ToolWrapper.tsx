@@ -2,9 +2,6 @@ import { Provider as ReduxProvider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import toolReducer from "../src/store";
 import { Tool as ToolComponent, type ToolProps } from "./Tool";
-import { Features } from "./Features";
-import type { WithContext, HowTo as HowToType } from "schema-dts";
-import HowTo from "./HowTo";
 import AdBlockDetector, { type adBlockerContentType } from "./AdBlockDetector";
 
 export const store = configureStore({

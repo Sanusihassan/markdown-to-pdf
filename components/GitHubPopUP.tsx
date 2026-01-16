@@ -1,9 +1,10 @@
-import { type FC, useState } from "react";
+import { type FC, useRef, useState } from "react";
 import { XIcon } from "@heroicons/react/solid";
 import type { edit_page, errors } from "../src/content";
 import { useDispatch } from "react-redux";
 import { setField } from "../src/store";
 import axios from "axios";
+import { useDismissible } from "../src/hooks/useDismissible";
 interface GitHubPopUpProps {
   show: boolean;
   onHide: () => void;
@@ -57,13 +58,22 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
       console.error("Failed to fetch repository contents", error);
     }
   };
+
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useDismissible({
+    enabled: show,
+    onClose: onHide,
+    ref: popupRef,
+  });
+
   return (
     <div
       className={`github-popup ${show ? "is-open" : ""}`}
       role="dialog"
       aria-modal="true"
     >
-      <div className="github-popup-dialog">
+      <div className="github-popup-dialog" ref={popupRef}>
         <div className="github-popup-content">
           {/* Header */}
           <div className="github-popup-header">
