@@ -8,17 +8,33 @@ import { useDispatch } from "react-redux";
 import { setField } from "../src/store";
 import { type ToolState } from "../src/store";
 import { useSelector } from "react-redux";
-const CodeEditor = ({ handleChange }: { handleChange: () => void }) => {
+
+interface CodeEditorProps {
+  handleChange: () => void;
+  initialValue?: string;
+}
+
+const CodeEditor = ({ handleChange, initialValue = "" }: CodeEditorProps) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
   const markdown = useSelector(
-    (state: { tool: ToolState }) => state.tool.markdown
+    (state: { tool: ToolState }) => state.tool.markdown,
   );
+
+  if (typeof window === "undefined") return null;
+
+  // Initialize markdown with initial value if markdown is empty
+  useEffect(() => {
+    if (!markdown && initialValue) {
+      dispatch(setField({ markdown: initialValue }));
+    }
+  }, []);
 
   const handleEditorChange = (v: string) => {
     dispatch(setField({ markdown: v }));
     handleChange();
   };
+
   const handleFileDrop = (e: DragEvent) => {
     e.preventDefault();
     const file = e?.dataTransfer?.files[0];
@@ -59,7 +75,7 @@ const CodeEditor = ({ handleChange }: { handleChange: () => void }) => {
         dragDelay: 0,
       }}
       style={{ width: "100%", minHeight: "500px", height: "100vh" }}
-      value={markdown}
+      value={markdown || initialValue}
     />
   );
 };

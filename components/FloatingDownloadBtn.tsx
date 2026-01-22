@@ -1,3 +1,4 @@
+// why is the
 import React, { useEffect, useRef } from "react";
 import { DownloadIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,23 +22,32 @@ const FloatingDownloadBtn: React.FC<{
   } = useFileStore();
   // state variables:
   const errorMessage = useSelector(
-    (state: { tool: ToolState }) => state.tool.errorMessage
+    (state: { tool: ToolState }) => state.tool.errorMessage,
   );
   const isSubmitted = useSelector(
-    (state: { tool: ToolState }) => state.tool.isSubmitted
+    (state: { tool: ToolState }) => state.tool.isSubmitted,
   );
   const stateFiles = useSelector(
-    (state: { tool: ToolState }) => state.tool.files
+    (state: { tool: ToolState }) => state.tool.files,
   );
   const markdown = useSelector(
-    (state: { tool: ToolState }) => state.tool.markdown
+    (state: { tool: ToolState }) => state.tool.markdown,
   );
-  const documentName = useSelector(
-    (state: { tool: ToolState }) => state.tool.document_name
+  const subscriptionStatus = useSelector(
+    (state: { tool: ToolState }) => state.tool.subscriptionStatus,
   );
   const options = useSelector(
-    (state: { tool: ToolState }) => state.tool.options
+    (state: { tool: ToolState }) => state.tool.options,
   );
+
+  const fileName = useSelector(
+    (state: { tool: ToolState }) => state.tool.fileName,
+  );
+
+  const rotations = useSelector(
+    (state: { tool: ToolState }) => state.tool.rotations,
+  );
+
   const dispatch = useDispatch();
   const handleDownload = () => {
     // Implement your download logic here
@@ -46,18 +56,23 @@ const FloatingDownloadBtn: React.FC<{
     // if (submitBtn) {
     //   submitBtn?.current?.click();
     // }
-    // handleUpload(
-    //   downloadBtn,
-    //   dispatch,
-    //   {
-    //     errorMessage,
-    //     path: "md-text-to-pdf",
-    //   },
-    //   errors,
-    //   filesOnSubmit,
-    //   setFilesOnSubmit,
-    //   { files, stateFiles, markdown, document_name: documentName, options }
-    // );
+    handleUpload(
+      null,
+      downloadBtn,
+      dispatch,
+      {
+        errorMessage,
+        path: "md-text-to-pdf",
+        fileName,
+        rotations,
+        subscriptionStatus,
+      },
+      files,
+      errors,
+      options,
+      markdown,
+      stateFiles,
+    );
   };
   useEffect(() => {
     setDownloadBtn(downloadBtnRef);

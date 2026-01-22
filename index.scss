@@ -91,7 +91,7 @@ a.dropdown-item {
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  height: 69vh;
+  min-height: 69vh;
 }
 
 .dropdown-item {

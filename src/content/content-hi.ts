@@ -160,6 +160,15 @@ export const errors: _errors = {
     message: "GitHub URL अमान्य है। कृपया एक वैध GitHub URL दर्ज करें।",
     code: "ERR_INVALID_GITHUB_URL",
   },
+  MAX_DAILY_USAGE: {
+    message:
+      "आपने अपनी दैनिक उपयोग सीमा पूरी कर ली है। कृपया इस सुविधा का निर्बाध उपयोग जारी रखने के लिए अपनी योजना अपग्रेड करें।",
+    code: "MAX_DAILY_USAGE",
+  },
+  alerts: {
+    singleFileSize:
+      "एकल फ़ाइल का आकार 100 एमबी से कम होना चाहिए। बड़ी फ़ाइलें अपलोड करने के लिए अपग्रेड करें!",
+  },
 };
 
 export const adBlockerContent: adBlockerContentType = {

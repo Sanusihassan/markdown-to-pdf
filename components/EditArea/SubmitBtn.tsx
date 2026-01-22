@@ -3,6 +3,7 @@ import { useFileStore } from "../../src/file-store";
 import { type ToolState, setField } from "../../src/store";
 import type { edit_page, errors } from "../../src/content";
 import { canUseSiteToday } from "fetch-subscription-status";
+import { handleUpload } from "../../src/handlers/handleUpload";
 export function SubmitBtn({
   k,
   edit_page,
@@ -13,45 +14,78 @@ export function SubmitBtn({
   errors: errors;
 }): JSX.Element {
   const dispatch = useDispatch();
-  const { submitBtn, files } = useFileStore();
+  const { submitBtn, files, downloadBtn } = useFileStore();
   // state variables:
   const errorMessage = useSelector(
-    (state: { tool: ToolState }) => state.tool.errorMessage
+    (state: { tool: ToolState }) => state.tool.errorMessage,
   );
   const isSubmitted = useSelector(
-    (state: { tool: ToolState }) => state.tool.isSubmitted
+    (state: { tool: ToolState }) => state.tool.isSubmitted,
   );
   const limitationMsg = useSelector(
-    (state: { tool: ToolState }) => state.tool.limitationMsg
+    (state: { tool: ToolState }) => state.tool.limitationMsg,
   );
   const subscriptionStatus = useSelector(
-    (state: { tool: ToolState }) => state.tool.subscriptionStatus
+    (state: { tool: ToolState }) => state.tool.subscriptionStatus,
   );
   const isAdBlocked = useSelector(
-    (state: { tool: ToolState }) => state.tool.isAdBlocked
+    (state: { tool: ToolState }) => state.tool.isAdBlocked,
   );
+  const fileName = useSelector(
+    (state: { tool: ToolState }) => state.tool.fileName,
+  );
+  const rotations = useSelector(
+    (state: { tool: ToolState }) => state.tool.rotations,
+  );
+  const options = useSelector(
+    (state: { tool: ToolState }) => state.tool.options,
+  );
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    handleUpload(
+      e,
+      downloadBtn,
+      dispatch,
+      {
+        path: "markdown-to-pdf",
+        errorMessage,
+        fileName,
+        rotations,
+        subscriptionStatus,
+      },
+      files,
+      errors,
+      options || {
+        theme: "github",
+        orientation: "Portrait",
+        screenSize: "screen",
+        pageMargin: "No margin",
+        pageSize: "A4",
+        fontSize: 16,
+      },
+    );
+  };
   return (
     <button
       className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k} grid-footer`}
-      onClick={() => {
+      onClick={(e) => {
         dispatch(setField({ isSubmitted: true }));
         dispatch(setField({ showOptions: false }));
 
         if (subscriptionStatus) {
-          submitBtn?.current?.click();
+          handleSubmit(e);
         } else if (!subscriptionStatus && canUseSiteToday(10)) {
-          submitBtn?.current?.click();
+          handleSubmit(e);
         } else {
           dispatch(
             setField({
               errorCode: "MAX_DAILY_USAGE",
-            })
+            }),
           );
           // dispatch(setField({ errorMessage: errors.MAX_DAILY_USAGE.message }));
           dispatch(
             setField({
               isSubmitted: false,
-            })
+            }),
           );
         }
       }}

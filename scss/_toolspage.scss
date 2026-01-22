@@ -1,13 +1,13 @@
 @mixin generateColorClasses($map) {
   @each $key, $color in $map {
     &.#{$key} {
-      background-color: $color;
+      background-color: $color !important;
 
       &:hover {
         @if $key == "PDF-to-PDF-A" or $key == "pdf-to-markdown" {
           background-color: lighten($color, 14%);
         } @else {
-          background-color: darken($color, 13%);
+          background-color: darken($color, 13%) !important;
         }
       }
     }
@@ -112,7 +112,7 @@
     color: white;
     border: 3px dashed;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
   }
 
   // .btn {
@@ -139,16 +139,28 @@
   }
 
   .download-page {
+    @include extend(
+      "flex-column align-items-center justify-content-center text-center my-1"
+    );
+    .download-btn-container {
+      @include extend(
+        "d-flex align-items-center justify-content-between rounded-circle"
+      );
+    }
     min-height: 50vh;
-
     .back-btn {
+      @include extend("btn btn-dark rounded-circle mr-2 align-items-center");
       display: flex;
       width: 40px;
       height: 40px;
-
       .icon {
         flex: 1;
       }
+    }
+    .download-btn {
+      @include extend(
+        "btn btn-lg text-white position-relative overflow-hidden"
+      );
     }
   }
 }
@@ -156,7 +168,7 @@
 .editor-loader {
   position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

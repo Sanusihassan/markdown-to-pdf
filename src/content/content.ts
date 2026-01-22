@@ -150,6 +150,15 @@ export const errors = {
       "Maximum usage exceeded. Please upgrade or subscribe to continue using this service.",
     code: "ERR_MAX_USAGE",
   },
+  MAX_DAILY_USAGE: {
+    message:
+      "You’ve reached your daily usage limit. Please upgrade your plan to continue using this feature without interruption.",
+    code: "MAX_DAILY_USAGE",
+  },
+  alerts: {
+    singleFileSize:
+      "file size must be under 100 MB. Upgrade to upload bigger files!",
+  },
 };
 
 

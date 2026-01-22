@@ -31,19 +31,16 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
 }) => {
   const path = data.to.replace("/", "");
   const errorMessage = useSelector(
-    (state: { tool: ToolState }) => state.tool.errorMessage
+    (state: { tool: ToolState }) => state.tool.errorMessage,
   );
   const fileName = useSelector(
-    (state: { tool: ToolState }) => state.tool.fileName
+    (state: { tool: ToolState }) => state.tool.fileName,
   );
   const rotations = useSelector(
-    (state: { tool: ToolState }) => state.tool.rotations
+    (state: { tool: ToolState }) => state.tool.rotations,
   );
-  const passwords = useSelector(
-    (state: { tool: ToolState }) => state.tool.passwords
-  );
-  const compressPdf = useSelector(
-    (state: { tool: ToolState }) => state.tool.compressPdf
+  const options = useSelector(
+    (state: { tool: ToolState }) => state.tool.options,
   );
   const dispatch = useDispatch();
   // file store
@@ -68,23 +65,6 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
       onClick={(e) => {
         e.stopPropagation();
       }}
-      onSubmit={(e) =>
-        handleUpload(
-          e,
-          downloadBtn,
-          dispatch,
-          {
-            path,
-            errorMessage,
-            fileName,
-            rotations,
-            compressPdf,
-            passwords,
-          },
-          files,
-          errors
-        )
-      }
       method="POST"
       encType="multipart/form-data"
     >
@@ -122,9 +102,9 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
           onClick={(e) => {
             e.stopPropagation();
           }}
-          onChange={(e) => {
-            handleChange(e, dispatch, setFiles, errors, files);
-          }}
+          // onChange={(e) => {
+          //   handleChange(e, dispatch, setFiles, errors, files);
+          // }}
         />
       </div>
       <a

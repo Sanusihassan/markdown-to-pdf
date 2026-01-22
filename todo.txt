@@ -5,3 +5,6 @@ fix the md-viewer SEO & add normalize.css & namespace the wrapper only.
 then get back to misc-tools fix the text-to-pdf route then implement premium-tools for those & finally depoloy.
 
 then fix the pdf editor.
+
+fix options & implement api.
+# success

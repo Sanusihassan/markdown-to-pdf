@@ -12,7 +12,6 @@ import { Provider as ReduxProvider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import toolReducer from "../../store";
 import { ToolWrapper } from "../../../components/ToolWrapper";
-import { howToSchema } from "../../how-to/how-to-hi";
 export const store = configureStore({
   reducer: {
     tool: toolReducer,
@@ -20,22 +19,20 @@ export const store = configureStore({
 });
 ---
 
-<BaseLayout seoConfig={tool.Compress_PDF}>
+<BaseLayout seoConfig={tool.Markdown_to_PDF}>
   <ReduxProvider store={store}>
     <ToolWrapper
       client:load
       tools={tools}
-      data={tool.Compress_PDF}
-      lang=""
+      data={tool.Markdown_to_PDF}
+      lang="hi"
       errors={errors}
       edit_page={edit_page}
       pages={edit_page.pages}
       page={edit_page.page}
       downloadFile={downloadFile}
-      features={tool.Compress_PDF.features}
-      howTo={howToSchema}
-      to={tool.Compress_PDF.to}
-      seoTitle={tool.Compress_PDF.seoTitle}
+      to={tool.Markdown_to_PDF.to}
+      seoTitle={tool.Markdown_to_PDF.seoTitle}
       adBlockerContent={adBlockerContent}
     />
   </ReduxProvider>

@@ -154,6 +154,15 @@ export const errors: _errors = {
     message: "رابط GitHub غير صالح. يرجى إدخال رابط GitHub صالح.",
     code: "ERR_INVALID_GITHUB_URL",
   },
+  MAX_DAILY_USAGE: {
+    message:
+      "لقد وصلت إلى الحد الأقصى للاستخدام اليومي. يُرجى ترقية خطتك لمواصلة استخدام هذه الميزة دون انقطاع.",
+    code: "MAX_DAILY_USAGE",
+  },
+  alerts: {
+    singleFileSize:
+      "يجب أن يكون حجم الملف الفردي أقل من 100 ميغابايت. قم بالترقية لتحميل ملفات أكبر!",
+  },
 };
 
 export const adBlockerContent: adBlockerContentType = {

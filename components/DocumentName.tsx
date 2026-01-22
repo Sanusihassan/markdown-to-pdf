@@ -1,3 +1,4 @@
+// when pressing new line
 import type { edit_page } from "../src/content";
 import { useFileStore } from "../src/file-store";
 import { setField, type ToolState } from "../src/store";
@@ -15,14 +16,14 @@ const DocumentName = ({
   const { setfileNameInputRef } = useFileStore();
 
   const preview = useSelector(
-    (state: { tool: ToolState }) => state.tool.preview
+    (state: { tool: ToolState }) => state.tool.preview,
   );
 
   // const [isPreviewActive, setIsPreviewActive] = useState(false);
 
   useEffect(() => {
     setfileNameInputRef(fileNameInputRef);
-    dispatch(setField({ document_name: document_name.untitled }));
+    dispatch(setField({ fileName: document_name.untitled }));
   }, [document_name.untitled, dispatch, setfileNameInputRef]);
 
   // Toggle preview mode
@@ -37,10 +38,13 @@ const DocumentName = ({
         <div
           className="input"
           contentEditable
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
           onInput={(e) => {
-            dispatch(
-              setField({ document_name: e.currentTarget.textContent ?? "" })
-            );
+            dispatch(setField({ fileName: e.currentTarget.textContent ?? "" }));
           }}
           ref={fileNameInputRef}
           dangerouslySetInnerHTML={{

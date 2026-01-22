@@ -152,6 +152,13 @@ export const errors: _errors = {
     message: "GitHub URL 无效。请输入有效的 GitHub URL。",
     code: "ERR_INVALID_GITHUB_URL",
   },
+  MAX_DAILY_USAGE: {
+    message: "您已达到每日使用上限。请升级您的套餐以继续不间断地使用此功能。",
+    code: "MAX_DAILY_USAGE",
+  },
+  alerts: {
+    singleFileSize: "单个文件大小必须低于 100 MB。升级以上传更大的文件！",
+  },
 };
 
 export const adBlockerContent: adBlockerContentType = {

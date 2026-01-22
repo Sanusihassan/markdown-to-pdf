@@ -88,7 +88,6 @@ const ToolBar = ({
         <Tooltip id={toolbar.upload_file} />
         <input
           onChange={(e) => {
-            // handleChange(e)
             handleChange(e, dispatch, setFiles, errors, files);
           }}
           type="file"
@@ -117,7 +116,7 @@ const ToolBar = ({
         <GoGear className="tool-bar-icon icon" />
         <Tooltip id={toolbar.options} />
       </button>
-      <button
+      {/* <button
         className="tool-bar-button"
         data-tooltip-id={toolbar.options}
         data-tooltip-content={toolbar.assistant}
@@ -132,7 +131,7 @@ const ToolBar = ({
       >
         <Bot className="tool-bar-icon icon" />
         <Tooltip id={toolbar.options} />
-      </button>
+      </button> */}
       <GitHubPopUp
         show={showGitHubModal}
         title={toolbar.upload_from_github}

@@ -162,6 +162,15 @@ export const errors: _errors = {
       "L'URL GitHub n'est pas valide. Veuillez entrer une URL GitHub valide.",
     code: "ERR_INVALID_GITHUB_URL",
   },
+  MAX_DAILY_USAGE: {
+    message:
+      "Vous avez atteint votre limite d’utilisation quotidienne. Veuillez mettre à niveau votre forfait pour continuer à utiliser cette fonctionnalité sans interruption.",
+    code: "MAX_DAILY_USAGE",
+  },
+  alerts: {
+    singleFileSize:
+      "La taille d'un fichier unique doit être inférieure à 100 Mo. Passez à la version supérieure pour télécharger des fichiers plus volumineux !",
+  },
 };
 
 

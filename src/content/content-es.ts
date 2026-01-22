@@ -162,6 +162,15 @@ export const errors: _errors = {
       "La URL de GitHub no es válida. Por favor, ingrese una URL de GitHub válida.",
     code: "ERR_INVALID_GITHUB_URL",
   },
+  MAX_DAILY_USAGE: {
+    message:
+      "Has alcanzado tu límite de uso diario. Por favor, actualiza tu plan para seguir usando esta función sin interrupciones.",
+    code: "MAX_DAILY_USAGE",
+  },
+  alerts: {
+    singleFileSize:
+      "El tamaño de un solo archivo debe ser menor a 100 MB. ¡Actualiza para subir archivos más grandes!",
+  },
 };
 
 export const adBlockerContent: adBlockerContentType = {
