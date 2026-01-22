@@ -8,7 +8,7 @@ import {
   type PageViewport,
   type RenderTask,
 } from "pdfjs-dist";
-import { toast, type Id } from "react-toastify";
+import { toast } from "react-toastify";
 
 import Cookies from "js-cookie";
 

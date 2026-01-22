@@ -17,5 +17,5 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
     integrations: [react()],
-    base: isProd ? "/compress-pdf" : "/",
+    base: isProd ? "/markdown-to-pdf" : "/",
 });
