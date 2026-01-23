@@ -9,7 +9,7 @@ import type { errors } from "../src/content";
 import { useSelector } from "react-redux";
 import type { ToolState } from "../src/store";
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
-import MarkdownPreview from "./MarkdownPreview";
+import { MarkdownPreview } from "./MarkdownPreview";
 import { INITIAL_MARKDOWN } from "./InitialMarkdownContent";
 
 const Loader = ({ loader_text }: { loader_text: string }) => (
@@ -69,10 +69,11 @@ const Markdown2PDF = ({
           >
             {/* SEO-friendly div-based preview with scoped styles */}
             <MarkdownPreview
-              markdown={displayMarkdown}
+              markdown={markdown}
               fontSize={options.fontSize}
               theme={options.theme}
               pageMargin={options.pageMargin}
+              dir={options.dir}
             />
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />

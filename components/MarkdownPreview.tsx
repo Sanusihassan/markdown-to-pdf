@@ -1,204 +1,108 @@
-import ReactMarkdown from "react-markdown";
-import { type LegacyRef, useEffect, useRef } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import github from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import React, { useEffect, useRef } from "react";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+import type { ThemeName } from "../src/store";
 
 interface MarkdownPreviewProps {
   markdown: string;
+  theme: ThemeName;
   fontSize: number;
-  theme: string;
-  pageMargin: string;
+  dir?: "ltr" | "rtl";
+  pageMargin: "No margin" | "Small" | "Big";
 }
 
-const MarkdownPreview = ({
+// Get page margins based on option
+const getPageMargins = (pageMargin: string): string | undefined => {
+  if (pageMargin === "No margin") {
+    return undefined;
+  }
+
+  const margin = pageMargin === "Small" ? "5mm" : "10mm";
+
+  // Return margin string (all sides have same value)
+  return margin;
+};
+export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({
   markdown,
-  fontSize,
   theme,
+  fontSize,
+  dir = "ltr",
   pageMargin,
-}: MarkdownPreviewProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+}) => {
+  const previewRef = useRef<HTMLDivElement>(null);
+  const linkRef = useRef<HTMLLinkElement | null>(null);
 
-  const getMarginValue = (margin: string) => {
-    switch (margin) {
-      case "No margin":
-        return "0";
-      case "Small":
-        return "5mm";
-      default:
-        return "10mm";
-    }
-  };
-
+  // Dynamically load theme CSS
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Inject scoped styles into the container
-    const styleId = "md-preview-styles";
-    let styleElement = containerRef.current.querySelector(
-      `#${styleId}`,
-    ) as HTMLStyleElement;
-
-    if (!styleElement) {
-      styleElement = document.createElement("style");
-      styleElement.id = styleId;
-      containerRef.current.prepend(styleElement);
+    // Remove old theme link if exists
+    if (linkRef.current) {
+      linkRef.current.remove();
+      linkRef.current = null;
     }
 
-    // Create scoped CSS - all styles will only apply within .md-preview-scoped
-    styleElement.textContent = `
-      /* Normalize CSS - scoped to markdown preview */
-      .md-preview-scoped {
-        line-height: 1.15;
-        -webkit-text-size-adjust: 100%;
-      }
-      
-      .md-preview-scoped * {
-        box-sizing: border-box;
-      }
-      
-      /* Load theme CSS */
-      @import url('/themes/${theme}.css') layer(theme);
-      
-      /* Container styles */
-      .md-preview-scoped {
-        padding: 15px;
-        margin: ${getMarginValue(pageMargin)};
-        background: white;
-        min-height: 100%;
-      }
-      
-      /* Markdown body base styles */
-      .md-preview-scoped .markdown-body {
-        font-size: ${fontSize}px !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-        line-height: 1.5;
-        word-wrap: break-word;
-      }
-      
-      /* Reset any inherited styles */
-      .md-preview-scoped h1,
-      .md-preview-scoped h2,
-      .md-preview-scoped h3,
-      .md-preview-scoped h4,
-      .md-preview-scoped h5,
-      .md-preview-scoped h6 {
-        margin-top: 24px;
-        margin-bottom: 16px;
-        font-weight: 600;
-        line-height: 1.25;
-      }
-      
-      .md-preview-scoped p {
-        margin-top: 0;
-        margin-bottom: 16px;
-      }
-      
-      .md-preview-scoped ul,
-      .md-preview-scoped ol {
-        margin-top: 0;
-        margin-bottom: 16px;
-        padding-left: 2em;
-      }
-      
-      .md-preview-scoped code {
-        padding: 0.2em 0.4em;
-        margin: 0;
-        font-size: 85%;
-        background-color: rgba(175, 184, 193, 0.2);
-        border-radius: 6px;
-        font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-      }
-      
-      .md-preview-scoped pre {
-        padding: 16px;
-        overflow: auto;
-        font-size: 85%;
-        line-height: 1.45;
-        background-color: #f6f8fa;
-        border-radius: 6px;
-      }
-      
-      .md-preview-scoped a {
-        color: #0969da;
-        text-decoration: none;
-      }
-      
-      .md-preview-scoped a:hover {
-        text-decoration: underline;
-      }
-    `;
-  }, [theme, fontSize, pageMargin]);
+    // Create new link element with timestamp to force reload
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = `https://www.pdfequips.com/themes/${theme}.css}`;
+    link.id = `markdown-theme-${theme}`;
 
-  // Load KaTeX CSS dynamically
+    // Add to document head
+    document.head.appendChild(link);
+    linkRef.current = link;
+
+    // Cleanup on unmount
+    return () => {
+      if (linkRef.current) {
+        linkRef.current.remove();
+        linkRef.current = null;
+      }
+    };
+  }, [theme]);
+
+  // Configure marked
   useEffect(() => {
-    const katexLinkId = "katex-css";
-    if (!document.getElementById(katexLinkId)) {
-      const link = document.createElement("link");
-      link.id = katexLinkId;
-      link.rel = "stylesheet";
-      link.href =
-        "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css";
-      link.integrity =
-        "sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==";
-      link.crossOrigin = "anonymous";
-      link.referrerPolicy = "no-referrer";
-      document.head.appendChild(link);
-    }
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+    });
   }, []);
+
+  // Render markdown
+  useEffect(() => {
+    if (!previewRef.current || !markdown) return;
+
+    const renderMarkdown = async () => {
+      try {
+        const html = await marked.parse(markdown);
+        const sanitizedHtml = DOMPurify.sanitize(html);
+
+        if (previewRef.current) {
+          previewRef.current.innerHTML = sanitizedHtml;
+        }
+      } catch (error) {
+        console.error("Error rendering markdown:", error);
+        if (previewRef.current) {
+          previewRef.current.innerHTML = "<p>Error rendering markdown</p>";
+        }
+      }
+    };
+
+    renderMarkdown();
+  }, [markdown]);
 
   return (
     <div
-      ref={containerRef}
-      className="md-preview-container"
+      ref={previewRef}
+      className="markdown-body"
       style={{
-        width: "100%",
-        height: "100%",
-        overflow: "auto",
-        background: "white",
+        fontSize: `${fontSize}px`,
+        direction: dir,
+        padding: "2rem",
+        minHeight: "calc(100vh - 200px)",
+        maxWidth: "1200px",
+        margin: getPageMargins(pageMargin),
       }}
-    >
-      {/* SEO-friendly content in light DOM with scoped styles */}
-      <div ref={contentRef} className="md-preview-scoped">
-        <div className="github markdown-body">
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              code(props) {
-                const { children, className, node, ...rest } = props;
-                const match = /language-(\w+)/.exec(className || "");
-                return match ? (
-                  <SyntaxHighlighter
-                    {...rest}
-                    children={String(children || "").replace(/\n$/, "")}
-                    style={github}
-                    language={match[1]}
-                    PreTag="div"
-                    ref={
-                      node as unknown as
-                        | LegacyRef<SyntaxHighlighter>
-                        | undefined
-                    }
-                  />
-                ) : (
-                  <code {...rest} className={className}>
-                    {children === "undefined" || children === undefined
-                      ? ""
-                      : children}
-                  </code>
-                );
-              },
-            }}
-          >
-            {markdown}
-          </ReactMarkdown>
-        </div>
-      </div>
-    </div>
+      dir={dir}
+    />
   );
 };
-
-export default MarkdownPreview;

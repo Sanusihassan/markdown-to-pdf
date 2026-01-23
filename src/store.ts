@@ -62,6 +62,7 @@ export interface ToolState {
     pageSize: "A4" | "Letter" | "Legal" | "A3" | "A5" | "US Letter";
     pageMargin: "No margin" | "Small" | "Big";
     fontSize: number;
+    dir: "ltr" | "rtl";
   };
   preview: boolean;
 }
@@ -91,7 +92,8 @@ const initialState: ToolState = {
     screenSize: "screen",
     pageMargin: "Small",
     pageSize: "A4",
-    fontSize: 16
+    fontSize: 16,
+    dir: "ltr"
   },
   preview: false
 };
