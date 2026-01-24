@@ -1,4 +1,4 @@
-// can i use this here as well?:
+// i want a new option for direction
 import { XIcon } from "@heroicons/react/solid";
 import { FaPlus, FaMinus } from "react-icons/fa"; // Importing the icons
 import isEqual from "lodash.isequal";
@@ -58,7 +58,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
 
   const [screenSizeLabel, setScreenSizeLabel] = useState<string>(`0`);
   const stateOptions = useSelector(
-    (state: { tool: ToolState }) => state.tool.options
+    (state: { tool: ToolState }) => state.tool.options,
   );
 
   let LocalstateOptions: ToolState["options"];
@@ -162,6 +162,14 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
       options: fontSizeOptions,
       option_name: "fontSize",
     },
+    {
+      tab: options.direction,
+      options: [
+        { value: options.ltr, label: "LTR" },
+        { value: options.rtl, label: "RTL" },
+      ],
+      option_name: "direction",
+    },
   ];
   const adjustFontSize = (adjustment: number) => {
     const currentFontSize = stateOptions.fontSize || 16;
@@ -173,7 +181,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
           ...stateOptions,
           fontSize: newFontSize,
         },
-      })
+      }),
     );
   };
 
@@ -219,6 +227,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                   options.page_size,
                   options.margin,
                   options.font_size,
+                  options.direction,
                 ].map((tab, index) => (
                   <Tab key={index} className="options-modal-tab">
                     <button
@@ -265,7 +274,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                                   ...stateOptions,
                                   fontSize: selectedOption.value,
                                 },
-                              })
+                              }),
                             );
                           }}
                         />
@@ -292,7 +301,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                                 [option_name as keyof ToolState["options"]]:
                                   selectedOption.value,
                               },
-                            })
+                            }),
                           );
                         }}
                       />
@@ -319,7 +328,7 @@ const Options: React.FC<OptionsProps> = ({ show, onHide, options }) => {
                       pageSize: "A4",
                       fontSize: 16,
                     },
-                  })
+                  }),
                 );
                 onHide();
               }}

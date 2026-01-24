@@ -101,6 +101,9 @@ export const edit_page: _edit_page = {
     font_size: "Taille de la police",
     defaults: "Paramètres par défaut",
     save_changes: "Enregistrer les modifications",
+    direction: "Direction du Texte",
+    ltr: "G-D",
+    rtl: "D-G",
   },
 };
 

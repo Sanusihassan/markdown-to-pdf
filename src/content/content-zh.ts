@@ -90,6 +90,9 @@ export const edit_page: _edit_page = {
     font_size: "字体大小",
     defaults: "默认",
     save_changes: "保存更改",
+    direction: "文本方向",
+    ltr: "从左到右",
+    rtl: "从右到左",
   },
 };
 

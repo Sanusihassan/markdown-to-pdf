@@ -96,6 +96,9 @@ export const edit_page: _edit_page = {
     font_size: "حجم الخط",
     defaults: "الإعدادات الافتراضية",
     save_changes: "حفظ التغييرات",
+    direction: "اتجاه النص",
+    ltr: "يسار-يمين",
+    rtl: "يمين-يسار",
   },
 };
 

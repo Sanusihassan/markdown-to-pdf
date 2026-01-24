@@ -94,6 +94,9 @@ export const edit_page: _edit_page = {
     font_size: "फ़ॉन्ट साइज़",
     defaults: "डिफ़ॉल्ट",
     save_changes: "परिवर्तन सहेजें",
+    direction: "टेक्स्ट दिशा",
+    ltr: "बाएं-दाएं",
+    rtl: "दाएं-बाएं",
   },
 };
 

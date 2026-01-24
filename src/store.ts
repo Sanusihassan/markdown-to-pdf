@@ -1,5 +1,5 @@
 import { createSlice, type Draft, type PayloadAction } from "@reduxjs/toolkit";
-import { INITIAL_MARKDOWN } from "../components/InitialMarkdownContent";
+// import { INITIAL_MARKDOWN } from "../components/InitialMarkdownContent";
 type WritableDraft<T> = {
   -readonly [K in keyof T]: Draft<T[K]>;
 };
@@ -83,7 +83,7 @@ const initialState: ToolState = {
   originalFileSize: 0,
   isAdBlocked: false,
   alertVarient: "error",
-  markdown: INITIAL_MARKDOWN,
+  markdown: null,
   files: [],
   show_files_list: false,
   options: {

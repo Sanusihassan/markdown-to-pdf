@@ -43,7 +43,7 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({
     // Create new link element with timestamp to force reload
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `https://www.pdfequips.com/themes/${theme}.css}`;
+    link.href = `https://www.pdfequips.com/themes/${theme}.css?t=${Date.now()}`;
     link.id = `markdown-theme-${theme}`;
 
     // Add to document head
@@ -97,7 +97,6 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({
       style={{
         fontSize: `${fontSize}px`,
         direction: dir,
-        padding: "2rem",
         minHeight: "calc(100vh - 200px)",
         maxWidth: "1200px",
         margin: getPageMargins(pageMargin),

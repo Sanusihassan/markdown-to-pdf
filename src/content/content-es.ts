@@ -76,6 +76,9 @@ export const edit_page: _edit_page = {
     font_size: "Tamaño de fuente",
     defaults: "Valores predeterminados",
     save_changes: "Guardar cambios",
+    direction: "Dirección del Texto",
+    ltr: "IZQ-DER",
+    rtl: "DER-IZQ",
   },
 };
 

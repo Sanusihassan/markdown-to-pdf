@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface LoadingProps {
