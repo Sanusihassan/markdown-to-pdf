@@ -53,7 +53,6 @@ const Markdown2PDF = ({
               handleChange={() => {
                 if (!initialized) setInitialized(true);
               }}
-              // initialValue={INITIAL_MARKDOWN}
             />
           </div>
           <div

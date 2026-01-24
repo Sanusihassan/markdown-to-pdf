@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
-import type { ThemeName, ToolState } from "../src/store";
-import type { dir } from "console";
+import type { ToolState } from "../src/store";
 import { useSelector } from "react-redux";
 
 // Get page margins based on option
@@ -99,7 +98,7 @@ export const MarkdownPreview = () => {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://www.pdfequips.com/themes/${theme}.css">
+<link rel="stylesheet" href="https://www.pdfequips.com/themes/${theme}.css?t=${Date.now()}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 
 <style>
