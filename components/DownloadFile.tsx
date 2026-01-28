@@ -19,14 +19,13 @@ const DownloadFile = ({
   const { files, downloadBtn } = useFileStore();
   const dispatch = useDispatch();
   const showDownloadBtn = useSelector(
-    (state: { tool: ToolState }) => state.tool.showDownloadBtn
+    (state: { tool: ToolState }) => state.tool.showDownloadBtn,
   );
   const subscriptionStatus = useSelector(
-    (state: { tool: ToolState }) => state.tool.subscriptionStatus
+    (state: { tool: ToolState }) => state.tool.subscriptionStatus,
   );
   useEffect(() => {}, [downloadFile, showDownloadBtn]);
   return (
-    // download-page
     <>
       <div
         className={`download-page${showDownloadBtn ? " d-flex" : " d-none"}`}

@@ -45,6 +45,7 @@ export const edit_page: _edit_page = {
     markdown_to_pdf: "Markdown से PDF विकल्प",
   },
   loader_text: "कृपया प्रतीक्षा करें...",
+  loading_preview: "पूर्वावलोकन लोड हो रहा है...",
   add_more_button: "अधिक फ़ाइलें जोड़ें",
   action_buttons: {
     markdown_to_pdf: "Markdown से PDF",

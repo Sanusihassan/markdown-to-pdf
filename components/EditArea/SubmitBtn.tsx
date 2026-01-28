@@ -14,7 +14,7 @@ export function SubmitBtn({
   errors: errors;
 }): JSX.Element {
   const dispatch = useDispatch();
-  const { submitBtn, files, downloadBtn } = useFileStore();
+  const { files, downloadBtn } = useFileStore();
   // state variables:
   const errorMessage = useSelector(
     (state: { tool: ToolState }) => state.tool.errorMessage,
@@ -40,6 +40,9 @@ export function SubmitBtn({
   const options = useSelector(
     (state: { tool: ToolState }) => state.tool.options,
   );
+  const stateFiles = useSelector(
+    (state: { tool: ToolState }) => state.tool.files,
+  );
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     handleUpload(
       e,
@@ -51,6 +54,7 @@ export function SubmitBtn({
         fileName,
         rotations,
         subscriptionStatus,
+        stateFiles,
       },
       files,
       errors,
@@ -68,9 +72,9 @@ export function SubmitBtn({
     <button
       className={`submit-btn btn btn-lg text-white position-relative overflow-hidden ${k} grid-footer`}
       onClick={(e) => {
+        e.stopPropagation();
         dispatch(setField({ isSubmitted: true }));
         dispatch(setField({ showOptions: false }));
-
         if (subscriptionStatus) {
           handleSubmit(e);
         } else if (!subscriptionStatus && canUseSiteToday(10)) {
@@ -81,7 +85,7 @@ export function SubmitBtn({
               errorCode: "MAX_DAILY_USAGE",
             }),
           );
-          // dispatch(setField({ errorMessage: errors.MAX_DAILY_USAGE.message }));
+          dispatch(setField({ errorMessage: errors.MAX_DAILY_USAGE.message }));
           dispatch(
             setField({
               isSubmitted: false,

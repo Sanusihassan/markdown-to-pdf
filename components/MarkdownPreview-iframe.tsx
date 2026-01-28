@@ -12,9 +12,33 @@ const getPageMargins = (pageMargin: string): string => {
   return pageMargin === "Small" ? "5mm" : "10mm";
 };
 
-export const MarkdownPreview = () => {
+// Enhanced Spinner Component
+const Spinner = ({ loading_preview }: { loading_preview: string }) => (
+  <div className="flex items-center justify-center w-full h-full min-h-[500px]">
+    <div className="text-center">
+      <div className="inline-block">
+        <div
+          className="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full border-[#000000c6] border-t-transparent"
+          role="status"
+        >
+          <span className="sr-only">{loading_preview}</span>
+        </div>
+      </div>
+      <p className="mt-4 text-[#636e72] font-medium">{loading_preview}</p>
+    </div>
+  </div>
+);
+
+export const MarkdownPreview = ({
+  loading_preview,
+}: {
+  loading_preview: string;
+}) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [renderedHtml, setRenderedHtml] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+
   const options = useSelector(
     (state: { tool: ToolState }) => state.tool.options,
   );
@@ -22,6 +46,7 @@ export const MarkdownPreview = () => {
     (state: { tool: ToolState }) => state.tool.markdown,
   );
   const { theme, fontSize, dir, pageMargin } = options;
+
   // Configure marked with KaTeX extension
   useEffect(() => {
     // Configure marked for math support
@@ -48,7 +73,13 @@ export const MarkdownPreview = () => {
 
   // Render markdown with math support
   useEffect(() => {
-    if (!markdown) return;
+    if (!markdown) {
+      setRenderedHtml("");
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
 
     const renderMarkdown = async () => {
       try {
@@ -83,10 +114,6 @@ export const MarkdownPreview = () => {
 
     renderMarkdown();
   }, [markdown]);
-
-  // if (!loaded) {
-  //   return <Loading show={true} />;
-  // }
 
   // Update iframe content when html or theme changes
   const iframeContent = useMemo(() => {
@@ -134,30 +161,69 @@ export const MarkdownPreview = () => {
     document.querySelectorAll('.katex-inline').forEach(el => {
       katex.render(el.textContent || '', el, { displayMode: false, throwOnError: false });
     });
+    
+    // Notify parent that content is ready
+    window.parent.postMessage({ type: 'iframe-ready' }, '*');
   });
 </script>
 </body>
 </html>`;
   }, [renderedHtml, theme, fontSize, dir, pageMargin]);
-  useEffect(() => {
-    if (!iframeRef.current || !renderedHtml) return;
 
-    const iframeDoc = iframeRef.current.contentDocument;
-    if (!iframeDoc) return;
-  }, [renderedHtml, theme, fontSize, dir, pageMargin]);
+  // Reset loading state when content changes
+  useEffect(() => {
+    if (renderedHtml) {
+      setIframeLoaded(false);
+      setIsLoading(true);
+    }
+  }, [iframeContent]);
+
+  // Handle iframe load event
+  const handleIframeLoad = () => {
+    setIframeLoaded(true);
+    // Small delay to ensure KaTeX rendering is complete
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  };
+
+  // Listen for messages from iframe
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data.type === "iframe-ready") {
+        setIsLoading(false);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   return (
-    <iframe
-      ref={iframeRef}
-      srcDoc={iframeContent}
-      title="Markdown Preview"
-      style={{
-        width: "100%",
-        minHeight: "100%",
-        border: "none",
-        background: "white",
-      }}
-      sandbox="allow-same-origin allow-scripts"
-    />
+    <div className="relative w-full h-full min-h-[500px]">
+      {/* Loading Spinner Overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 z-10 bg-white">
+          <Spinner loading_preview={loading_preview} />
+        </div>
+      )}
+
+      {/* Iframe Preview */}
+      <iframe
+        ref={iframeRef}
+        srcDoc={iframeContent}
+        title="Markdown Preview"
+        onLoad={handleIframeLoad}
+        style={{
+          width: "100%",
+          minHeight: "100%",
+          border: "none",
+          background: "white",
+          opacity: isLoading ? 0 : 1,
+          transition: "opacity 0.3s ease-in-out",
+        }}
+        sandbox="allow-same-origin allow-scripts"
+      />
+    </div>
   );
 };

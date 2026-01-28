@@ -14,6 +14,7 @@ export const edit_page = {
     markdown_to_pdf: "Markdown To PDF options",
   },
   loader_text: "please wait...",
+  loading_preview: "Loading preview...",
   add_more_button: "Add more files",
   action_buttons: {
     markdown_to_pdf: "Markdown to PDF",

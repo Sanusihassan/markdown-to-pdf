@@ -23,6 +23,7 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
   errors,
 }) => {
   const [url, setUrl] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
@@ -45,6 +46,8 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
       return;
     }
 
+    setIsSubmitting(true);
+
     // Fetch the markdown files from your backend
     const path = "https://www.pdfequips.com/api/get-md-files";
     try {
@@ -56,6 +59,8 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
     } catch (error) {
       // Handle error response
       console.error("Failed to fetch repository contents", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -117,8 +122,20 @@ const GitHubPopUp: FC<GitHubPopUpProps> = ({
               </div>
 
               <div className="github-popup-actions">
-                <button type="submit" className="github-popup-submit">
-                  {github_popup.submit}
+                <button
+                  type="submit"
+                  className="github-popup-submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <span
+                      className="spinner-grow"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  ) : (
+                    github_popup.submit
+                  )}
                 </button>
               </div>
             </form>

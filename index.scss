@@ -195,7 +195,8 @@ a.no-underline {
 .spinner-grow {
   @include extend("spinner-grow");
   &:not(.lg) {
-    @include extend("spinner-grow-sm");
+    --bs-spinner-width: 1.3rem;
+    --bs-spinner-height: 1.3rem;
   }
   &.lg {
     @include extend("spinner-grow-lg");

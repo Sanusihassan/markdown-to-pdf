@@ -47,6 +47,7 @@ export const edit_page: _edit_page = {
     markdown_to_pdf: "خيارات تحويل ماركداون إلى PDF",
   },
   loader_text: "يرجى الانتظار...",
+  loading_preview: "جاري تحميل المعاينة...",
   add_more_button: "إضافة المزيد من الملفات",
   action_buttons: {
     markdown_to_pdf: "تحويل ماركداون إلى PDF",

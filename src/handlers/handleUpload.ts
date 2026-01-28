@@ -6,6 +6,7 @@ import type { Action, Dispatch } from "@reduxjs/toolkit/react";
 import { parseApiError } from "../parseApiError";
 import { toast } from "react-toastify";
 import { increaseDailySiteUsage } from "fetch-subscription-status";
+import { downloadConvertedFile } from "../downloadFile";
 
 let filesOnSubmit: string[] = [];
 let prevState: string | null = null;
@@ -23,6 +24,11 @@ export const handleUpload = async (
       r: number;
     }[];
     subscriptionStatus: boolean | null,
+    stateFiles?: {
+      name: string;
+      size: number;
+      url: string;
+    }[],
   },
   files: File[],
   errors: _,
@@ -35,11 +41,6 @@ export const handleUpload = async (
     fontSize: number;
   },
   markdown?: string,
-  stateFiles?: {
-    name: string;
-    size: number;
-    url: string;
-  }[],
 ) => {
   if (e) {
     e.preventDefault();
@@ -101,8 +102,8 @@ export const handleUpload = async (
     formData.append("options", JSON.stringify(options));
 
     // Add GitHub URLs if present
-    if (stateFiles && stateFiles.length > 0) {
-      formData.append("selectedGithubMarkdownUrls", JSON.stringify(stateFiles));
+    if (state.stateFiles && state.stateFiles.length > 0) {
+      formData.append("selectedGithubMarkdownUrls", JSON.stringify(state.stateFiles));
     }
 
     // Add markdown content for md-text-to-pdf (wrapped in object)
@@ -153,7 +154,7 @@ export const handleUpload = async (
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
       withCredentials: true,
-      timeout: 120000, // 2 minute timeout for large files
+      // timeout: 120000, // 2 minute timeout for large files
       headers: {
         // Let browser set Content-Type for FormData
       }
@@ -180,15 +181,34 @@ export const handleUpload = async (
         })
       );
     } else {
-      if (downloadBtn?.current) {
+      if (!state.subscriptionStatus) {
+        downloadConvertedFile(
+          response,
+          outputFileMimeType,
+          outputFileName,
+          downloadBtn
+        );
         downloadBtn.current.click();
-        if (!state.subscriptionStatus) {
-          increaseDailySiteUsage();
-        }
+        increaseDailySiteUsage();
+      } else {
+        downloadConvertedFile(
+          response,
+          outputFileMimeType,
+          outputFileName,
+          downloadBtn
+        );
+        downloadBtn.current.click();
       }
       dispatch(setField({ isSubmitted: false }));
       return;
     }
+
+    downloadConvertedFile(
+      response,
+      outputFileMimeType,
+      outputFileName,
+      downloadBtn
+    );
 
     // Update submitted files list
     if (files && files.length > 0) {

@@ -4,10 +4,7 @@ import type { errors } from "../src/content";
 import { useSelector } from "react-redux";
 import type { ToolState } from "../src/store";
 import FloatingDownloadBtn from "./FloatingDownloadBtn";
-import {
-  INITIAL_MARKDOWN,
-  InitialMarkdownContent,
-} from "./InitialMarkdownContent";
+import { InitialMarkdownContent } from "./InitialMarkdownContent";
 import { MarkdownPreview } from "./MarkdownPreview-iframe";
 
 const Loader = ({ loader_text }: { loader_text: string }) => (
@@ -19,12 +16,14 @@ const Loader = ({ loader_text }: { loader_text: string }) => (
 
 const Markdown2PDF = ({
   loader_text,
+  loading_preview,
   download_pdf_text,
   errors,
   placeholder,
 }: {
   loader_text: string;
   download_pdf_text: string;
+  loading_preview: string;
   errors: errors;
   placeholder: string;
 }) => {
@@ -58,7 +57,11 @@ const Markdown2PDF = ({
           <div
             className={`react-markdown-container${preview ? " preview" : ""}`}
           >
-            {!markdown ? <InitialMarkdownContent /> : <MarkdownPreview />}
+            {!markdown ? (
+              <InitialMarkdownContent />
+            ) : (
+              <MarkdownPreview loading_preview={loading_preview} />
+            )}
           </div>
           <FloatingDownloadBtn errors={errors} text={download_pdf_text} />
         </div>

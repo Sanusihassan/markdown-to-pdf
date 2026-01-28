@@ -53,19 +53,19 @@ const Tool: React.FC<ToolProps> = ({
 }) => {
   const path = data.to.replace("/", "");
   const stateShowTool = useSelector(
-    (state: { tool: any }) => state.tool.showTool
+    (state: { tool: any }) => state.tool.showTool,
   );
   const errorMessage = useSelector(
-    (state: { tool: any }) => state.tool.errorMessage
+    (state: { tool: any }) => state.tool.errorMessage,
   );
   const showFilesList = useSelector(
-    (state: { tool: ToolState }) => state.tool.show_files_list
+    (state: { tool: ToolState }) => state.tool.show_files_list,
   );
   const alertVarient = useSelector(
-    (state: { tool: ToolState }) => state.tool.alertVarient
+    (state: { tool: ToolState }) => state.tool.alertVarient,
   );
   const showDownloadBtn = useSelector(
-    (state: { tool: ToolState }) => state.tool.showDownloadBtn
+    (state: { tool: ToolState }) => state.tool.showDownloadBtn,
   );
   const { setFiles, files } = useFileStore();
   const dispatch = useDispatch();
@@ -144,7 +144,7 @@ const Tool: React.FC<ToolProps> = ({
         // Check if script tag already exists to avoid duplicates
         if (
           !head.querySelector(
-            'script[src*="adsbygoogle.js?client=ca-pub-7801483217621867"]'
+            'script[src*="adsbygoogle.js?client=ca-pub-7801483217621867"]',
           )
         ) {
           const scriptTag = document.createElement("script");
@@ -186,6 +186,7 @@ const Tool: React.FC<ToolProps> = ({
             loader_text={edit_page.loader_text}
             download_pdf_text={edit_page.download_pdf_text}
             errors={errors}
+            loading_preview={edit_page.loading_preview}
             placeholder={edit_page.placeholder}
           />
         </div>

@@ -42,6 +42,7 @@ export const edit_page: _edit_page = {
   },
   placeholder: "问我任何事",
   loader_text: "请稍等...",
+  loading_preview: "正在加载预览...",
   add_more_button: "添加更多文件",
   action_buttons: {
     markdown_to_pdf: "Markdown 到 PDF",

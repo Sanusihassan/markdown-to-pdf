@@ -28,6 +28,7 @@ export const edit_page: _edit_page = {
   },
   placeholder: "Pregunta lo que sea",
   loader_text: "Por favor espera...",
+  loading_preview: "Cargando vista previa...",
   add_more_button: "Agrega más archivos",
   action_buttons: {
     markdown_to_pdf: "Markdown a PDF",

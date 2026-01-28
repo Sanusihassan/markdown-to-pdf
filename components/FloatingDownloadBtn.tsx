@@ -27,9 +27,6 @@ const FloatingDownloadBtn: React.FC<{
   const isSubmitted = useSelector(
     (state: { tool: ToolState }) => state.tool.isSubmitted,
   );
-  const stateFiles = useSelector(
-    (state: { tool: ToolState }) => state.tool.files,
-  );
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown,
   );
@@ -71,7 +68,6 @@ const FloatingDownloadBtn: React.FC<{
       errors,
       options,
       markdown,
-      stateFiles,
     );
   };
   useEffect(() => {

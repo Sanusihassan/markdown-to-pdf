@@ -52,6 +52,7 @@ export const edit_page: _edit_page = {
     markdown_to_pdf: "Options de Markdown vers PDF",
   },
   loader_text: "Veuillez patienter...",
+  loading_preview: "Chargement de l'aperçu...",
   add_more_button: "Ajouter plus de fichiers",
   action_buttons: {
     markdown_to_pdf: "Markdown vers PDF",
