@@ -1,43 +1,17 @@
 ---
-const { pathname } = Astro.url;
-const { seoConfig } = Astro.props;
-let lang = "en";
-let dir = "ltr";
-let locale = "";
-
-switch (lang) {
-  case "ar":
-    break;
-  case "es":
-    break;
-  case "fr":
-    break;
-  case "hi":
-    break;
-  case "zh":
-    break;
-  default:
-    break;
-}
-
-// Determine language and direction based on URL path
-if (pathname.startsWith("/ar")) {
-  lang = "ar";
-  dir = "rtl";
-  locale = "ar_AR";
-} else if (pathname.startsWith("/es")) {
-  lang = "es";
-  locale = "es_ES";
-} else if (pathname.startsWith("/fr")) {
-  lang = "fr";
-  locale = "fr_FR";
-} else if (pathname.startsWith("/hi")) {
-  lang = "hi";
-  locale = "hi_IN";
-} else if (pathname.startsWith("/zh")) {
-  lang = "zh";
-  locale = "zh_CN";
-}
+const { seoConfig, lang = "en" } = Astro.props;
+const dir = lang === "ar" ? "rtl" : "ltr";
+const locales: Record<string, string> = {
+  en: "en_US",
+  ar: "ar_AR",
+  es: "es_ES",
+  fr: "fr_FR",
+  hi: "hi_IN",
+  zh: "zh_CN",
+};
+const site = "https://www.pdfequips.com";
+const pageUrl = `${site}${lang === "en" ? "" : `/${lang}`}${seoConfig.to}`;
+const hreflangs = ["ar", "es", "fr", "hi", "zh"];
 
 import { Schema } from "astro-seo-schema";
 import "../styles/global.css";
@@ -52,6 +26,20 @@ import AstroSeo from "./AstroSeo.astro";
   <head>
     <AstroSeo {...{ ...seoConfig, title: seoConfig.seoTitle }} />
     <Schema item={MarkdownToPDFHOWTO} />
+    <link rel="canonical" href={pageUrl} />
+    <link rel="alternate" hreflang="en" href={`${site}${seoConfig.to}`} />
+    {
+      hreflangs.map((l) => (
+        <link rel="alternate" hreflang={l} href={`${site}/${l}${seoConfig.to}`} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={`${site}${seoConfig.to}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={seoConfig.seoTitle} />
+    <meta property="og:description" content={seoConfig.description} />
+    <meta property="og:locale" content={locales[lang] ?? "en_US"} />
+    <meta property="og:site_name" content="PDFEquips" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

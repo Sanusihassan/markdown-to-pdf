@@ -1,0 +1,60 @@
+// Bootstrap-style base classes and the `extend` helper used throughout this
+// app's SCSS. These used to come in through pdfequips-navbar's SCSS, which the
+// Tailwind navbar (3.6.2x) no longer ships.
+@import "cssmolecule";
+@import "custom-bs";
+
+@mixin bootstrap {
+  @include reboot;
+  @include root;
+  @include type;
+  @include images;
+  @include containers;
+  @include grid;
+  @include tables;
+  @include forms;
+  @include buttons;
+  @include transitions;
+  @include dropdown;
+  @include button-group;
+  @include nav;
+  @include navbar;
+  @include card;
+  @include accordion;
+  @include breadcrumb;
+  @include pagination;
+  @include badge;
+  @include alert;
+  @include progress;
+  @include list-group;
+  @include close;
+  @include toasts;
+  @include modal;
+  @include tooltip;
+  @include popover;
+  @include carousel;
+  @include spinners;
+  @include offcanvas;
+  @include placeholders;
+  @include helpers;
+}
+
+// Keep these in Tailwind's base layer: unlayered rules (e.g. reboot's
+// `a { color }`) would otherwise override the navbar's Tailwind utilities.
+@layer base {
+  @include bootstrap;
+}
+
+// Bootstrap's utility classes (`api`) stay unlayered. They use !important,
+// and a layered !important would beat this app's own unlayered !important
+// overrides (e.g. the small-screen widths and display toggles).
+@include api;
+
+// The navbar's Tailwind `h-5`/`w-5` icons share their names with the sizing
+// utilities above; keep the navbar's Tailwind sizes.
+#navbar .h-5 {
+  height: calc(var(--spacing) * 5);
+}
+#navbar .w-5 {
+  width: calc(var(--spacing) * 5);
+}

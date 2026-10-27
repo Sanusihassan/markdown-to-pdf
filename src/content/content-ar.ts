@@ -12,8 +12,8 @@ import type { adBlockerContentType } from "./content";
 export const tool: _tool = {
   Markdown_to_PDF: {
     title: "تحويل النص بتنسيق ماركداون إلى ملف PDF",
-    seoTitle: "تحويل النص بتنسيق ماركداون إلى PDF - تحويل ماركداون إلى ملف PDF",
-    description: "تحويل النص بتنسيق ماركداون إلى ملف PDF",
+    seoTitle: "تحويل Markdown إلى PDF أونلاين - يدعم اللغة العربية",
+    description: "حوّل ملفات Markdown إلى PDF عبر الإنترنت مع دعم كامل للعربية واتجاه النص من اليمين إلى اليسار. اكتب أو ارفع ملف .md، واختر المظهر والهوامش، ثم نزّل PDF.",
     color: "#6c5ce7",
     type: ".pdf",
     to: "/markdown-to-pdf",

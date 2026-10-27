@@ -166,7 +166,7 @@ export const handleUpload = async (
     }
 
     // Get MIME type from response
-    const mimeType = response.headers["content-type"] || "application/pdf";
+    const mimeType = String(response.headers["content-type"] || "application/pdf");
     const mimeTypeData = mimeTypeLookupTable[mimeType] || {
       outputFileMimeType: mimeType,
       outputFileName: `${originalFileName}.pdf`,

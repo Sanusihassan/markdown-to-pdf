@@ -14,8 +14,8 @@ export const tool: _tool = {
   Markdown_to_PDF: {
     title: "Markdown a PDF",
     seoTitle:
-      "Convertir Markdown a PDF - Herramienta para convertir Markdown a PDF",
-    description: "Convertir Markdown a PDF",
+      "Convertir Markdown a PDF en Línea - Conversor MD a PDF",
+    description: "Convierte Markdown a PDF en línea. Escribe o sube archivos .md, o impórtalos desde GitHub, revisa la vista previa, elige tema y márgenes y descarga tu PDF.",
     color: "#6c5ce7",
     type: ".pdf",
     to: "/markdown-to-pdf",

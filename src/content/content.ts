@@ -1,8 +1,8 @@
 export const tool = {
   Markdown_to_PDF: {
     title: "Markdown to PDF",
-    seoTitle: "Markdown to PDF - Convert Markdown to PDF",
-    description: "Convert Markdown to PDF",
+    seoTitle: "Markdown to PDF Converter - Convert MD to PDF Online Free",
+    description: "Convert Markdown to PDF online. Write or upload .md files, or import from GitHub, preview them live, pick a theme, orientation and margins, and download.",
     color: "#6c5ce7",
     type: ".pdf",
     to: "/markdown-to-pdf",

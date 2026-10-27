@@ -13,8 +13,8 @@ import type { adBlockerContentType } from "./content";
 export const tool: _tool = {
   Markdown_to_PDF: {
     title: "Markdown 转 PDF",
-    seoTitle: "Markdown 转 PDF - Markdown 到 PDF 转换工具",
-    description: "将 Markdown 转换为 PDF",
+    seoTitle: "Markdown转PDF在线转换器 - 在线将MD转为PDF",
+    description: "在线将Markdown转换为PDF。编写或上传.md文件，或从GitHub导入，实时预览，选择主题、方向和边距，然后下载PDF。",
     color: "#6c5ce7",
     type: ".pdf",
     to: "/markdown-to-pdf",
