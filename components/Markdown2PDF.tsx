@@ -20,12 +20,14 @@ const Markdown2PDF = ({
   download_pdf_text,
   errors,
   placeholder,
+  drop_files,
 }: {
   loader_text: string;
   download_pdf_text: string;
   loading_preview: string;
   errors: errors;
   placeholder: string;
+  drop_files: string;
 }) => {
   const markdown = useSelector(
     (state: { tool: ToolState }) => state.tool.markdown,
@@ -52,6 +54,8 @@ const Markdown2PDF = ({
               handleChange={() => {
                 if (!initialized) setInitialized(true);
               }}
+              errors={errors}
+              drop_files={drop_files}
             />
           </div>
           <div

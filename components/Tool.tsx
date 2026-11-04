@@ -189,6 +189,7 @@ const Tool: React.FC<ToolProps> = ({
             errors={errors}
             loading_preview={edit_page.loading_preview}
             placeholder={edit_page.placeholder}
+            drop_files={tools.drop_files}
           />
         </div>
       </div>
