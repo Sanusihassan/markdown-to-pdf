@@ -5,8 +5,10 @@ import Files from "./DisplayFile/Files";
 // import { ToolStoreContext } from "../src/ToolStoreContext";
 import { useFileStore } from "../src/file-store";
 import FileCard from "./DisplayFile/FileCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { ToolState } from "../src/store";
+import { useDropzone } from "react-dropzone";
+import { addFiles } from "../src/handlers/handleChange";
 type propTypes = {
   extension: string;
   pages: string;
@@ -14,6 +16,7 @@ type propTypes = {
   lang: string;
   errors: _;
   edit_page: edit_page;
+  drop_files: string;
 };
 
 const DisplayFile = ({
@@ -23,11 +26,12 @@ const DisplayFile = ({
   lang,
   errors,
   edit_page,
+  drop_files,
 }: propTypes) => {
   const [showSpinner, setShowSpinner] = useState(true);
   const [toolTipSizes, setToolTipSizes] = useState<string[]>([]);
   // actual files
-  const { files } = useFileStore();
+  const { files, setFiles } = useFileStore();
   // const statePath = useSelector(
   //   (state: { tool: ToolState }) => state.tool.path
   // );
@@ -119,8 +123,18 @@ const DisplayFile = ({
   //   }
   // };
 
+  // Dropping files onto this view adds them, like the toolbar's upload button
+  const dispatch = useDispatch();
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (dropped) => addFiles(dropped, dispatch, setFiles, errors, files),
+    noClick: true,
+    noKeyboard: true,
+  });
+
   return (
-    <>
+    <div {...getRootProps()} className="drop-zone">
+      <input {...getInputProps()} />
+      {isDragActive && <div className="overlay">{drop_files}</div>}
       {stateFiles.length > 0 ? (
         <>
           <div className="display-file">
@@ -152,7 +166,7 @@ const DisplayFile = ({
           fileDetailProps={[pages, page, lang]}
         />
       )}
-    </>
+    </div>
   );
 };
 

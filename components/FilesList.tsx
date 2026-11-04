@@ -11,6 +11,7 @@ type FileListProps = {
   pages: string;
   page: string;
   path: string;
+  drop_files: string;
 };
 
 export const FilesList = ({
@@ -20,6 +21,7 @@ export const FilesList = ({
   page,
   pages,
   path,
+  drop_files,
 }: FileListProps) => {
   const { files } = useFileStore();
   const dispatch = useDispatch();
@@ -43,6 +45,7 @@ export const FilesList = ({
         page={page}
         pages={pages}
         path={path}
+        drop_files={drop_files}
       />
     </>
   );

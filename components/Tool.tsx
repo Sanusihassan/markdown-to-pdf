@@ -167,6 +167,7 @@ const Tool: React.FC<ToolProps> = ({
         page={page}
         pages={pages}
         path={data.to}
+        drop_files={tools.drop_files}
       />
       <div
         className={`tools-page position-relative${

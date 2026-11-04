@@ -11,7 +11,18 @@ export const handleChange = (
   files: File[]
 ) => {
   const _files = (e.target?.files as FileList) || null;
-  const finalFiles = [...files, ...Array.from(!_files ? [] : _files)];
+  addFiles(Array.from(!_files ? [] : _files), dispatch, setFiles, errors, files);
+};
+
+// Appends new files (from the file input or a drop) after validating them.
+export const addFiles = (
+  newFiles: File[],
+  dispatch: Dispatch<Action>,
+  setFiles: (files: FileList | File[]) => void,
+  errors: typeof _,
+  files: File[]
+) => {
+  const finalFiles = [...files, ...newFiles];
   const { isValid } = validateFiles(
     finalFiles,
     dispatch,

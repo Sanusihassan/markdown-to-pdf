@@ -21,6 +21,7 @@ type editPageProps = {
   lang: string;
   errors: _;
   path: string;
+  drop_files: string;
 };
 // the error message is inside the editPage component
 // calculate image height;
@@ -33,6 +34,7 @@ const EditPage = ({
   lang,
   errors,
   path,
+  drop_files,
 }: editPageProps) => {
   // const [isOnline, setIsOnline] = useState(true);
   // const handleOnlineStatus = () => setIsOnline(true);
@@ -76,6 +78,7 @@ const EditPage = ({
           lang={lang}
           errors={errors}
           edit_page={edit_page}
+          drop_files={drop_files}
         />
         {/* {state?.showErrorMessage ? <ErrorElement state={state} /> : null} */}
         {/* <ErrorElement /> */}
